@@ -1,0 +1,21 @@
+$background-green: 779F88;
+$background-gray: F6F7FB;
+$font-green: 2A3F33;
+$font-light-gray: 8F95A5;
+$logo-gray: 939393;
+$accent-blue: 3A91C4;
+$accent-orange: FE7F3C;
+
+@mixin button($color, $border, $padding) {
+  padding: $padding;
+
+  background-color: $color;
+  border: $border;
+  border-radius: 15px;
+
+  cursor: pointer;
+
+  &:hover {
+    background-color: darken($color, 10%);
+  }
+}

@@ -1,35 +1,24 @@
 @use 'mixins';
 @use 'variables';
+@use 'fonts';
 @import 'normalize.css';
 
-@font-face {
-  font-family: 'Poppins', serif;
-  font-weight: 400;
-  src: url('./assets/fonts/poppins-regular.woff2');
-}
-
-@font-face {
-  font-family: 'Poppins', serif;
-  font-weight: 500;
-  src: url('./assets/fonts/poppins-medium.woff2');
-}
-
-@font-face {
-  font-family: 'Poppins', serif;
-  font-weight: 600;
-  src: url('./assets/fonts/poppins-semiBold.woff2');
-}
-
-@font-face {
-  font-family: 'Poppins', serif;
-  font-weight: 500;
-  font-style: italic;
-  src: url('./assets/fonts/poppins-mediumItalic.woff2');
-}
-
 :root {
+  height: 100%;
   font-synthesis: none;
   text-rendering: optimizeLegibility;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+}
+
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  min-width: 320px;
+  max-width: 1600px;
+  min-height: 100%;
 }
