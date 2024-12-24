@@ -1,4 +1,4 @@
-import './App.scss';
+// import './App.scss';
 import React from 'react';
 import Header from './assets/components/Header/Header.jsx';
 import Main from './assets/components/Main/Main.jsx';

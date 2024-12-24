@@ -1,0 +1,7 @@
+@use '../../styles/variables.scss' as vr;
+@use '../../styles/mixins.scss';
+
+.main {
+  @extend %container;
+  padding: 0 vr.$global-side-padding;
+}

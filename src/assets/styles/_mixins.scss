@@ -1,0 +1,25 @@
+@use 'sass:color';
+
+@mixin button($color, $border, $padding) {
+  padding: $padding;
+
+  background-color: $color;
+  border: $border;
+  border-radius: 5px;
+
+  cursor: pointer;
+
+  &:hover {
+    background-color: color.adjust($color, $lightness: -10%);
+  }
+}
+
+%flex-center {
+  display: flex;
+  align-items: center;
+}
+
+%container {
+  max-width: 1200px;
+  margin: 0 auto;
+}

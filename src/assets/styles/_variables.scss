@@ -1,21 +1,17 @@
-$background-green: 779F88;
-$background-gray: F6F7FB;
-$font-green: 2A3F33;
-$font-light-gray: 8F95A5;
-$logo-gray: 939393;
-$accent-blue: 3A91C4;
-$accent-orange: FE7F3C;
+@use 'fonts';
 
-@mixin button($color, $border, $padding) {
-  padding: $padding;
+$background-green: #779f88;
+$background-gray: #f6f7fb;
+$font-green: #2a3f33;
+$font-light-gray: #8f95a5;
+$logo-gray: #939393;
+$accent-blue: #3a91c4;
+$accent-orange: #fe7f3c;
 
-  background-color: $color;
-  border: $border;
-  border-radius: 15px;
+$font: 'Poppins', Arial, serif;
 
-  cursor: pointer;
+$laptop: 1024px;
+$tablet: 768px;
+$mobileL: 425px;
 
-  &:hover {
-    background-color: darken($color, 10%);
-  }
-}
+$global-side-padding: 2.5em;

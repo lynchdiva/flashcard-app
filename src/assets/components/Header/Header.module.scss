@@ -1,0 +1,35 @@
+@use '../../styles/variables.scss' as vr;
+@use '../../styles/mixins.scss';
+
+.header {
+  position: sticky;
+  top: 0;
+  z-index: 1000;
+
+  background-color: white;
+  box-shadow: 0px 4px 12px rgba(0, 0, 0, 0.1);
+
+  &__container {
+    @extend %flex-center;
+    @extend %container;
+    padding: 1em vr.$global-side-padding;
+
+    @media screen and (max-width: vr.$mobileL) {
+      flex-direction: column;
+      justify-content: center;
+    }
+  }
+
+  &__button {
+    @include mixins.button(vr.$background-green, none, 0.7em 2em);
+    margin-left: auto;
+    margin-right: 8%;
+
+    font-size: 2em;
+    color: white;
+
+    @media screen and (max-width: vr.$mobileL) {
+      margin: 1em 0;
+    }
+  }
+}
