@@ -22,4 +22,11 @@
       </clipPath>
     </defs>
   </symbol>
+
+  <svg width="0" height="0" class="hidden">
+  <symbol xmlns="http://www.w3.org/2000/svg" viewBox="0 0 45 43" id="add-button">
+    <ellipse cx="22.5" cy="21.5" rx="22.5" ry="21.5" ></ellipse>
+    <path d="M22.5 13V22M22.5 31V22M22.5 22H32.5H13" stroke="white" stroke-width="3"></path>
+  </symbol>
+
 </svg>

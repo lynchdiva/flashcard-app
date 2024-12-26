@@ -1,0 +1,51 @@
+@use '../../scss/variables.scss' as vr;
+@use '../../scss/mixins.scss';
+@use 'sass:color';
+
+.section-words {
+  @extend %container;
+
+  &__container {
+    @extend %flex-center;
+    justify-content: space-between;
+    margin-top: 1em;
+    padding: 0 5em;
+  }
+
+  &__title {
+    font-weight: 500;
+    font-size: 2.5em;
+  }
+
+  &__box {
+    @extend %flex-center;
+    gap: 10em;
+  }
+
+  &__add-button {
+    @include mixins.button(transparent, none, 0.2em);
+    @extend %flex-center;
+    gap: 0.5em;
+    font-weight: 500;
+    font-size: 2.2em;
+    color: vr.$background-green;
+  }
+
+  &__add-button:hover {
+    color: color.adjust(vr.$background-green, $lightness: -10%);
+  }
+
+  &__add-button:hover &__plus-icon {
+    @include mixins.fill(vr.$background-green);
+  }
+
+  &__add-button:active {
+    border: 1px solid vr.$background-green;
+  }
+
+  &__plus-icon {
+    width: 1.5em;
+    height: 1.5em;
+    fill: vr.$background-green;
+  }
+}

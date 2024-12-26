@@ -14,6 +14,10 @@
   }
 }
 
+@mixin fill($color) {
+  fill: color.adjust($color, $lightness: -10%);
+}
+
 %flex-center {
   display: flex;
   align-items: center;

@@ -1,6 +1,9 @@
-@use 'variables' as vr;
-@use 'mixins';
-@import 'normalize.css';
+@use 'normalize.css';
+@use './assets/scss/variables' as vr;
+@use './assets/scss/mixins';
+
+@import './assets/scss/_custom.scss';
+@import '../node_modules/bootstrap/scss/bootstrap.scss';
 
 :root {
   height: 100%;
@@ -23,7 +26,7 @@
   padding: 0;
 }
 
-body {
+#root {
   min-width: 320px;
   margin: 0 auto;
   min-height: 100%;

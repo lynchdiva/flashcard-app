@@ -1,5 +1,5 @@
-@use '../../styles/variables.scss' as vr;
-@use '../../styles/mixins.scss';
+@use '../../scss/variables.scss' as vr;
+@use '../../scss/mixins.scss';
 
 .header {
   position: sticky;
@@ -21,7 +21,7 @@
   }
 
   &__button {
-    @include mixins.button(vr.$background-green, none, 0.7em 2em);
+    @include mixins.button(vr.$background-green, none, 0.5em 2em);
     margin-left: auto;
     margin-right: 8%;
 
@@ -29,7 +29,8 @@
     color: white;
 
     @media screen and (max-width: vr.$mobileL) {
-      margin: 1em 0;
+      margin: 1em 0 0 0;
+      font-size: 1.8em;
     }
   }
 }

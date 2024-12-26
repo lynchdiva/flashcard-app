@@ -1,0 +1,24 @@
+@use '../../scss/variables.scss' as vr;
+@use '../../scss/mixins.scss';
+@use 'sass:color';
+
+.custom-btn {
+  @include mixins.button(transparent, none, 0.2em);
+
+  &:hover {
+    color: color.adjust(vr.$background-green, $lightness: -10%);
+  }
+}
+
+.custom-btn:checked + .btn,
+.custom-btn:not(.btn-check) + .btn:active,
+.custom-btn:first-child:active,
+.custom-btn.active,
+.custom-btn.show {
+  color: vr.$background-green;
+  background-color: none;
+}
+
+.dropdown-menu {
+  box-shadow: 0px 4px 12px rgba(0, 0, 0, 0.1);
+}

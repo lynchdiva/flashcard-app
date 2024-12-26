@@ -1,5 +1,5 @@
-@use '../../styles/variables.scss' as vr;
-@use '../../styles/mixins.scss';
+@use '../../scss/variables.scss' as vr;
+@use '../../scss/mixins.scss';
 
 .main {
   @extend %container;

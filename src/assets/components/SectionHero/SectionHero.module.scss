@@ -1,5 +1,5 @@
-@use '../../styles/variables.scss' as vr;
-@use '../../styles/mixins.scss';
+@use '../../scss/variables.scss' as vr;
+@use '../../scss/mixins.scss';
 
 .section-hero {
   @extend %flex-center;
@@ -21,6 +21,7 @@
   &__title {
     position: relative;
     width: 6.4em;
+    font-weight: 700;
     font-size: 5em;
     line-height: 115%;
 
@@ -54,8 +55,8 @@
     height: 85px;
 
     @media screen and (max-width: vr.$laptop) {
-      width: 70px;
-      height: 70px;
+      width: 65px;
+      height: 65px;
     }
 
     @media screen and (max-width: 610px) {
