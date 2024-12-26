@@ -1,5 +1,6 @@
 import styles from './SectionWordList.module.scss';
 import DropdownMenu from '../DropdownMenu/DropdownMenu.jsx';
+import WordList from '../WordList/WordList.jsx';
 
 export default function SectionWordList() {
   return (
@@ -19,6 +20,7 @@ export default function SectionWordList() {
           <DropdownMenu />
         </div>
       </div>
+      <WordList />
     </section>
   );
 }

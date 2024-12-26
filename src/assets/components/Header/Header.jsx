@@ -12,6 +12,6 @@ export default function Header() {
   );
 }
 
-function HeaderButton() {
+const HeaderButton = () => {
   return <button className={styles.header__button}>Get Started</button>;
-}
+};

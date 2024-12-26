@@ -6,10 +6,10 @@ export default function DropdownMenu() {
   return (
     <DropdownButton
       variant="custom"
-      className="custom-btn"
       align="end"
       title="Words All"
       id="dropdown-menu-align-end"
+      className="custom-btn"
     >
       <Dropdown.Item>In progress</Dropdown.Item>
       <Dropdown.Item>Learned</Dropdown.Item>

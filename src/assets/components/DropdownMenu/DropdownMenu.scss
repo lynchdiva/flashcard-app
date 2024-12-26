@@ -4,21 +4,33 @@
 
 .custom-btn {
   @include mixins.button(transparent, none, 0.2em);
+  border: 1px solid transparent;
 
   &:hover {
     color: color.adjust(vr.$background-green, $lightness: -10%);
   }
+  :focus-visible {
+    color: color.adjust(vr.$background-green, $lightness: -10%);
+    outline-color: green;
+    outline-width: 1px;
+    outline-style: solid;
+  }
+
+  @media screen and (max-width: vr.$mobileS) {
+    font-size: 0.8em;
+  }
 }
 
-.custom-btn:checked + .btn,
-.custom-btn:not(.btn-check) + .btn:active,
-.custom-btn:first-child:active,
-.custom-btn.active,
-.custom-btn.show {
+.btn-check:checked + .btn,
+:not(.btn-check) + .btn:active,
+.btn:first-child:active,
+.btn.active,
+.btn.show {
   color: vr.$background-green;
   background-color: none;
+  border-color: transparent;
 }
 
 .dropdown-menu {
-  box-shadow: 0px 4px 12px rgba(0, 0, 0, 0.1);
+  box-shadow: vr.$box-shadow;
 }

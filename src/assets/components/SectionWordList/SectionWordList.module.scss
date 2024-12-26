@@ -8,18 +8,33 @@
   &__container {
     @extend %flex-center;
     justify-content: space-between;
-    margin-top: 1em;
-    padding: 0 5em;
+
+    @media screen and (max-width: 680px) {
+      flex-direction: column;
+      align-items: flex-start;
+      gap: 1.2em;
+      margin-top: 0.5em;
+    }
   }
 
   &__title {
     font-weight: 500;
-    font-size: 2.5em;
+    font-size: 2.2em;
+    margin: 0 0 0 1em;
+
+    @media screen and (max-width: vr.$mobileS) {
+      font-size: 2em;
+    }
   }
 
   &__box {
     @extend %flex-center;
-    gap: 10em;
+    gap: 8em;
+
+    @media screen and (max-width: 680px) {
+      width: 100%;
+      justify-content: space-evenly;
+    }
   }
 
   &__add-button {
@@ -27,8 +42,13 @@
     @extend %flex-center;
     gap: 0.5em;
     font-weight: 500;
-    font-size: 2.2em;
+    font-size: 2em;
+    border: 1px solid transparent;
     color: vr.$background-green;
+
+    @media screen and (max-width: vr.$mobileS) {
+      font-size: 1.8em;
+    }
   }
 
   &__add-button:hover {
@@ -37,10 +57,6 @@
 
   &__add-button:hover &__plus-icon {
     @include mixins.fill(vr.$background-green);
-  }
-
-  &__add-button:active {
-    border: 1px solid vr.$background-green;
   }
 
   &__plus-icon {

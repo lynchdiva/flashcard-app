@@ -7,7 +7,7 @@
   z-index: 1000;
 
   background-color: white;
-  box-shadow: 0px 4px 12px rgba(0, 0, 0, 0.1);
+  box-shadow: vr.$box-shadow;
 
   &__container {
     @extend %flex-center;
