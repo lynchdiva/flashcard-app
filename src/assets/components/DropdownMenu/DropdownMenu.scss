@@ -27,10 +27,15 @@
 .btn.active,
 .btn.show {
   color: vr.$background-green;
+
   background-color: none;
   border-color: transparent;
 }
 
 .dropdown-menu {
   box-shadow: vr.$box-shadow;
+}
+
+.dropdown-item {
+  font-weight: 500;
 }

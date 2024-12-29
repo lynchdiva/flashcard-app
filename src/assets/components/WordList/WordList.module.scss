@@ -1,27 +1,47 @@
 @use '../../scss/variables.scss' as vr;
 @use '../../scss/mixins.scss';
 
-.list {
+.words-group__container {
   width: 100%;
   margin-top: 1em;
-  padding: 2em 1em;
+  padding: 2.2em 1.5em;
+
   border-radius: 5px;
   background-color: vr.$background-gray;
 }
 
-.empty-list {
-  @extend %flex-center;
-  justify-content: center;
-  min-height: 150px;
-  opacity: 0.4;
+.table {
+  width: 100%;
+  table-layout: fixed;
+  @media screen and (max-width: vr.$mobileXL) {
+    table-layout: auto;
+  }
 }
 
-.list__notice {
-  font-size: 2em;
-  font-weight: 400;
-  text-align: center;
-
-  @media screen and (max-width: vr.$mobileS) {
-    font-size: 1.8em;
+.table__body {
+  @media screen and (max-width: vr.$mobileXL) {
+    display: flex;
+    gap: 4px;
+    flex-wrap: wrap;
+    justify-content: center;
   }
+}
+
+.table:not(:first-child) {
+  margin-top: 2.2em;
+}
+
+.table__header {
+  padding: 0 0 1em 1em;
+
+  font-size: 1.8em;
+  font-weight: 500;
+}
+
+.table__header_blue {
+  color: vr.$accent-blue;
+}
+
+.table__header_orange {
+  color: vr.$accent-orange;
 }

@@ -1,4 +1,5 @@
 @use 'sass:color';
+@use 'variables' as vr;
 
 @mixin button($color, $border, $padding) {
   padding: $padding;
@@ -14,8 +15,17 @@
   }
 }
 
-@mixin fill($color) {
-  fill: color.adjust($color, $lightness: -10%);
+@mixin svg-button($padding, $color) {
+  padding: $padding;
+
+  background-color: transparent;
+  border: none;
+
+  cursor: pointer;
+
+  &:hover svg {
+    fill: color.adjust($color, $lightness: -10%);
+  }
 }
 
 %flex-center {

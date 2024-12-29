@@ -4,16 +4,16 @@
 .section-hero {
   @extend %flex-center;
 
-  @media screen and (max-width: 610px) {
+  @media screen and (max-width: vr.$mobileXL) {
     flex-direction: column;
   }
 
   &__container {
+    flex-basis: 50%;
     margin-left: 7em;
     padding-top: 1em;
-    flex-basis: 50%;
 
-    @media screen and (max-width: 610px) {
+    @media screen and (max-width: vr.$mobileXL) {
       margin-left: 0;
     }
   }
@@ -21,6 +21,7 @@
   &__title {
     position: relative;
     width: 6.4em;
+
     font-weight: 700;
     font-size: 5em;
     line-height: 115%;
@@ -29,7 +30,7 @@
       font-size: 4.2em;
     }
 
-    @media screen and (max-width: 610px) {
+    @media screen and (max-width: vr.$mobileXL) {
       width: 100%;
     }
   }
@@ -59,7 +60,7 @@
       height: 65px;
     }
 
-    @media screen and (max-width: 610px) {
+    @media screen and (max-width: vr.$mobileXL) {
       right: 8%;
     }
   }
@@ -69,7 +70,7 @@
     margin-right: 8%;
     margin-left: auto;
 
-    @media screen and (max-width: 610px) {
+    @media screen and (max-width: vr.$mobileXL) {
       max-width: 70%;
       margin: 0;
     }
@@ -78,6 +79,7 @@
   &__img {
     width: 100%;
     height: 100%;
+
     object-fit: cover;
   }
 }

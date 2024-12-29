@@ -1,0 +1,21 @@
+@use '../../scss/variables.scss' as vr;
+@use '../../scss/mixins.scss';
+
+.empty-list {
+  @extend %flex-center;
+  justify-content: center;
+  min-height: 160px;
+
+  background-color: vr.$background-gray;
+  opacity: 0.5;
+}
+
+.list__notice {
+  font-size: 2em;
+  font-weight: 400;
+  text-align: center;
+
+  @media screen and (max-width: vr.$mobileS) {
+    font-size: 1.8em;
+  }
+}

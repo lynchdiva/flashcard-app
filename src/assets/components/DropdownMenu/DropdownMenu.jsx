@@ -13,7 +13,7 @@ export default function DropdownMenu() {
     >
       <Dropdown.Item>In progress</Dropdown.Item>
       <Dropdown.Item>Learned</Dropdown.Item>
-      <Dropdown.Item>Words all</Dropdown.Item>
+      <Dropdown.Item>Words All</Dropdown.Item>
     </DropdownButton>
   );
 }

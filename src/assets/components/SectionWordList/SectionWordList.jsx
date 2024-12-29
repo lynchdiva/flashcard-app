@@ -17,9 +17,11 @@ export default function SectionWordList() {
               <use xlinkHref="src/assets/icons/sprite.svg#add-button"></use>
             </svg>
           </button>
+
           <DropdownMenu />
         </div>
       </div>
+
       <WordList />
     </section>
   );
