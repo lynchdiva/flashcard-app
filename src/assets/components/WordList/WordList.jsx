@@ -2,20 +2,18 @@ import styles from './WordList.module.scss';
 import classNames from 'classnames/bind';
 import PropTypes from 'prop-types';
 import Word from '../Word/Word.jsx';
-// import EmptyWordList from '../EmptyWordList/EmptyWordList';
+// import EmptyWordList from './EmptyWordList/EmptyWordList';
 
 const cx = classNames.bind(styles);
 const inProgress = 'In progress';
 const learned = 'Learned';
 
-export default function WordList() {
-  const arr = [1];
-
-  return <WordsGroup title={inProgress} words={arr} id="in-progress" />;
-  // return <EmptyWordList/>;
+export default function WordList(props) {
+  return <WordsGroup title={inProgress} words={props.words} />;
+  // return <EmptyWordList />;
 }
 
-const WordsGroup = ({ title, words, id }) => {
+const WordsGroup = ({ title, words }) => {
   const header =
     title === inProgress
       ? cx('table__header', 'table__header_blue')
@@ -24,7 +22,7 @@ const WordsGroup = ({ title, words, id }) => {
   return (
     <section>
       <div className={styles['words-group__container']}>
-        <table id={id} className={styles.table}>
+        <table className={styles.table}>
           <thead>
             <tr>
               <th colSpan={5} className={header}>
@@ -34,13 +32,18 @@ const WordsGroup = ({ title, words, id }) => {
             </tr>
           </thead>
           <tbody className={styles.table__body}>
-            <Word />
-            <Word />
+            {words.map(word => (
+              <Word key={word.id} word={word} />
+            ))}
           </tbody>
         </table>
       </div>
     </section>
   );
+};
+
+WordList.propTypes = {
+  words: PropTypes.object.isRequired
 };
 
 WordsGroup.propTypes = {
