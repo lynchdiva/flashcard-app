@@ -1,14 +1,23 @@
+import styles from './Word.module.scss';
 import PropTypes from 'prop-types';
 import EditWord from './EditWord';
 import ViewWord from './ViewWord';
+import { useState } from 'react';
 
 export default function Word(props) {
-  const editState = false;
+  const [isEditing, setState] = useState(false);
+  const handleChange = () => {
+    setState(prev => !prev);
+  };
 
-  return editState ? (
-    <EditWord word={props.word} />
-  ) : (
-    <ViewWord word={props.word} />
+  return (
+    <tr className={styles.table__row}>
+      {isEditing ? (
+        <EditWord word={props.word} onStateChange={handleChange} />
+      ) : (
+        <ViewWord word={props.word} onStateChange={handleChange} />
+      )}
+    </tr>
   );
 }
 

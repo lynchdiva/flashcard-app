@@ -3,6 +3,7 @@ import DropdownMenu from '../DropdownMenu/DropdownMenu.jsx';
 import WordList from '../WordList/WordList.jsx';
 
 export default function SectionWordList() {
+  //хранить массив слов в локальном состоянии и передать обработчик к дочерним компонентам для изменения этого массива
   const words = [
     {
       id: '33026',

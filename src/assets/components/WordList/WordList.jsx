@@ -43,11 +43,10 @@ const WordsGroup = ({ title, words }) => {
 };
 
 WordList.propTypes = {
-  words: PropTypes.object.isRequired
+  words: PropTypes.array.isRequired
 };
 
 WordsGroup.propTypes = {
   title: PropTypes.string.isRequired,
-  id: PropTypes.string.isRequired,
   words: PropTypes.array.isRequired
 };
