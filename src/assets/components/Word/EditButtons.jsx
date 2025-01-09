@@ -4,7 +4,11 @@ import PropTypes from 'prop-types';
 
 const cx = classNames.bind(styles);
 
-export default function EditButtons({ onSave, onCancle }) {
+export default function EditButtons({ onSave, onCancel }) {
+  const onClick = () => {
+    onSave();
+    onCancel();
+  };
   return (
     <>
       <button
@@ -12,7 +16,7 @@ export default function EditButtons({ onSave, onCancle }) {
           table__button: true,
           table__button_orange: true
         })}
-        onClick={onSave}
+        onClick={onClick}
       >
         <svg
           className={cx({
@@ -23,7 +27,7 @@ export default function EditButtons({ onSave, onCancle }) {
           <use xlinkHref="src/assets/icons/sprite.svg#check-mark"></use>
         </svg>
       </button>
-      <button className={styles.table__button} onClick={onCancle}>
+      <button className={styles.table__button} onClick={onCancel}>
         <svg className={styles.table__icon}>
           <use xlinkHref="src/assets/icons/sprite.svg#cancel"></use>
         </svg>
@@ -34,5 +38,6 @@ export default function EditButtons({ onSave, onCancle }) {
 
 EditButtons.propTypes = {
   onSave: PropTypes.func.isRequired,
-  onCancle: PropTypes.func.isRequired
+  onCancel: PropTypes.func.isRequired,
+  input: PropTypes.object.isRequired
 };

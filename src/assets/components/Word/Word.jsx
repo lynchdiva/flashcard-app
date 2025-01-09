@@ -6,21 +6,27 @@ import { useState } from 'react';
 
 export default function Word(props) {
   const [isEditing, setState] = useState(false);
-  const handleChange = () => {
+
+  const handleChangeEditing = () => {
     setState(prev => !prev);
   };
 
   return (
     <tr className={styles.table__row}>
       {isEditing ? (
-        <EditWord word={props.word} onStateChange={handleChange} />
+        <EditWord
+          word={props.word}
+          onModeChange={handleChangeEditing}
+          onSave={props.onSave}
+        />
       ) : (
-        <ViewWord word={props.word} onStateChange={handleChange} />
+        <ViewWord word={props.word} onModeChange={handleChangeEditing} />
       )}
     </tr>
   );
 }
 
 Word.propTypes = {
-  word: PropTypes.object.isRequired
+  word: PropTypes.object.isRequired,
+  onSave: PropTypes.func.isRequired
 };

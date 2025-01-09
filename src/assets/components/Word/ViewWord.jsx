@@ -14,7 +14,7 @@ export default function ViewWord(props) {
       <td className={styles.table__data}>
         <div className={styles.table__options}>
           <ViewButtons
-            onEdit={props.onStateChange}
+            onEdit={props.onModeChange}
             onDelete={() => console.log('Delete word')}
           />
         </div>
@@ -24,6 +24,6 @@ export default function ViewWord(props) {
 }
 
 ViewWord.propTypes = {
-  onStateChange: PropTypes.func.isRequired,
+  onModeChange: PropTypes.func.isRequired,
   word: PropTypes.object.isRequired
 };

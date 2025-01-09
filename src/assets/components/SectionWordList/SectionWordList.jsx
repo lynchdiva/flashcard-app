@@ -1,10 +1,11 @@
 import styles from './SectionWordList.module.scss';
 import DropdownMenu from '../DropdownMenu/DropdownMenu.jsx';
 import WordList from '../WordList/WordList.jsx';
+import { useState } from 'react';
 
 export default function SectionWordList() {
-  //хранить массив слов в локальном состоянии и передать обработчик к дочерним компонентам для изменения этого массива
-  const words = [
+  //хранить массив слов в локальном состоянии и передать обработчик к дочерним компонентам для изменения этого массива - временное решение до подключения менеджера состояния
+  const data = [
     {
       id: '33026',
       english: 'precise',
@@ -77,6 +78,16 @@ export default function SectionWordList() {
     }
   ];
 
+  const [words, changeWords] = useState(data);
+
+  const handleWordsChange = replacement => {
+    changeWords(
+      words.map(originalWord => {
+        return originalWord.id === replacement.id ? replacement : originalWord;
+      })
+    );
+  };
+
   return (
     <section className={styles['section-words']}>
       <div className={styles['section-words__container']}>
@@ -96,7 +107,7 @@ export default function SectionWordList() {
         </div>
       </div>
 
-      <WordList words={words} />
+      <WordList words={words} onSave={handleWordsChange} />
     </section>
   );
 }

@@ -9,11 +9,13 @@ const inProgress = 'In progress';
 const learned = 'Learned';
 
 export default function WordList(props) {
-  return <WordsGroup title={inProgress} words={props.words} />;
+  return (
+    <WordsGroup title={inProgress} words={props.words} onSave={props.onSave} />
+  );
   // return <EmptyWordList />;
 }
 
-const WordsGroup = ({ title, words }) => {
+const WordsGroup = ({ title, words, onSave }) => {
   const header =
     title === inProgress
       ? cx('table__header', 'table__header_blue')
@@ -33,7 +35,7 @@ const WordsGroup = ({ title, words }) => {
           </thead>
           <tbody className={styles.table__body}>
             {words.map(word => (
-              <Word key={word.id} word={word} />
+              <Word key={word.id} word={word} onSave={onSave} />
             ))}
           </tbody>
         </table>
@@ -43,10 +45,12 @@ const WordsGroup = ({ title, words }) => {
 };
 
 WordList.propTypes = {
-  words: PropTypes.array.isRequired
+  words: PropTypes.array.isRequired,
+  onSave: PropTypes.func.isRequired
 };
 
 WordsGroup.propTypes = {
   title: PropTypes.string.isRequired,
-  words: PropTypes.array.isRequired
+  words: PropTypes.array.isRequired,
+  onSave: PropTypes.func.isRequired
 };
