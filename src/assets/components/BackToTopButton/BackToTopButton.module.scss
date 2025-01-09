@@ -1,0 +1,32 @@
+@use '../../scss/variables.scss' as vr;
+@use '../../scss/mixins.scss';
+@use 'sass:color';
+
+.back-button {
+  @include mixins.svg-button(0, vr.$background-green);
+  position: fixed;
+  z-index: 1000;
+  bottom: 0;
+  right: 0;
+  margin-right: 2em;
+  margin-bottom: 3em;
+
+  pointer-events: none;
+  opacity: 0;
+  transition: opacity 200ms ease-in, transform 200ms ease-in;
+
+  &.visible {
+    opacity: 1;
+    pointer-events: auto;
+  }
+
+  &.hidden {
+    transform: scale(0.8);
+  }
+}
+
+.back-button__icon {
+  width: 5em;
+  height: 5em;
+  fill: vr.$background-green;
+}

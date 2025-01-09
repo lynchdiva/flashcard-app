@@ -2,17 +2,28 @@ import styles from './WordList.module.scss';
 import classNames from 'classnames/bind';
 import PropTypes from 'prop-types';
 import Word from '../Word/Word.jsx';
-// import EmptyWordList from './EmptyWordList/EmptyWordList';
+import EmptyWordList from './EmptyWordList/EmptyWordList';
 
 const cx = classNames.bind(styles);
 const inProgress = 'In progress';
 const learned = 'Learned';
 
 export default function WordList(props) {
+  const isNoWords = !props.words || props.words.length === 0;
+
   return (
-    <WordsGroup title={inProgress} words={props.words} onSave={props.onSave} />
+    <>
+      {isNoWords ? (
+        <EmptyWordList />
+      ) : (
+        <WordsGroup
+          title={inProgress}
+          words={props.words}
+          onSave={props.onSave}
+        />
+      )}
+    </>
   );
-  // return <EmptyWordList />;
 }
 
 const WordsGroup = ({ title, words, onSave }) => {
