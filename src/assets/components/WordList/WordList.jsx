@@ -8,19 +8,15 @@ const cx = classNames.bind(styles);
 const inProgress = 'In progress';
 const learned = 'Learned';
 
-export default function WordList(props) {
-  const isNoWords = !props.words || props.words.length === 0;
+export default function WordList({ words, onSave }) {
+  const isNoWords = !words || words.length === 0;
 
   return (
     <>
       {isNoWords ? (
         <EmptyWordList />
       ) : (
-        <WordsGroup
-          title={inProgress}
-          words={props.words}
-          onSave={props.onSave}
-        />
+        <WordsGroup title={inProgress} words={words} onSave={onSave} />
       )}
     </>
   );
