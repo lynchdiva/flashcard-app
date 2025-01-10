@@ -8,15 +8,16 @@
 }
 
 .dont-know-button {
-  @include mixins.button(vr.$accent-blue, none, 1em);
+  @include mixins.button(vr.$accent-blue, none, 0.8em);
 }
 
 .know-button {
-  @include mixins.button(vr.$accent-orange, none, 1em);
+  @include mixins.button(vr.$accent-orange, none, 0.8em);
 }
 
 .dont-know-button,
 .know-button {
+  flex: none;
   width: 9em;
   margin: 2em 1em;
 
@@ -24,4 +25,8 @@
   color: white;
   box-shadow: rgba(0, 0, 0, 0.1) 0px 10px 15px -3px,
     rgba(0, 0, 0, 0.05) 0px 4px 6px -2px;
+
+  @media screen and (max-width: vr.$mobileS) {
+    width: 8em;
+  }
 }

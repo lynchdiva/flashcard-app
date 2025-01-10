@@ -9,8 +9,9 @@ export default function FlashcardsSection({ words }) {
   const [list, setList] = useState(makeListFromArr(words));
   const [word, setCurrentWord] = useState(list.value);
   const [isFlipped, setFlipping] = useState(false);
+  const [isCompleted, setComleted] = useState(false);
 
-  const flipCard = () => {
+  const handleFlipCard = () => {
     return new Promise(res => {
       setFlipping(prevState => {
         const nextState = !prevState;
@@ -26,11 +27,20 @@ export default function FlashcardsSection({ words }) {
     });
   };
 
+  const handleCompleteSession = currentState => {
+    setComleted(currentState);
+  };
+
   const handleMoveList = async () => {
     if (isFlipped) {
-      await flipCard();
+      await handleFlipCard();
     }
-    setList(prevList => prevList.next || prevList);
+
+    if (!list.next) {
+      handleCompleteSession(true);
+    } else {
+      setList(list.next || list);
+    }
   };
 
   useEffect(() => {
@@ -41,11 +51,11 @@ export default function FlashcardsSection({ words }) {
     <section className={styles['flashcards-section']}>
       <Card
         word={word}
-        goToNext={handleMoveList}
         isFlipped={isFlipped}
-        flip={flipCard}
+        flip={handleFlipCard}
+        isCompleted={isCompleted}
       />
-      <CardButtons goToNext={handleMoveList} />
+      <CardButtons goToNext={handleMoveList} isCompleted={isCompleted} />
     </section>
   );
 }

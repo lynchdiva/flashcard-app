@@ -1,11 +1,13 @@
 @use '../../scss/variables.scss' as vr;
 @use '../../scss/mixins.scss';
 
-.card__animation-container {
+.card__container {
   position: relative;
   max-width: 55em;
   margin: auto;
+}
 
+.card__animation-container {
   perspective: 1000px;
   cursor: pointer;
 }
@@ -24,13 +26,14 @@
   box-shadow: rgba(0, 0, 0, 0.1) 0px 10px 15px -3px,
     rgba(0, 0, 0, 0.05) 0px 4px 6px -2px;
 
+  color: vr.$font-green;
+}
+
+.card_animated,
+.card-other-side_animated {
   transition: transform 800ms;
   transform-style: preserve-3d;
   backface-visibility: hidden;
-}
-
-.card {
-  color: vr.$font-green;
 }
 
 .card-other-side {
@@ -44,6 +47,21 @@
 
   overflow: scroll;
   transform: rotateY(180deg);
+}
+
+.card_compleated {
+  align-items: center;
+  justify-content: center;
+}
+
+.card__completed-text {
+  text-align: center;
+  font-size: 2.5em;
+}
+
+.card__completed-img {
+  width: 10em;
+  height: 10em;
 }
 
 .card__animation-container_flip .card {
