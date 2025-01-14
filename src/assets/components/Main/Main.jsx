@@ -92,6 +92,7 @@ export default function Main() {
 
   return (
     <main className={styles.main}>
+      <div className={styles['main-container']}></div>
       <SectionHero />
       <SectionWordList words={words} onSave={handleWordsChange} />
       <FlashcardsSection words={words} />
