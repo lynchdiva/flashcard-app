@@ -2,18 +2,20 @@ import Card from './Card/Card';
 import CardButtons from './Buttons/Buttons.jsx';
 import styles from './FlashcardsSection.module.scss';
 import PropTypes from 'prop-types';
-import { makeListFromArr } from '../../utilities/makeListFromArr.js';
 import { useState, useEffect } from 'react';
+import Notification from './Notification/Notification.jsx';
 
 export default function FlashcardsSection({ words }) {
-  const [list, setList] = useState(makeListFromArr(words));
-  const [word, setCurrentWord] = useState(list.value);
-  const [isFlipped, setFlipping] = useState(false);
-  const [isCompleted, setComleted] = useState(false);
+  const isNoWords = words.length === 0;
+
+  const [counter, setCounter] = useState(0);
+  const [word, setWord] = useState(words[0]);
+  const [isFlipped, setIsFlipped] = useState(false);
+  const [isCompleted, setIsComleted] = useState(false);
 
   const handleFlipCard = () => {
     return new Promise(res => {
-      setFlipping(prevState => {
+      setIsFlipped(prevState => {
         const nextState = !prevState;
 
         if (prevState) {
@@ -27,8 +29,8 @@ export default function FlashcardsSection({ words }) {
     });
   };
 
-  const handleCompleteSession = currentState => {
-    setComleted(currentState);
+  const handleCompleteSession = state => {
+    setIsComleted(state);
   };
 
   const handleMoveList = async () => {
@@ -36,26 +38,36 @@ export default function FlashcardsSection({ words }) {
       await handleFlipCard();
     }
 
-    if (!list.next) {
-      handleCompleteSession(true);
-    } else {
-      setList(list.next || list);
+    if (counter < words.length) {
+      setCounter(prev => prev + 1);
     }
   };
 
   useEffect(() => {
-    setCurrentWord(list.value);
-  }, [isFlipped, list]);
+    if (words[counter]) {
+      setWord(words[counter]);
+    } else {
+      handleCompleteSession(true);
+    }
+  }, [counter, words]);
 
   return (
     <section className={styles['flashcards-section']}>
-      <Card
-        word={word}
-        isFlipped={isFlipped}
-        flip={handleFlipCard}
-        isCompleted={isCompleted}
-      />
-      <CardButtons goToNext={handleMoveList} isCompleted={isCompleted} />
+      {isNoWords ? (
+        <Notification src={'typing-woman.svg'} alt={'Typing woman'}>
+          No words yet! <br /> Add some to get started.
+        </Notification>
+      ) : (
+        <>
+          <Card
+            word={word}
+            isFlipped={isFlipped}
+            flip={handleFlipCard}
+            isCompleted={isCompleted}
+          />
+          <CardButtons goToNext={handleMoveList} isCompleted={isCompleted} />
+        </>
+      )}
     </section>
   );
 }

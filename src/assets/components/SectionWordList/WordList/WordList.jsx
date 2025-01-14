@@ -9,7 +9,7 @@ const inProgress = 'In progress';
 const learned = 'Learned';
 
 export default function WordList({ words, onSave }) {
-  const isNoWords = !words || words.length === 0;
+  const isNoWords = words.length === 0;
 
   return (
     <>

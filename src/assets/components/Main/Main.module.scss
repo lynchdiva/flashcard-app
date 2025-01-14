@@ -4,4 +4,5 @@
 .main {
   @extend %container;
   padding: 0 vr.$global-side-padding;
+  flex: auto;
 }

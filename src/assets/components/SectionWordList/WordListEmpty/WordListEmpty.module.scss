@@ -4,7 +4,8 @@
 .empty-list {
   @extend %flex-center;
   justify-content: center;
-  min-height: 160px;
+  min-height: 150px;
+  padding: 0 1em;
 
   background-color: vr.$background-gray;
   opacity: 0.5;

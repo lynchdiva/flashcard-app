@@ -1,7 +1,7 @@
 import styles from './Card.module.scss';
 import PropTypes from 'prop-types';
 import classNames from 'classnames/bind';
-import CardCompleted from './CardCompleted';
+import Notification from '../Notification/Notification';
 
 const cx = classNames.bind(styles);
 
@@ -11,7 +11,9 @@ export default function Card(props) {
   return (
     <>
       {isCompleted ? (
-        <CardCompleted />
+        <Notification src={'man-with-flag.svg'} alt={'Man with flag'}>
+          Great job! <br /> You&apos;ve completed your session.
+        </Notification>
       ) : (
         <div
           className={cx({
@@ -51,7 +53,7 @@ const BackSideOfCard = ({ word }) => {
         card_animated: true
       })}
     >
-      <span className={styles.card__tag}>{'Tags'}</span>
+      <span className={styles.card__tag}>{word.tags}</span>
       <div className={styles.card__box}>
         <p className={styles.card__word}>{word.english}</p>
         <p className={styles.card__transcription}>{word.transcription}</p>

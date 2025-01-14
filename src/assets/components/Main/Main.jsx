@@ -80,7 +80,7 @@ export default function Main() {
     }
   ];
 
-  const [words, changeWords] = useState(data);
+  const [words, changeWords] = useState(data || []);
 
   const handleWordsChange = replacement => {
     changeWords(
