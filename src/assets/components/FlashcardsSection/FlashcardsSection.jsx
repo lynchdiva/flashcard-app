@@ -1,14 +1,15 @@
 import Card from './Card/Card';
-import CardButtons from './Buttons/Buttons.jsx';
+import ButtonsMark from './ButtonsMark/ButtonsMark.jsx';
 import styles from './FlashcardsSection.module.scss';
 import PropTypes from 'prop-types';
 import { useState, useEffect } from 'react';
 import Notification from './Notification/Notification.jsx';
+import Counter from './Counter/Counter.jsx';
 
-export default function FlashcardsSection({ words }) {
+export default function FlashcardsSection({ words, initialWordIndex = 0 }) {
   const isNoWords = words.length === 0;
 
-  const [counter, setCounter] = useState(0);
+  const [wordIndex, setWordIndex] = useState(initialWordIndex);
   const [word, setWord] = useState(words[0]);
   const [isFlipped, setIsFlipped] = useState(false);
   const [isCompleted, setIsComleted] = useState(false);
@@ -18,7 +19,7 @@ export default function FlashcardsSection({ words }) {
       setIsFlipped(prevState => {
         const nextState = !prevState;
 
-        if (prevState) {
+        if (prevState && wordIndex !== words.length - 1) {
           setTimeout(res, 200);
         } else {
           res();
@@ -38,25 +39,25 @@ export default function FlashcardsSection({ words }) {
       await handleFlipCard();
     }
 
-    if (counter < words.length) {
-      setCounter(prev => prev + 1);
+    if (wordIndex < words.length) {
+      setWordIndex(prev => prev + 1);
     }
   };
 
   useEffect(() => {
-    if (words[counter]) {
-      setWord(words[counter]);
+    if (words[wordIndex]) {
+      setWord(words[wordIndex]);
     } else {
       handleCompleteSession(true);
     }
-  }, [counter, words]);
+  }, [wordIndex, words]);
 
   return (
     <section className={styles['flashcards-section']}>
       {isNoWords ? (
-        <Notification src={'typing-woman.svg'} alt={'Typing woman'}>
-          No words yet! <br /> Add some to get started.
-        </Notification>
+        <NoWordsMessage />
+      ) : isCompleted ? (
+        <CompletionMessage />
       ) : (
         <>
           <Card
@@ -65,13 +66,27 @@ export default function FlashcardsSection({ words }) {
             flip={handleFlipCard}
             isCompleted={isCompleted}
           />
-          <CardButtons goToNext={handleMoveList} isCompleted={isCompleted} />
+          <Counter currentCount={wordIndex + 1} amount={words.length} />
+          <ButtonsMark goToNext={handleMoveList} />
         </>
       )}
     </section>
   );
 }
 
+const NoWordsMessage = () => (
+  <Notification src={'typing-woman.svg'} alt={'Typing woman'}>
+    No words yet! <br /> Add some to get started.
+  </Notification>
+);
+
+const CompletionMessage = () => (
+  <Notification src={'man-with-flag.svg'} alt={'Man with flag'}>
+    Great job! <br /> You&apos;ve completed your session.
+  </Notification>
+);
+
 FlashcardsSection.propTypes = {
-  words: PropTypes.array.isRequired
+  words: PropTypes.array.isRequired,
+  initialWordIndex: PropTypes.number
 };

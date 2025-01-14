@@ -1,33 +1,24 @@
 import styles from './Card.module.scss';
 import PropTypes from 'prop-types';
 import classNames from 'classnames/bind';
-import Notification from '../Notification/Notification';
 
 const cx = classNames.bind(styles);
 
 export default function Card(props) {
-  const { word, isFlipped, flip, isCompleted } = props;
+  const { word, isFlipped, flip } = props;
 
   return (
-    <>
-      {isCompleted ? (
-        <Notification src={'man-with-flag.svg'} alt={'Man with flag'}>
-          Great job! <br /> You&apos;ve completed your session.
-        </Notification>
-      ) : (
-        <div
-          className={cx({
-            card__container: true,
-            'card__animation-container': true,
-            'card__animation-container_flip': isFlipped
-          })}
-          onClick={flip}
-        >
-          <FrontSideOfCard word={word} />
-          <BackSideOfCard word={word} />
-        </div>
-      )}
-    </>
+    <div
+      className={cx({
+        card__container: true,
+        'card__animation-container': true,
+        'card__animation-container_flip': isFlipped
+      })}
+      onClick={flip}
+    >
+      <FrontSideOfCard word={word} />
+      <BackSideOfCard word={word} />
+    </div>
   );
 }
 const FrontSideOfCard = ({ word }) => {

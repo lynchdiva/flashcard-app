@@ -1,0 +1,9 @@
+@use '../../../scss/variables.scss' as vr;
+@use '../../../scss/mixins.scss';
+
+.counter-text {
+  margin-top: 1em;
+  font-size: 2.5em;
+  color: vr.$background-green;
+  text-align: center;
+}
