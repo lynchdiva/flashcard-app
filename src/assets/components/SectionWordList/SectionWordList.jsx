@@ -1,6 +1,6 @@
 import styles from './SectionWordList.module.scss';
 import DropdownMenu from '../DropdownMenu/DropdownMenu.jsx';
-import WordList from '../WordList/WordList.jsx';
+import WordList from './WordList/WordList.jsx';
 import PropTypes from 'prop-types';
 
 export default function SectionWordList({ words, onSave }) {

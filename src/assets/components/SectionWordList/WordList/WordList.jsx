@@ -1,8 +1,8 @@
 import styles from './WordList.module.scss';
 import classNames from 'classnames/bind';
 import PropTypes from 'prop-types';
-import Word from '../../Word/Word.jsx';
-import EmptyWordList from './EmptyWordList/EmptyWordList.jsx';
+import Word from '../Word/Word.jsx';
+import WordListEmpty from '../WordListEmpty/WordListEmpty.jsx';
 
 const cx = classNames.bind(styles);
 const inProgress = 'In progress';
@@ -14,7 +14,7 @@ export default function WordList({ words, onSave }) {
   return (
     <>
       {isNoWords ? (
-        <EmptyWordList />
+        <WordListEmpty />
       ) : (
         <WordsGroup title={inProgress} words={words} onSave={onSave} />
       )}

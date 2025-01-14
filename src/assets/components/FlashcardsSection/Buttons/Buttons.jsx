@@ -1,4 +1,4 @@
-import styles from './CardButtons.module.scss';
+import styles from './Buttons.module.scss';
 import PropTypes from 'prop-types';
 
 export default function CardButtons({ goToNext, isCompleted }) {

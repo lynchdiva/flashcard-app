@@ -1,5 +1,5 @@
-import Card from '../Card/Card';
-import CardButtons from '../Card/CardButtons/CardButtons';
+import Card from './Card/Card';
+import CardButtons from './Buttons/Buttons.jsx';
 import styles from './FlashcardsSection.module.scss';
 import PropTypes from 'prop-types';
 import { makeListFromArr } from '../../utilities/makeListFromArr.js';

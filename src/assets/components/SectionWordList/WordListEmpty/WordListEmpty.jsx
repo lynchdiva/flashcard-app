@@ -1,6 +1,6 @@
-import styles from './EmptyWordList.module.scss';
+import styles from './WordListEmpty.module.scss';
 
-export default function EmptyWordList() {
+export default function WordListEmpty() {
   return (
     <div className={styles['empty-list']}>
       <p className={styles.list__notice}>

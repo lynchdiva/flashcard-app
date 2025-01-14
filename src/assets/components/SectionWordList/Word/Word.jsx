@@ -5,10 +5,10 @@ import ViewWord from './ViewWord';
 import { useState } from 'react';
 
 export default function Word(props) {
-  const [isEditing, setState] = useState(false);
+  const [isEditing, setIsEditing] = useState(false);
 
   const handleChangeEditing = () => {
-    setState(prev => !prev);
+    setIsEditing(prev => !prev);
   };
 
   return (
