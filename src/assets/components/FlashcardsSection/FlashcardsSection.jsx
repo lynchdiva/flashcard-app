@@ -1,40 +1,30 @@
-import Card from './Card/Card';
-import ButtonsMark from './ButtonsMark/ButtonsMark.jsx';
 import styles from './FlashcardsSection.module.scss';
 import PropTypes from 'prop-types';
 import { useState, useEffect } from 'react';
-import Notification from './Notification/Notification.jsx';
-import Counter from './Counter/Counter.jsx';
-
+import CardContent from './CardContent/CardContent.jsx';
 export default function FlashcardsSection({ words, initialWordIndex = 0 }) {
-  const isNoWords = words.length === 0;
-
   const [wordIndex, setWordIndex] = useState(initialWordIndex);
-  const [word, setWord] = useState(words[0]);
+  const [word, setWord] = useState(words[initialWordIndex]);
   const [isFlipped, setIsFlipped] = useState(false);
   const [isCompleted, setIsComleted] = useState(false);
+  const [progress, setProgress] = useState('');
 
   const handleFlipCard = () => {
     return new Promise(res => {
       setIsFlipped(prevState => {
-        const nextState = !prevState;
-
         if (prevState && wordIndex !== words.length - 1) {
           setTimeout(res, 200);
         } else {
           res();
         }
-
-        return nextState;
+        return !prevState;
       });
     });
   };
 
-  const handleCompleteSession = state => {
-    setIsComleted(state);
-  };
+  const handleMoveForward = async progress => {
+    await handleMarkProgress(progress);
 
-  const handleMoveList = async () => {
     if (isFlipped) {
       await handleFlipCard();
     }
@@ -42,6 +32,21 @@ export default function FlashcardsSection({ words, initialWordIndex = 0 }) {
     if (wordIndex < words.length) {
       setWordIndex(prev => prev + 1);
     }
+  };
+
+  const handleMarkProgress = progress => {
+    return new Promise(res => {
+      setProgress(progress);
+
+      setTimeout(() => {
+        setProgress('');
+        res();
+      }, 500);
+    });
+  };
+
+  const handleCompleteSession = sessionState => {
+    setIsComleted(sessionState);
   };
 
   useEffect(() => {
@@ -52,39 +57,23 @@ export default function FlashcardsSection({ words, initialWordIndex = 0 }) {
     }
   }, [wordIndex, words]);
 
+  const attributes = {
+    words,
+    word,
+    isFlipped,
+    isCompleted,
+    progress,
+    currentCount: wordIndex + 1,
+    flip: handleFlipCard,
+    onMoveForward: handleMoveForward
+  };
+
   return (
     <section className={styles['flashcards-section']}>
-      {isNoWords ? (
-        <NoWordsMessage />
-      ) : isCompleted ? (
-        <CompletionMessage />
-      ) : (
-        <>
-          <Card
-            word={word}
-            isFlipped={isFlipped}
-            flip={handleFlipCard}
-            isCompleted={isCompleted}
-          />
-          <Counter currentCount={wordIndex + 1} amount={words.length} />
-          <ButtonsMark goToNext={handleMoveList} />
-        </>
-      )}
+      <CardContent attributes={attributes} />
     </section>
   );
 }
-
-const NoWordsMessage = () => (
-  <Notification src={'typing-woman.svg'} alt={'Typing woman'}>
-    No words yet! <br /> Add some to get started.
-  </Notification>
-);
-
-const CompletionMessage = () => (
-  <Notification src={'man-with-flag.svg'} alt={'Man with flag'}>
-    Great job! <br /> You&apos;ve completed your session.
-  </Notification>
-);
 
 FlashcardsSection.propTypes = {
   words: PropTypes.array.isRequired,

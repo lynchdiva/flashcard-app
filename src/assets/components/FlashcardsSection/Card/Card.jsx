@@ -5,26 +5,24 @@ import classNames from 'classnames/bind';
 const cx = classNames.bind(styles);
 
 export default function Card(props) {
-  const { word, isFlipped, flip } = props;
+  const { word, isFlipped, flip, progress } = props;
 
   return (
     <div
-      className={cx({
-        card__container: true,
-        'card__animation-container': true,
+      className={cx('card__container', 'card__animation-container', {
         'card__animation-container_flip': isFlipped
       })}
       onClick={flip}
     >
-      <FrontSideOfCard word={word} />
-      <BackSideOfCard word={word} />
+      <FrontSideOfCard word={word} progress={progress} />
+      <BackSideOfCard word={word} progress={progress} />
     </div>
   );
 }
-const FrontSideOfCard = ({ word }) => {
+const FrontSideOfCard = ({ word, progress }) => {
   return (
     <div
-      className={cx({
+      className={cx(progress, {
         'card-other-side': true,
         'card-other-side_animated': true
       })}
@@ -36,10 +34,10 @@ const FrontSideOfCard = ({ word }) => {
     </div>
   );
 };
-const BackSideOfCard = ({ word }) => {
+const BackSideOfCard = ({ word, progress }) => {
   return (
     <div
-      className={cx({
+      className={cx(progress, {
         card: true,
         card_animated: true
       })}
@@ -63,13 +61,16 @@ Card.propTypes = {
   isCompleted: PropTypes.bool.isRequired,
   isFlipped: PropTypes.bool.isRequired,
   flip: PropTypes.func.isRequired,
-  word: PropTypes.object.isRequired
+  word: PropTypes.object.isRequired,
+  progress: PropTypes.string.isRequired
 };
 
 FrontSideOfCard.propTypes = {
-  word: PropTypes.object.isRequired
+  word: PropTypes.object.isRequired,
+  progress: PropTypes.string.isRequired
 };
 
 BackSideOfCard.propTypes = {
-  word: PropTypes.object.isRequired
+  word: PropTypes.object.isRequired,
+  progress: PropTypes.string.isRequired
 };

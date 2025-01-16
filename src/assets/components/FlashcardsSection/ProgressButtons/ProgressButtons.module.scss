@@ -8,18 +8,18 @@
 }
 
 .dont-know-button {
-  @include mixins.button(vr.$accent-blue, none, 0.8em);
+  @include mixins.button(vr.$accent-orange, none, 0.7em);
 }
 
 .know-button {
-  @include mixins.button(vr.$accent-orange, none, 0.8em);
+  @include mixins.button(vr.$accent-blue, none, 0.7em);
 }
 
 .dont-know-button,
 .know-button {
   flex: none;
   width: 9em;
-  margin: 2em 1em;
+  margin: 1em;
 
   font-size: 2em;
   color: white;
