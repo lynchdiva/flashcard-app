@@ -1,18 +1,30 @@
 import styles from './Card.module.scss';
 import PropTypes from 'prop-types';
 import classNames from 'classnames/bind';
+import { useState } from 'react';
 
 const cx = classNames.bind(styles);
-
 export default function Card(props) {
   const { word, isFlipped, flip, progress } = props;
+  const [isAnimating, setAnimating] = useState(false);
+
+  const handleClick = () => {
+    if (isAnimating) return;
+
+    setAnimating(true);
+    flip();
+
+    setTimeout(() => {
+      setAnimating(false);
+    }, 500);
+  };
 
   return (
     <div
       className={cx('card__container', 'card__animation-container', {
         'card__animation-container_flip': isFlipped
       })}
-      onClick={flip}
+      onClick={handleClick}
     >
       <FrontSideOfCard word={word} progress={progress} />
       <BackSideOfCard word={word} progress={progress} />
