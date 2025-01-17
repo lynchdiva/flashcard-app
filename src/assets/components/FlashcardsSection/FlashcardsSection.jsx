@@ -1,19 +1,20 @@
 import styles from './FlashcardsSection.module.scss';
 import PropTypes from 'prop-types';
 import { useState, useEffect } from 'react';
-import CardContent from './CardContent/CardContent.jsx';
+import CardContent from './SectionContent/SectionContent.jsx';
 export default function FlashcardsSection({ words, initialWordIndex = 0 }) {
   const [wordIndex, setWordIndex] = useState(initialWordIndex);
   const [word, setWord] = useState(words[initialWordIndex]);
   const [isFlipped, setIsFlipped] = useState(false);
   const [isCompleted, setIsComleted] = useState(false);
+  const [isAnimating, setAnimating] = useState(false);
   const [progress, setProgress] = useState('');
 
   const handleFlipCard = () => {
     return new Promise(res => {
       setIsFlipped(prevState => {
         if (prevState && wordIndex !== words.length - 1) {
-          setTimeout(res, 200);
+          setTimeout(res, 100);
         } else {
           res();
         }
@@ -23,11 +24,17 @@ export default function FlashcardsSection({ words, initialWordIndex = 0 }) {
   };
 
   const handleMoveForward = async progress => {
+    if (isAnimating) return;
+
+    setAnimating(true);
+
     await handleMarkProgress(progress);
 
     if (isFlipped) {
       await handleFlipCard();
     }
+
+    setAnimating(false);
 
     if (wordIndex < words.length) {
       setWordIndex(prev => prev + 1);
@@ -41,7 +48,7 @@ export default function FlashcardsSection({ words, initialWordIndex = 0 }) {
       setTimeout(() => {
         setProgress('');
         res();
-      }, 400);
+      }, 500);
     });
   };
 
@@ -64,8 +71,10 @@ export default function FlashcardsSection({ words, initialWordIndex = 0 }) {
     isCompleted,
     progress,
     currentCount: wordIndex + 1,
-    flip: handleFlipCard,
-    onMoveForward: handleMoveForward
+    isAnimating,
+    onFlip: handleFlipCard,
+    onMoveForward: handleMoveForward,
+    onAnimating: setAnimating
   };
 
   return (

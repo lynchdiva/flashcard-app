@@ -9,11 +9,13 @@ export default function CardContent(props) {
     words,
     word,
     isFlipped,
-    flip,
+    isAnimating,
     isCompleted,
     progress,
     currentCount,
-    onMoveForward
+    onMoveForward,
+    onFlip,
+    onAnimating
   } = props.attributes;
 
   const isNoWords = words.length === 0;
@@ -29,9 +31,11 @@ export default function CardContent(props) {
           <Card
             word={word}
             isFlipped={isFlipped}
-            flip={flip}
+            onFlip={onFlip}
             isCompleted={isCompleted}
             progress={progress}
+            isAnimating={isAnimating}
+            onAnimating={onAnimating}
           />
           <Counter currentCount={currentCount} amount={words.length} />
           <ProgressButtons onMoveForward={onMoveForward} />

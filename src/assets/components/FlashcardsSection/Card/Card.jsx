@@ -1,22 +1,20 @@
 import styles from './Card.module.scss';
 import PropTypes from 'prop-types';
 import classNames from 'classnames/bind';
-import { useState } from 'react';
 
 const cx = classNames.bind(styles);
 export default function Card(props) {
-  const { word, isFlipped, flip, progress } = props;
-  const [isAnimating, setAnimating] = useState(false);
+  const { word, isFlipped, onFlip, progress, isAnimating, onAnimating } = props;
 
   const handleClick = () => {
     if (isAnimating) return;
 
-    setAnimating(true);
-    flip();
+    onAnimating(true);
+    onFlip();
+  };
 
-    setTimeout(() => {
-      setAnimating(false);
-    }, 500);
+  const handleAnimationEnd = () => {
+    onAnimating(false);
   };
 
   return (
@@ -25,6 +23,7 @@ export default function Card(props) {
         'card__animation-container_flip': isFlipped
       })}
       onClick={handleClick}
+      onTransitionEnd={handleAnimationEnd}
     >
       <FrontSideOfCard word={word} progress={progress} />
       <BackSideOfCard word={word} progress={progress} />
@@ -72,9 +71,11 @@ const Notice = () => {
 Card.propTypes = {
   isCompleted: PropTypes.bool.isRequired,
   isFlipped: PropTypes.bool.isRequired,
-  flip: PropTypes.func.isRequired,
+  onFlip: PropTypes.func.isRequired,
   word: PropTypes.object.isRequired,
-  progress: PropTypes.string.isRequired
+  progress: PropTypes.string.isRequired,
+  onAnimating: PropTypes.func.isRequired,
+  isAnimating: PropTypes.bool.isRequired
 };
 
 FrontSideOfCard.propTypes = {
