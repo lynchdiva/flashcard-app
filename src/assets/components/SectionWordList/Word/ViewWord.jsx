@@ -4,6 +4,7 @@ import ViewButtons from './ViewButtons';
 
 export default function ViewWord(props) {
   const { english, transcription, russian, tags } = props.word;
+  const { word, onModeChange, onDelete } = props;
 
   return (
     <>
@@ -13,10 +14,7 @@ export default function ViewWord(props) {
       <td className={styles.table__data}>{tags || '-'}</td>
       <td className={styles.table__data}>
         <div className={styles.table__options}>
-          <ViewButtons
-            onEdit={props.onModeChange}
-            onDelete={() => console.log('Delete word')}
-          />
+          <ViewButtons onEdit={onModeChange} onDelete={onDelete} word={word} />
         </div>
       </td>
     </>
@@ -25,5 +23,6 @@ export default function ViewWord(props) {
 
 ViewWord.propTypes = {
   onModeChange: PropTypes.func.isRequired,
-  word: PropTypes.object.isRequired
+  word: PropTypes.object.isRequired,
+  onDelete: PropTypes.func.isRequired
 };

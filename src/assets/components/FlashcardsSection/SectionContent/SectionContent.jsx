@@ -3,6 +3,7 @@ import ProgressButtons from '../ProgressButtons/ProgressButtons.jsx';
 import Counter from '../Counter/Counter.jsx';
 import Notification from '../Notification/Notification.jsx';
 import PropTypes from 'prop-types';
+import { useState, useEffect } from 'react';
 
 export default function CardContent(props) {
   const {
@@ -19,6 +20,30 @@ export default function CardContent(props) {
   } = props.attributes;
 
   const isNoWords = words.length === 0;
+
+  const [learnedWords, setlearnedWords] = useState([]);
+
+  useEffect(() => {
+    const data = window.localStorage.getItem('learnedWords');
+
+    if (data) {
+      setlearnedWords(JSON.parse(data));
+    } else {
+      window.localStorage.setItem('learnedWords', JSON.stringify([]));
+    }
+  }, []);
+
+  const handleSaveLearnedWord = () => {
+    setlearnedWords(prevWords => {
+      const updatedWords = [...prevWords, word.english];
+      window.localStorage.setItem('learnedWords', JSON.stringify(updatedWords));
+
+      return updatedWords;
+    });
+  };
+
+  // window.localStorage.clear()
+  console.log(learnedWords);
 
   return (
     <>
@@ -38,7 +63,10 @@ export default function CardContent(props) {
             onAnimating={onAnimating}
           />
           <Counter currentCount={currentCount} amount={words.length} />
-          <ProgressButtons onMoveForward={onMoveForward} />
+          <ProgressButtons
+            onMoveForward={onMoveForward}
+            onSaveLearnedWords={handleSaveLearnedWord}
+          />
         </>
       )}
     </>

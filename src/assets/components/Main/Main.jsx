@@ -90,11 +90,19 @@ export default function Main() {
     );
   };
 
+  const handleDeleteWord = word => {
+    changeWords(words.filter(originalWord => originalWord.id !== word.id));
+  };
+
   return (
     <main className={styles.main}>
       <div className={styles['main-container']}></div>
       <SectionHero />
-      <SectionWordList words={words} onSave={handleWordsChange} />
+      <SectionWordList
+        words={words}
+        onSave={handleWordsChange}
+        onDelete={handleDeleteWord}
+      />
       <FlashcardsSection words={words} />
       <BackToTopButton />
     </main>

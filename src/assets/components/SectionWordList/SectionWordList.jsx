@@ -3,7 +3,7 @@ import DropdownMenu from '../DropdownMenu/DropdownMenu.jsx';
 import WordList from './WordList/WordList.jsx';
 import PropTypes from 'prop-types';
 
-export default function SectionWordList({ words, onSave }) {
+export default function SectionWordList({ words, onSave, onDelete }) {
   return (
     <section className={styles['section-words']}>
       <div className={styles['section-words__container']}>
@@ -23,7 +23,7 @@ export default function SectionWordList({ words, onSave }) {
         </div>
       </div>
 
-      <WordList words={words} onSave={onSave} />
+      <WordList words={words} onSave={onSave} onDelete={onDelete} />
     </section>
   );
 }

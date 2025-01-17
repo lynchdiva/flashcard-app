@@ -1,8 +1,9 @@
 import styles from './ProgressButtons.module.scss';
 import PropTypes from 'prop-types';
 
-export default function ProgressButtons({ onMoveForward }) {
+export default function ProgressButtons({ onMoveForward, onSaveLearnedWords }) {
   const moveAndMarkAsLearned = () => {
+    onSaveLearnedWords();
     onMoveForward('learned');
   };
 
@@ -25,5 +26,6 @@ export default function ProgressButtons({ onMoveForward }) {
 }
 
 ProgressButtons.propTypes = {
-  onMoveForward: PropTypes.func.isRequired
+  onMoveForward: PropTypes.func.isRequired,
+  onSaveLearnedWords: PropTypes.func.isRequired
 };
