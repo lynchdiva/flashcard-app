@@ -3,7 +3,7 @@
 
 .card__container {
   position: relative;
-  max-width: 55em;
+  max-width: 50em;
   margin: auto;
 }
 
@@ -19,7 +19,7 @@
   justify-content: space-between;
   width: 100%;
   min-height: 40em;
-  padding: 2em 4em;
+  padding: 2em 2em;
 
   border: 2px solid transparent;
   border-radius: 10px;
@@ -29,14 +29,6 @@
     rgba(0, 0, 0, 0.05) 0px 4px 6px -2px;
 
   color: vr.$font-green;
-}
-
-.learned {
-  border-color: vr.$background-green;
-}
-
-.in-progress {
-  border-color: vr.$accent-orange;
 }
 
 .card_animated,
@@ -66,7 +58,7 @@
 
 .card__notification-text {
   text-align: center;
-  font-size: 2.5em;
+  font-size: 2.3em;
 }
 
 .card__notification-img {
@@ -113,4 +105,72 @@
   font-size: 2em;
   font-style: italic;
   color: vr.$background-green;
+}
+
+.card__progress {
+  @extend %flex-center;
+  justify-content: center;
+  width: 100%;
+  max-width: 50em;
+  margin: auto;
+  min-height: 40em;
+  padding: 2em 2em;
+
+  border: 2px solid transparent;
+  border-radius: 10px;
+
+  background-color: vr.$background-gray;
+  box-shadow: rgba(0, 0, 0, 0.1) 0px 10px 15px -3px,
+    rgba(0, 0, 0, 0.05) 0px 4px 6px -2px;
+
+  color: vr.$font-green;
+  animation: swipe-out 0.3s ease forwards;
+
+  p {
+    font-size: 3em;
+    font-weight: 500;
+  }
+}
+
+.learned {
+  border-color: vr.$background-green;
+  color: vr.$background-green;
+  animation: swipe-out-right 0.5s ease forwards;
+}
+
+.in-progress {
+  border-color: vr.$accent-orange;
+  color: vr.$accent-orange;
+  animation: swipe-out-left 0.4s ease forwards;
+}
+
+@keyframes swipe-out-left {
+  0% {
+    opacity: 1;
+    transform: translateX(0);
+  }
+  50% {
+    opacity: 1;
+  }
+
+  100% {
+    opacity: 0;
+    transform: translateX(-10%);
+  }
+}
+
+@keyframes swipe-out-right {
+  0% {
+    opacity: 1;
+    transform: translateX(0);
+  }
+
+  50% {
+    opacity: 1;
+  }
+
+  100% {
+    opacity: 0;
+    transform: translateX(10%);
+  }
 }

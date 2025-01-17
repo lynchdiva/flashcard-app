@@ -13,7 +13,7 @@ export default function FlashcardsSection({ words, initialWordIndex = 0 }) {
   const handleFlipCard = () => {
     return new Promise(res => {
       setIsFlipped(prevState => {
-        if (prevState && wordIndex !== words.length - 1) {
+        if (prevState) {
           setTimeout(res, 100);
         } else {
           res();
@@ -34,11 +34,12 @@ export default function FlashcardsSection({ words, initialWordIndex = 0 }) {
       await handleFlipCard();
     }
 
-    setAnimating(false);
-
     if (wordIndex < words.length) {
       setWordIndex(prev => prev + 1);
     }
+
+    setProgress('');
+    setAnimating(false);
   };
 
   const handleMarkProgress = progress => {
@@ -46,9 +47,8 @@ export default function FlashcardsSection({ words, initialWordIndex = 0 }) {
       setProgress(progress);
 
       setTimeout(() => {
-        setProgress('');
         res();
-      }, 500);
+      }, 400);
     });
   };
 

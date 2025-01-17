@@ -18,18 +18,33 @@ export default function Card(props) {
   };
 
   return (
-    <div
-      className={cx('card__container', 'card__animation-container', {
-        'card__animation-container_flip': isFlipped
-      })}
-      onClick={handleClick}
-      onTransitionEnd={handleAnimationEnd}
-    >
-      <FrontSideOfCard word={word} progress={progress} />
-      <BackSideOfCard word={word} progress={progress} />
-    </div>
+    <>
+      {progress ? (
+        <ProgressNotification progress={progress} />
+      ) : (
+        <div
+          className={cx('card__container', 'card__animation-container', {
+            'card__animation-container_flip': isFlipped
+          })}
+          onClick={handleClick}
+          onTransitionEnd={handleAnimationEnd}
+        >
+          <FrontSideOfCard word={word} progress={progress} />
+          <BackSideOfCard word={word} progress={progress} />
+        </div>
+      )}
+    </>
   );
 }
+
+const ProgressNotification = ({ progress }) => {
+  return (
+    <div className={cx('card__progress', progress)}>
+      <p>{progress === 'learned' ? 'Know' : 'Don’t know'}</p>
+    </div>
+  );
+};
+
 const FrontSideOfCard = ({ word, progress }) => {
   return (
     <div
@@ -45,6 +60,7 @@ const FrontSideOfCard = ({ word, progress }) => {
     </div>
   );
 };
+
 const BackSideOfCard = ({ word, progress }) => {
   return (
     <div
@@ -76,6 +92,10 @@ Card.propTypes = {
   progress: PropTypes.string.isRequired,
   onAnimating: PropTypes.func.isRequired,
   isAnimating: PropTypes.bool.isRequired
+};
+
+ProgressNotification.propTypes = {
+  progress: PropTypes.string.isRequired
 };
 
 FrontSideOfCard.propTypes = {
