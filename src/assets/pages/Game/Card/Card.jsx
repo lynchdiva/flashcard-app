@@ -3,6 +3,7 @@ import PropTypes from 'prop-types';
 import classNames from 'classnames/bind';
 
 const cx = classNames.bind(styles);
+
 export default function Card(props) {
   const { word, isFlipped, onFlip, progress, isAnimating, onAnimating } = props;
 

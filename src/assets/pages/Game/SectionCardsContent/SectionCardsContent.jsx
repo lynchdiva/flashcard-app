@@ -5,7 +5,7 @@ import Notification from '../Notification/Notification.jsx';
 import PropTypes from 'prop-types';
 import { useState, useEffect } from 'react';
 
-export default function CardContent(props) {
+export default function SectionCardsContent(props) {
   const {
     words,
     word,
@@ -85,6 +85,6 @@ const CompletionMessage = () => (
   </Notification>
 );
 
-CardContent.propTypes = {
+SectionCardsContent.propTypes = {
   attributes: PropTypes.object.isRequired
 };

@@ -1,8 +1,9 @@
-import styles from './FlashcardsSection.module.scss';
+import styles from './SectionCards.module.scss';
+import SectionCardsContent from '../SectionCardsContent/SectionCardsContent';
 import PropTypes from 'prop-types';
 import { useState, useEffect } from 'react';
-import CardContent from './SectionContent/SectionContent.jsx';
-export default function FlashcardsSection({ words, initialWordIndex = 0 }) {
+
+export default function SectionCards({ words, initialWordIndex = 0 }) {
   const [wordIndex, setWordIndex] = useState(initialWordIndex);
   const [word, setWord] = useState(words[initialWordIndex]);
   const [isFlipped, setIsFlipped] = useState(false);
@@ -79,12 +80,12 @@ export default function FlashcardsSection({ words, initialWordIndex = 0 }) {
 
   return (
     <section className={styles['flashcards-section']}>
-      <CardContent attributes={attributes} />
+      <SectionCardsContent attributes={attributes} />
     </section>
   );
 }
 
-FlashcardsSection.propTypes = {
+SectionCards.propTypes = {
   words: PropTypes.array.isRequired,
   initialWordIndex: PropTypes.number
 };

@@ -1,6 +1,6 @@
 import styles from './SectionWordList.module.scss';
-import DropdownMenu from '../DropdownMenu/DropdownMenu.jsx';
-import WordList from './WordList/WordList.jsx';
+import DropdownMenu from '../../../components/DropdownMenu/DropdownMenu.jsx';
+import WordList from '../WordList/WordList.jsx';
 import PropTypes from 'prop-types';
 
 export default function SectionWordList({ words, onSave, onDelete }) {
@@ -30,5 +30,6 @@ export default function SectionWordList({ words, onSave, onDelete }) {
 
 SectionWordList.propTypes = {
   words: PropTypes.array.isRequired,
-  onSave: PropTypes.func.isRequired
+  onSave: PropTypes.func.isRequired,
+  onDelete: PropTypes.func.isRequired
 };
