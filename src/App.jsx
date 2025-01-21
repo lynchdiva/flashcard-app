@@ -1,7 +1,7 @@
 import styles from './App.module.scss';
-import Home from './assets/pages/Home/Home';
-import Game from './assets/pages/Game/Game';
-import Missing from './assets/pages/Missing/Missing';
+import Home from './pages/Home/Home';
+import Game from './pages/Game/Game';
+import Missing from './pages/Missing/Missing';
 import { useState } from 'react';
 import { BrowserRouter as Router, Routes, Route } from 'react-router';
 
@@ -95,8 +95,8 @@ function App() {
   };
 
   return (
-    <Router>
-      <div className={styles['app-container']}>
+    <div className={styles['app-container']}>
+      <Router>
         <Routes>
           <Route
             path="/"
@@ -113,8 +113,8 @@ function App() {
 
           <Route path="/*" element={<Missing />} />
         </Routes>
-      </div>
-    </Router>
+      </Router>
+    </div>
   );
 }
 

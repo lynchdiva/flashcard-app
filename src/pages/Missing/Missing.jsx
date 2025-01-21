@@ -5,7 +5,6 @@ import { Link } from 'react-router';
 export default function Missing() {
   return (
     <MinimalLayout>
-      <div className={styles.missing__box}></div>
       <div className={styles.missing}>
         <div className={styles['missing__img-cloud-box']}>
           <img

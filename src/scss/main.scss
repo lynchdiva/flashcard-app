@@ -1,9 +1,9 @@
 @use 'normalize.css';
-@use './assets/scss/variables' as vr;
-@use './assets/scss/mixins';
+@use './variables' as vr;
+@use './mixins';
 
-@import './assets/scss/_custom.scss';
-@import '../node_modules/bootstrap/scss/bootstrap.scss';
+@import './custom';
+@import '../../node_modules/bootstrap/scss/bootstrap.scss';
 
 :root {
   height: 100%;
