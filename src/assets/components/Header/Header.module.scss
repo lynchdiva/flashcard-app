@@ -22,10 +22,12 @@
 
   &__button {
     @include mixins.button(vr.$background-green, none, 0.5em 2em);
+    width: 10em;
     margin-left: auto;
     margin-right: 8%;
     position: relative;
 
+    text-align: center;
     font-size: 2em;
     color: white;
 

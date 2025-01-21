@@ -75,7 +75,7 @@ export default function SectionCardsContent(props) {
 
 const NoWordsMessage = () => (
   <Notification src={'typing-woman.svg'} alt={'Typing woman'}>
-    No words in progress yet! <br /> Add some to get started.
+    No words to study yet. <br /> Add some in progress!
   </Notification>
 );
 

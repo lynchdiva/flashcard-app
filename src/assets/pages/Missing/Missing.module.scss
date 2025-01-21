@@ -1,0 +1,106 @@
+@use '../../scss/variables' as vr;
+@use '../../scss/mixins';
+
+.missing {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 100%;
+  min-height: 100vh;
+
+  padding-top: 2em;
+}
+
+.missing__img-cloud-box {
+  max-width: 80%;
+}
+
+.missing__img-cloud {
+  object-fit: contain;
+  width: 100%;
+  height: 100%;
+  animation: moveClouds 10s linear infinite;
+}
+
+.missing__container {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  flex: auto;
+
+  text-align: center;
+}
+
+.missing__error {
+  font-size: 15em;
+  color: vr.$background-green;
+  line-height: 100%;
+}
+
+.missing__text {
+  margin: 0;
+
+  text-align: center;
+  font-size: 2em;
+}
+
+.missing__btn {
+  @include mixins.button(vr.$background-green, none, 0.5em 2em);
+  margin-top: 2em;
+  width: 10em;
+
+  font-size: 2em;
+  color: white;
+
+  @media screen and (max-width: vr.$mobileL) {
+    font-size: 1.8em;
+  }
+}
+
+.missing__img-mountain-box {
+  max-width: 50%;
+  margin-top: 1em;
+  margin-left: 10em;
+
+  @media screen and (max-width: vr.$laptop) {
+    max-width: 40%;
+    margin-left: 7em;
+  }
+
+  @media screen and (max-width: vr.$tablet) {
+    max-width: 60%;
+  }
+
+  @media screen and (max-width: vr.$mobileXL) {
+    max-width: 100%;
+  }
+
+  @media screen and (max-width: vr.$mobileL) {
+    margin-left: 2em;
+  }
+}
+
+.missing__img-mountain {
+  object-fit: contain;
+  width: 100%;
+  height: 100%;
+}
+
+@keyframes moveClouds {
+  0% {
+    transform: translateX(0);
+  }
+  25% {
+    transform: translateX(-4%);
+  }
+  50% {
+    transform: translateX(0);
+  }
+  75% {
+    transform: translateX(4%);
+  }
+  100% {
+    transform: translateX(0);
+  }
+}
