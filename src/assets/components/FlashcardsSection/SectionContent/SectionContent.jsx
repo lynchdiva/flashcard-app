@@ -75,7 +75,7 @@ export default function CardContent(props) {
 
 const NoWordsMessage = () => (
   <Notification src={'typing-woman.svg'} alt={'Typing woman'}>
-    No words yet! <br /> Add some to get started.
+    No words in progress yet! <br /> Add some to get started.
   </Notification>
 );
 

@@ -48,7 +48,7 @@ export default function FlashcardsSection({ words, initialWordIndex = 0 }) {
 
       setTimeout(() => {
         res();
-      }, 400);
+      }, 500);
     });
   };
 

@@ -1,4 +1,5 @@
 @use '../../scss/variables.scss' as vr;
+@use 'sass:color';
 
 .title {
   margin: 0;
@@ -6,7 +7,25 @@
   font-size: 2.2em;
   font-weight: 500;
 
+  cursor: default;
+
   &__accent {
     color: vr.$logo-gray;
   }
+}
+
+.title-link {
+  cursor: pointer;
+
+  &:hover {
+    color: color.adjust(vr.$font-green, $lightness: -10%);
+  }
+
+  &:active {
+    transform: scale(1.02);
+  }
+}
+
+.title-link:hover .title__accent {
+  color: color.adjust(vr.$background-green, $lightness: -10%);
 }

@@ -24,6 +24,7 @@
     @include mixins.button(vr.$background-green, none, 0.5em 2em);
     margin-left: auto;
     margin-right: 8%;
+    position: relative;
 
     font-size: 2em;
     color: white;
@@ -32,6 +33,20 @@
       margin: 1em 0 0 0;
 
       font-size: 1.8em;
+    }
+  }
+
+  &__img {
+    position: absolute;
+    top: 98%;
+    right: 0;
+    width: 3.5em;
+    height: 4.7em;
+
+    pointer-events: none;
+
+    @media screen and (max-width: vr.$mobileL) {
+      display: none;
     }
   }
 }

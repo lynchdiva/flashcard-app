@@ -4,6 +4,7 @@ import SectionWordList from '../SectionWordList/SectionWordList.jsx';
 import BackToTopButton from '../BackToTopButton/BackToTopButton.jsx';
 import FlashcardsSection from '../FlashcardsSection/FlashcardsSection.jsx';
 import { useState } from 'react';
+import { Routes, Route } from 'react-router';
 
 export default function Main() {
   //хранить массив слов в локальном состоянии и передать обработчик к дочерним компонентам для изменения этого массива - временное решение до подключения менеджера состояния
@@ -96,14 +97,22 @@ export default function Main() {
 
   return (
     <main className={styles.main}>
-      <div className={styles['main-container']}></div>
-      <SectionHero />
-      <SectionWordList
-        words={words}
-        onSave={handleWordsChange}
-        onDelete={handleDeleteWord}
-      />
-      <FlashcardsSection words={words} />
+      <Routes>
+        <Route
+          path="/"
+          element={
+            <>
+              <SectionHero />
+              <SectionWordList
+                words={words}
+                onSave={handleWordsChange}
+                onDelete={handleDeleteWord}
+              />
+            </>
+          }
+        />
+        <Route path="game" element={<FlashcardsSection words={words} />} />
+      </Routes>
       <BackToTopButton />
     </main>
   );
