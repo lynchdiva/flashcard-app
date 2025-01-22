@@ -20,6 +20,17 @@
   }
 }
 
+#root {
+  min-width: 320px;
+  margin: 0 auto;
+  min-height: 100%;
+
+  font-family: vr.$font;
+  font-weight: 400;
+  font-style: normal;
+  color: vr.$font-green;
+}
+
 * {
   margin: 0;
   padding: 0;
@@ -30,17 +41,6 @@
   outline-color: vr.$background-green;
   outline-width: 1px;
   outline-style: solid;
-}
-
-#root {
-  min-width: 320px;
-  margin: 0 auto;
-  min-height: 100%;
-
-  font-family: vr.$font;
-  font-weight: 400;
-  font-style: normal;
-  color: vr.$font-green;
 }
 
 a {

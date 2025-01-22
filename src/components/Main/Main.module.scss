@@ -3,6 +3,9 @@
 
 .main {
   @extend %container;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
   padding: 0 vr.$global-side-padding;
   flex: auto;
   width: 100%;

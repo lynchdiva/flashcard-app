@@ -6,5 +6,5 @@ export default function Main({ children }) {
 }
 
 Main.propTypes = {
-  children: PropTypes.object.isRequired
+  children: PropTypes.array.isRequired
 };

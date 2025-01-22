@@ -4,10 +4,5 @@
 .flashcards-section {
   display: flex;
   flex-direction: column;
-  margin-top: 9em;
   width: 100%;
-
-  @media screen and (max-width: vr.$mobileL) {
-    margin-top: 5em;
-  }
 }
