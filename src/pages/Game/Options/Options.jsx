@@ -17,9 +17,11 @@ export default function Options({ currentCount, amount, onMoveCard }) {
         <svg className={styles.options__icon}>
           <use xlinkHref="./src/assets/icons/sprite.svg#back-arrow"></use>
         </svg>
-        <span>Back</span>
+        <span>Undo</span>
       </button>
+
       <Counter currentCount={currentCount} amount={amount} />
+
       <button className={styles.options__btn}>
         <svg className={styles.options__icon}>
           <use xlinkHref="./src/assets/icons/sprite.svg#shuffle"></use>

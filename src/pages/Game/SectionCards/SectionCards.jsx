@@ -41,20 +41,16 @@ export default function SectionCards({ words, initialWordIndex = 0 }) {
     };
 
     if (direction === 'forward') {
-      await handleActivateMoveAnimation(animationType);
-
+      await handleMoveAnimation(animationType);
       if (isFlipped) {
         await handleFlipCard();
       }
-
       moveForward();
     } else if (direction === 'back') {
       if (isFlipped) {
         await handleFlipCard();
       }
-
-      await handleActivateMoveAnimation(animationType);
-
+      await handleMoveAnimation(animationType);
       moveBack();
     }
 
@@ -62,10 +58,9 @@ export default function SectionCards({ words, initialWordIndex = 0 }) {
     setAnimating(false);
   };
 
-  const handleActivateMoveAnimation = animationType => {
+  const handleMoveAnimation = animationType => {
     return new Promise(res => {
       setMoveAnimationType(animationType);
-
       setTimeout(() => {
         res();
       }, 500);
