@@ -19,7 +19,7 @@
   flex-direction: column;
   justify-content: space-between;
   width: 100%;
-  min-height: 40em;
+  min-height: 38em;
   padding: 2em 2em;
 
   border: 2px solid transparent;
@@ -37,47 +37,6 @@
   transition: transform 400ms;
   transform-style: preserve-3d;
   backface-visibility: hidden;
-}
-
-.card-other-side {
-  position: absolute;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  display: flex;
-  flex-direction: column;
-
-  overflow: scroll;
-  transform: rotateY(180deg);
-}
-
-.card_notification {
-  align-items: center;
-  justify-content: center;
-}
-
-.card__notification-text {
-  text-align: center;
-  font-size: 2.3em;
-}
-
-.card__notification-img {
-  width: 10em;
-  height: 10em;
-}
-
-.card__animation-container_flip .card {
-  transform: rotateY(180deg);
-}
-
-.card__animation-container_flip .card-other-side {
-  transform: rotateY(0);
-}
-
-.card-other-side__word {
-  font-size: 3em;
-  text-align: center;
 }
 
 .card__box {
@@ -108,13 +67,54 @@
   color: vr.$background-green;
 }
 
+.card-other-side {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+
+  overflow: scroll;
+  transform: rotateY(180deg);
+}
+
+.card-other-side__word {
+  font-size: 3em;
+  text-align: center;
+}
+
+.card__animation-container_flip .card {
+  transform: rotateY(180deg);
+}
+
+.card__animation-container_flip .card-other-side {
+  transform: rotateY(0);
+}
+
+.card__notification {
+  align-items: center;
+  justify-content: center;
+}
+
+.card__notification-text {
+  text-align: center;
+  font-size: 2.3em;
+}
+
+.card__notification-img {
+  width: 10em;
+  height: 10em;
+}
+
 .card__progress {
   @extend %flex-center;
   justify-content: center;
   width: 100%;
   max-width: 55em;
   margin: auto;
-  min-height: 40em;
+  min-height: 38em;
   padding: 2em 2em;
 
   border: 2px solid transparent;
@@ -143,6 +143,15 @@
   border-color: vr.$accent-orange;
   color: vr.$accent-orange;
   animation: swipe-out-left 0.4s ease forwards;
+}
+
+.undo {
+  animation: swipe-out-left 0.4s ease forwards;
+
+  p {
+    font-weight: 400;
+    opacity: 0.5;
+  }
 }
 
 @keyframes swipe-out-left {

@@ -3,7 +3,7 @@ import Home from './pages/Home/Home';
 import Game from './pages/Game/Game';
 import Missing from './pages/Missing/Missing';
 import { useState } from 'react';
-import { BrowserRouter as Router, Routes, Route } from 'react-router';
+import { Routes, Route } from 'react-router';
 
 function App() {
   //хранить массив слов в локальном состоянии и передать обработчик к дочерним компонентам для изменения этого массива - временное решение до подключения менеджера состояния
@@ -96,24 +96,20 @@ function App() {
 
   return (
     <div className={styles['app-container']}>
-      <Router>
-        <Routes>
-          <Route
-            path="/"
-            element={
-              <Home
-                words={words}
-                onSave={handleWordsChange}
-                onDelete={handleDeleteWord}
-              />
-            }
-          />
-
-          <Route path="/game" element={<Game words={words} />} />
-
-          <Route path="/*" element={<Missing />} />
-        </Routes>
-      </Router>
+      <Routes>
+        <Route
+          index
+          element={
+            <Home
+              words={words}
+              onSave={handleWordsChange}
+              onDelete={handleDeleteWord}
+            />
+          }
+        />
+        <Route path="game" element={<Game words={words} />} />
+        <Route path="*" element={<Missing />} />
+      </Routes>
     </div>
   );
 }

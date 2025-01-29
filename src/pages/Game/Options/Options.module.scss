@@ -1,0 +1,38 @@
+@use '../../../scss/variables' as vr;
+@use '../../../scss/mixins.scss';
+
+.options__container {
+  @extend %flex-center;
+  justify-content: space-between;
+  width: 25em;
+  margin: 2em auto;
+  padding: 0.5em 2em;
+
+  border: 1px solid #779f8830;
+  border-radius: 20px;
+}
+
+.options__btn {
+  @include mixins.svg-button(0, vr.$background-green);
+  @extend %flex-center;
+  flex-direction: column;
+  justify-content: center;
+  gap: 0.2em;
+
+  font-weight: 500;
+  color: vr.$background-green;
+}
+
+.options__btn:disabled {
+  pointer-events: none;
+}
+
+.options__btn:disabled .options__icon {
+  opacity: 0.5;
+}
+
+.options__icon {
+  width: 3.5em;
+  height: 3.5em;
+  fill: vr.$background-green;
+}

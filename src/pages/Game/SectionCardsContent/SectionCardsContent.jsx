@@ -1,7 +1,8 @@
 import Card from '../Card/Card.jsx';
 import ProgressButtons from '../ProgressButtons/ProgressButtons.jsx';
-import Counter from '../Counter/Counter.jsx';
-import Notification from '../Notification/Notification.jsx';
+import NoWordsMessage from '../Card/Notification/NoWordsMessage.jsx';
+import CompletionMessage from '../Card/Notification/CompletionMessage.jsx';
+import Options from '../Options/Options.jsx';
 import PropTypes from 'prop-types';
 import { useState, useEffect } from 'react';
 
@@ -12,37 +13,51 @@ export default function SectionCardsContent(props) {
     isFlipped,
     isAnimating,
     isCompleted,
-    progress,
+    moveAnimationType,
     currentCount,
-    onMoveForward,
+    onMoveForward: onMoveCard,
     onFlip,
     onAnimating
   } = props.attributes;
 
   const isNoWords = words.length === 0;
 
-  const [learnedWords, setlearnedWords] = useState([]);
+  const [learnedWords, setlearnedWords] = useState(new Set());
 
   useEffect(() => {
     const data = window.localStorage.getItem('learnedWords');
-
     if (data) {
-      setlearnedWords(JSON.parse(data));
+      setlearnedWords(new Set(JSON.parse(data)));
     } else {
       window.localStorage.setItem('learnedWords', JSON.stringify([]));
     }
   }, []);
 
   const handleSaveLearnedWord = () => {
-    setlearnedWords(prevWords => {
-      const updatedWords = [...prevWords, word.english];
-      window.localStorage.setItem('learnedWords', JSON.stringify(updatedWords));
+    setlearnedWords(learnedWords => {
+      learnedWords.add(word.english);
+      window.localStorage.setItem(
+        'learnedWords',
+        JSON.stringify([...learnedWords])
+      );
 
-      return updatedWords;
+      return learnedWords;
     });
   };
 
-  // window.localStorage.clear()
+  const handleDeleteLearnedWord = () => {
+    setlearnedWords(learnedWords => {
+      learnedWords.delete(word.english);
+      window.localStorage.setItem(
+        'learnedWords',
+        JSON.stringify([...learnedWords])
+      );
+
+      return learnedWords;
+    });
+  };
+
+  // window.localStorage.clear();
   console.log(learnedWords);
 
   return (
@@ -58,32 +73,25 @@ export default function SectionCardsContent(props) {
             isFlipped={isFlipped}
             onFlip={onFlip}
             isCompleted={isCompleted}
-            progress={progress}
+            moveAnimationType={moveAnimationType}
             isAnimating={isAnimating}
             onAnimating={onAnimating}
           />
-          <Counter currentCount={currentCount} amount={words.length} />
+          <Options
+            currentCount={currentCount}
+            amount={words.length}
+            onMoveCard={onMoveCard}
+          />
           <ProgressButtons
-            onMoveForward={onMoveForward}
+            onMoveCard={onMoveCard}
             onSaveLearnedWords={handleSaveLearnedWord}
+            onDeleteLearnedWords={handleDeleteLearnedWord}
           />
         </>
       )}
     </>
   );
 }
-
-const NoWordsMessage = () => (
-  <Notification src={'typing-woman.svg'} alt={'Typing woman'}>
-    No words to study yet. <br /> Add some in progress!
-  </Notification>
-);
-
-const CompletionMessage = () => (
-  <Notification src={'man-with-flag.svg'} alt={'Man with flag'}>
-    Great job! <br /> You&apos;ve completed your session.
-  </Notification>
-);
 
 SectionCardsContent.propTypes = {
   attributes: PropTypes.object.isRequired

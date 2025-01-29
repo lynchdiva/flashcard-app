@@ -1,14 +1,19 @@
 import styles from './ProgressButtons.module.scss';
 import PropTypes from 'prop-types';
 
-export default function ProgressButtons({ onMoveForward, onSaveLearnedWords }) {
+export default function ProgressButtons({
+  onMoveCard,
+  onSaveLearnedWords,
+  onDeleteLearnedWords
+}) {
   const moveAndMarkAsLearned = () => {
     onSaveLearnedWords();
-    onMoveForward('learned');
+    onMoveCard('learned', 'forward');
   };
 
   const moveAndMarkAsInProgress = () => {
-    onMoveForward('in-progress');
+    onDeleteLearnedWords();
+    onMoveCard('in-progress', 'forward');
   };
   return (
     <div className={styles['card-buttons-container']}>
@@ -26,6 +31,7 @@ export default function ProgressButtons({ onMoveForward, onSaveLearnedWords }) {
 }
 
 ProgressButtons.propTypes = {
-  onMoveForward: PropTypes.func.isRequired,
-  onSaveLearnedWords: PropTypes.func.isRequired
+  onMoveCard: PropTypes.func.isRequired,
+  onSaveLearnedWords: PropTypes.func.isRequired,
+  onDeleteLearnedWords: PropTypes.func.isRequired
 };

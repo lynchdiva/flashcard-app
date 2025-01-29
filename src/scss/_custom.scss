@@ -1,6 +1,8 @@
 @use './variables' as vr;
 @use './mixins';
 
+@import '../../node_modules/bootstrap/scss/functions';
+
 $btn-color: vr.$background-green;
 $btn-font-size: 2em;
 $btn-font-weight: 500;
@@ -12,3 +14,13 @@ $dropdown-link-color: vr.$background-green;
 $dropdown-link-hover-color: vr.$background-green;
 $dropdown-link-active-bg: vr.$background-green;
 $box-shadow: 0px 4px 12px rgba(0, 0, 0, 0.1);
+
+@import '../../node_modules/bootstrap/scss/variables';
+@import '../../node_modules/bootstrap/scss/variables-dark';
+@import '../../node_modules/bootstrap/scss/maps';
+@import '../../node_modules/bootstrap/scss/mixins';
+@import '../../node_modules/bootstrap/scss/root';
+
+@import '../../node_modules/bootstrap/scss/reboot';
+@import '../../node_modules/bootstrap/scss/dropdown';
+@import '../../node_modules/bootstrap/scss/buttons';

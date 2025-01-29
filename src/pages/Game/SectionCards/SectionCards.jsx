@@ -9,7 +9,7 @@ export default function SectionCards({ words, initialWordIndex = 0 }) {
   const [isFlipped, setIsFlipped] = useState(false);
   const [isCompleted, setIsComleted] = useState(false);
   const [isAnimating, setAnimating] = useState(false);
-  const [progress, setProgress] = useState('');
+  const [moveAnimationType, setMoveAnimationType] = useState('');
 
   const handleFlipCard = () => {
     return new Promise(res => {
@@ -24,28 +24,47 @@ export default function SectionCards({ words, initialWordIndex = 0 }) {
     });
   };
 
-  const handleMoveForward = async progress => {
+  const handleMoveCard = async (animationType, direction) => {
     if (isAnimating) return;
 
     setAnimating(true);
 
-    await handleMarkProgress(progress);
+    const moveForward = () => {
+      if (wordIndex < words.length) {
+        setWordIndex(prev => prev + 1);
+      }
+    };
+    const moveBack = () => {
+      if (wordIndex > 0) {
+        setWordIndex(prev => prev - 1);
+      }
+    };
 
-    if (isFlipped) {
-      await handleFlipCard();
+    if (direction === 'forward') {
+      await handleActivateMoveAnimation(animationType);
+
+      if (isFlipped) {
+        await handleFlipCard();
+      }
+
+      moveForward();
+    } else if (direction === 'back') {
+      if (isFlipped) {
+        await handleFlipCard();
+      }
+
+      await handleActivateMoveAnimation(animationType);
+
+      moveBack();
     }
 
-    if (wordIndex < words.length) {
-      setWordIndex(prev => prev + 1);
-    }
-
-    setProgress('');
+    setMoveAnimationType('');
     setAnimating(false);
   };
 
-  const handleMarkProgress = progress => {
+  const handleActivateMoveAnimation = animationType => {
     return new Promise(res => {
-      setProgress(progress);
+      setMoveAnimationType(animationType);
 
       setTimeout(() => {
         res();
@@ -70,11 +89,11 @@ export default function SectionCards({ words, initialWordIndex = 0 }) {
     word,
     isFlipped,
     isCompleted,
-    progress,
+    moveAnimationType,
     currentCount: wordIndex + 1,
     isAnimating,
     onFlip: handleFlipCard,
-    onMoveForward: handleMoveForward,
+    onMoveForward: handleMoveCard,
     onAnimating: setAnimating
   };
 

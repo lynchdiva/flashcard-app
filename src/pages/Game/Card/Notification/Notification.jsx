@@ -1,4 +1,4 @@
-import styles from '../Card/Card.module.scss';
+import styles from '../Card.module.scss';
 import classNames from 'classnames/bind';
 import PropTypes from 'prop-types';
 
@@ -6,7 +6,7 @@ const cx = classNames.bind(styles);
 
 export default function Notification({ children, src, alt }) {
   return (
-    <div className={cx('card__container', 'card', 'card_notification')}>
+    <div className={cx('card__container', 'card', 'card__notification')}>
       <p className={styles['card__notification-text']}>{children}</p>
       <img
         className={styles['card__notification-img']}

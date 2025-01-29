@@ -1,11 +1,21 @@
 import styles from './Card.module.scss';
 import PropTypes from 'prop-types';
 import classNames from 'classnames/bind';
+import FrontSideOfCard from './FrontSideOfCard';
+import BackSideOfCard from './BackSideOfCard';
+import SlidingCard from './SlidingCard';
 
 const cx = classNames.bind(styles);
 
 export default function Card(props) {
-  const { word, isFlipped, onFlip, progress, isAnimating, onAnimating } = props;
+  const {
+    word,
+    isFlipped,
+    onFlip,
+    moveAnimationType,
+    isAnimating,
+    onAnimating
+  } = props;
 
   const handleClick = () => {
     if (isAnimating) return;
@@ -20,8 +30,8 @@ export default function Card(props) {
 
   return (
     <>
-      {progress ? (
-        <ProgressNotification progress={progress} />
+      {moveAnimationType ? (
+        <SlidingCard word={word} moveAnimationType={moveAnimationType} />
       ) : (
         <div
           className={cx('card__container', 'card__animation-container', {
@@ -30,81 +40,20 @@ export default function Card(props) {
           onClick={handleClick}
           onTransitionEnd={handleAnimationEnd}
         >
-          <FrontSideOfCard word={word} progress={progress} />
-          <BackSideOfCard word={word} progress={progress} />
+          <BackSideOfCard word={word} />
+          <FrontSideOfCard word={word} />
         </div>
       )}
     </>
   );
 }
 
-const ProgressNotification = ({ progress }) => {
-  return (
-    <div className={cx('card__progress', progress)}>
-      <p>{progress === 'learned' ? 'Know' : 'Don’t know'}</p>
-    </div>
-  );
-};
-
-const FrontSideOfCard = ({ word, progress }) => {
-  return (
-    <div
-      className={cx(progress, {
-        'card-other-side': true,
-        'card-other-side_animated': true
-      })}
-    >
-      <span className={styles.card__tag}>{word.tags}</span>
-      <p className={styles['card-other-side__word']}>{word.russian}</p>
-
-      <Notice />
-    </div>
-  );
-};
-
-const BackSideOfCard = ({ word, progress }) => {
-  return (
-    <div
-      className={cx(progress, {
-        card: true,
-        card_animated: true
-      })}
-    >
-      <span className={styles.card__tag}>{word.tags}</span>
-      <div className={styles.card__box}>
-        <p className={styles.card__word}>{word.english}</p>
-        <p className={styles.card__transcription}>{word.transcription}</p>
-      </div>
-
-      <Notice />
-    </div>
-  );
-};
-
-const Notice = () => {
-  return <span className={styles.card__notice}>click to flip</span>;
-};
-
 Card.propTypes = {
   isCompleted: PropTypes.bool.isRequired,
   isFlipped: PropTypes.bool.isRequired,
   onFlip: PropTypes.func.isRequired,
   word: PropTypes.object.isRequired,
-  progress: PropTypes.string.isRequired,
+  moveAnimationType: PropTypes.string.isRequired,
   onAnimating: PropTypes.func.isRequired,
   isAnimating: PropTypes.bool.isRequired
-};
-
-ProgressNotification.propTypes = {
-  progress: PropTypes.string.isRequired
-};
-
-FrontSideOfCard.propTypes = {
-  word: PropTypes.object.isRequired,
-  progress: PropTypes.string.isRequired
-};
-
-BackSideOfCard.propTypes = {
-  word: PropTypes.object.isRequired,
-  progress: PropTypes.string.isRequired
 };
