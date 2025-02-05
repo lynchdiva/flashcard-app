@@ -15,6 +15,7 @@ export default function ProgressButtons({
     onDeleteLearnedWords();
     onMoveCard('in-progress', 'forward');
   };
+
   return (
     <div className={styles['card-buttons-container']}>
       <button

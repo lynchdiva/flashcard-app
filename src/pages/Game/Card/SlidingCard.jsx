@@ -23,6 +23,5 @@ export default function SlidingCard({ word, moveAnimationType }) {
 
 SlidingCard.propTypes = {
   word: PropTypes.object.isRequired,
-  moveAnimationType: PropTypes.string.isRequired,
-  isFlipped: PropTypes.bool.isRequired
+  moveAnimationType: PropTypes.string.isRequired
 };

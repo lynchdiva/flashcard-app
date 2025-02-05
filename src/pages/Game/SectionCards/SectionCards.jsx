@@ -88,7 +88,7 @@ export default function SectionCards({ words, initialWordIndex = 0 }) {
     currentCount: wordIndex + 1,
     isAnimating,
     onFlip: handleFlipCard,
-    onMoveForward: handleMoveCard,
+    onMoveCard: handleMoveCard,
     onAnimating: setAnimating
   };
 

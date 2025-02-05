@@ -4,8 +4,7 @@ import NoWordsMessage from '../Card/Notification/NoWordsMessage.jsx';
 import CompletionMessage from '../Card/Notification/CompletionMessage.jsx';
 import Options from '../Options/Options.jsx';
 import PropTypes from 'prop-types';
-import { useState, useEffect } from 'react';
-
+import useLocalStorage from '../../../utilities/hooks/useLocalStorage.jsx';
 export default function SectionCardsContent(props) {
   const {
     words,
@@ -15,57 +14,36 @@ export default function SectionCardsContent(props) {
     isCompleted,
     moveAnimationType,
     currentCount,
-    onMoveForward: onMoveCard,
+    onMoveCard,
     onFlip,
     onAnimating
   } = props.attributes;
 
   const isNoWords = words.length === 0;
-
-  const [learnedWords, setlearnedWords] = useState(new Set());
-
-  useEffect(() => {
-    const data = window.localStorage.getItem('learnedWords');
-    if (data) {
-      setlearnedWords(new Set(JSON.parse(data)));
-    } else {
-      window.localStorage.setItem('learnedWords', JSON.stringify([]));
-    }
-  }, []);
+  const [learnedWords, setlearnedWords] = useLocalStorage('learnedWords', []);
 
   const handleSaveLearnedWord = () => {
     setlearnedWords(learnedWords => {
-      learnedWords.add(word.english);
-      window.localStorage.setItem(
-        'learnedWords',
-        JSON.stringify([...learnedWords])
-      );
-
-      return learnedWords;
+      const learnedWordsSet = new Set(learnedWords);
+      learnedWordsSet.add(word.english);
+      return Array.from(learnedWordsSet);
     });
   };
 
   const handleDeleteLearnedWord = () => {
     setlearnedWords(learnedWords => {
-      learnedWords.delete(word.english);
-      window.localStorage.setItem(
-        'learnedWords',
-        JSON.stringify([...learnedWords])
-      );
-
-      return learnedWords;
+      const learnedWordsSet = new Set(learnedWords);
+      learnedWordsSet.delete(word.english);
+      return Array.from(learnedWordsSet);
     });
   };
-
   // window.localStorage.clear();
-  console.log(learnedWords);
-
   return (
     <>
       {isNoWords ? (
         <NoWordsMessage />
       ) : isCompleted ? (
-        <CompletionMessage />
+        <CompletionMessage amountLearnedWords={learnedWords.length} />
       ) : (
         <>
           <Card
