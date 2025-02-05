@@ -9,21 +9,14 @@ export default function EditButtons({ onSave, onCancel }) {
     onSave();
     onCancel();
   };
+
   return (
     <>
       <button
-        className={cx({
-          table__button: true,
-          table__button_orange: true
-        })}
+        className={cx('table__button', 'table__button_orange')}
         onClick={onClick}
       >
-        <svg
-          className={cx({
-            table__icon: true,
-            table__icon_orange: true
-          })}
-        >
+        <svg className={cx('table__icon', 'table__icon_orange')}>
           <use xlinkHref="src/assets/icons/sprite.svg#check-mark"></use>
         </svg>
       </button>

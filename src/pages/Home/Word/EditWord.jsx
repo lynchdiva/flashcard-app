@@ -1,12 +1,13 @@
 import styles from './Word.module.scss';
 import PropTypes from 'prop-types';
 import EditButtons from './EditButtons';
-import { useState } from 'react';
+import { useState, useRef, useEffect } from 'react';
 
-export default function EditWord(props) {
+export default function EditWord({ word, onSave, onModeChange }) {
   const [formData, setFormData] = useState({
-    ...props.word
+    ...word
   });
+  const inputRef = useRef(null);
 
   const handleChangeFormData = e => {
     const { name, value } = e.target;
@@ -16,9 +17,9 @@ export default function EditWord(props) {
     }));
   };
 
-  const onSave = () => {
-    props.onSave(formData);
-  };
+  useEffect(() => {
+    inputRef.current.focus();
+  }, []);
 
   return (
     <>
@@ -29,6 +30,7 @@ export default function EditWord(props) {
           name="english"
           value={formData.english}
           onChange={handleChangeFormData}
+          ref={inputRef}
         />
       </td>
       <td className={styles.table__data}>
@@ -61,8 +63,8 @@ export default function EditWord(props) {
       <td className={styles.table__data}>
         <div className={styles.table__options}>
           <EditButtons
-            onSave={onSave}
-            onCancel={props.onModeChange}
+            onSave={() => onSave(formData)}
+            onCancel={onModeChange}
             input={formData}
           />
         </div>

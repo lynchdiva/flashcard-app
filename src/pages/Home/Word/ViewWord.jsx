@@ -14,7 +14,11 @@ export default function ViewWord(props) {
       <td className={styles.table__data}>{tags || '-'}</td>
       <td className={styles.table__data}>
         <div className={styles.table__options}>
-          <ViewButtons onEdit={onModeChange} onDelete={onDelete} word={word} />
+          <ViewButtons
+            onModeChange={onModeChange}
+            onDelete={onDelete}
+            word={word}
+          />
         </div>
       </td>
     </>
