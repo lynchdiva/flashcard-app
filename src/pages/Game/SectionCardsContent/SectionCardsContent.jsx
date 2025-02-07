@@ -20,10 +20,10 @@ export default function SectionCardsContent(props) {
   } = props.attributes;
 
   const isNoWords = words.length === 0;
-  const [learnedWords, setlearnedWords] = useLocalStorage('learnedWords', []);
+  const [learnedWords, setLearnedWords] = useLocalStorage('learnedWords', []);
 
   const handleSaveLearnedWord = () => {
-    setlearnedWords(learnedWords => {
+    setLearnedWords(learnedWords => {
       const learnedWordsSet = new Set(learnedWords);
       learnedWordsSet.add(word.english);
       return Array.from(learnedWordsSet);
@@ -31,7 +31,7 @@ export default function SectionCardsContent(props) {
   };
 
   const handleDeleteLearnedWord = () => {
-    setlearnedWords(learnedWords => {
+    setLearnedWords(learnedWords => {
       const learnedWordsSet = new Set(learnedWords);
       learnedWordsSet.delete(word.english);
       return Array.from(learnedWordsSet);

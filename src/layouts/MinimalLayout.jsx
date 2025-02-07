@@ -6,5 +6,5 @@ export default function MinimalLayout({ children }) {
 }
 
 MinimalLayout.propTypes = {
-  children: PropTypes.object.isRequired
+  children: PropTypes.node.isRequired
 };

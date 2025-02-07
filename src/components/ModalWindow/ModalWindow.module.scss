@@ -1,0 +1,19 @@
+@use '../../scss/variables' as vr;
+@use '../../scss/mixins.scss';
+@use 'sass:color';
+
+.modal-window {
+  position: fixed;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  z-index: 2000;
+  width: 100vw;
+  height: 100vh;
+  min-width: 320px;
+  @extend %flex-center;
+  justify-content: center;
+
+  overflow: hidden;
+  background-color: color.mix(vr.$background-gray, rgba(255, 255, 255, 0), 80%);
+}

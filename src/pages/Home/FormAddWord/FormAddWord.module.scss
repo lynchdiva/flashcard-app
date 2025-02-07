@@ -1,0 +1,128 @@
+@use '../../../scss/variables' as vr;
+@use '../../../scss/mixins.scss';
+
+.add-form {
+  display: flex;
+  width: 50%;
+  min-height: 50%;
+
+  background-color: vr.$background-green;
+  border-radius: 5px;
+
+  @media screen and (max-width: 1280px) {
+    flex-direction: column;
+  }
+  @media screen and (max-width: vr.$tablet) {
+    width: 70%;
+  }
+  @media screen and (max-width: vr.$mobileXL) {
+    width: 85%;
+  }
+}
+
+.add-form__close-button {
+  @include mixins.svg-button(0.5em, white);
+  position: absolute;
+}
+
+.add-form__close-icon {
+  width: 3.2em;
+  height: 3.2em;
+  fill: white;
+}
+
+.add-form__inputs-box,
+.add-form__notice-box {
+  display: flex;
+  flex-direction: column;
+  flex-basis: 50%;
+  padding: 5em 4em 4em 5em;
+
+  @media screen and (max-width: vr.$mobileL) {
+    padding-inline: 2em;
+  }
+}
+
+.add-form__inputs-box {
+  justify-content: center;
+  gap: 3em;
+
+  @media screen and (max-width: 1280px) {
+    padding-bottom: 1.5em;
+  }
+}
+
+.add-form__notice-box {
+  @extend %flex-center;
+  justify-content: center;
+  position: relative;
+
+  @media screen and (max-width: 1280px) {
+    padding-top: 0;
+  }
+}
+
+.add-form__button-add,
+.add-form__button-clear {
+  @include mixins.button(vr.$background-green, 1px solid white, 0.8em 1em);
+  width: 13em;
+  flex: none;
+
+  font-size: 1.5em;
+  color: white;
+
+  @media screen and (max-width: 1280px) {
+    margin: auto;
+  }
+  @media screen and (max-width: vr.$mobileL) {
+    width: 10em;
+  }
+}
+
+.add-form__button-add {
+  margin-left: auto;
+}
+
+.add-form__button-clear {
+  margin-right: auto;
+}
+
+.add-form__img {
+  position: absolute;
+  top: -5px;
+  right: -7px;
+  width: 12em;
+  height: 12em;
+
+  @media screen and (max-width: 1280px) {
+    top: -16px;
+    width: 11em;
+    height: 11em;
+
+    transform: rotate(0.35turn);
+  }
+  @media screen and (max-width: vr.$tablet) {
+    top: -12px;
+    right: -5px;
+  }
+  @media screen and (max-width: vr.$mobileL) {
+    width: 8em;
+    height: 8em;
+    top: 11px;
+    right: -4px;
+  }
+}
+
+.add-form__text {
+  @extend %flex-center;
+  flex: auto;
+  margin: 0;
+
+  font-size: 1.7em;
+  text-align: center;
+  color: white;
+
+  @media screen and (max-width: 1280px) {
+    display: none;
+  }
+}

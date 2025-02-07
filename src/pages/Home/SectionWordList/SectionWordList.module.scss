@@ -4,6 +4,7 @@
 
 .section-words {
   @extend %container;
+  flex: auto;
 
   &__container {
     @extend %flex-center;
