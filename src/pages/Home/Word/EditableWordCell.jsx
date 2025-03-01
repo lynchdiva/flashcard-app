@@ -28,7 +28,7 @@ EditableWordCell.displayName = 'EditableCell';
 EditableWordCell.propTypes = {
   name: PropTypes.string.isRequired,
   value: PropTypes.string.isRequired,
-  error: PropTypes.string.isRequired,
+  error: PropTypes.string,
   onChange: PropTypes.func.isRequired
 };
 

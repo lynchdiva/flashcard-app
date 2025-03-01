@@ -23,6 +23,7 @@
 .add-form__close-button {
   @include mixins.svg-button(0.5em, white);
   position: absolute;
+  border-radius: 5px;
 }
 
 .add-form__close-icon {
