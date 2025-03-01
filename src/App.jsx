@@ -83,6 +83,9 @@ function App() {
   const [words, changeWords] = useState(data || []);
 
   const handleWordsChange = replacement => {
+    for (let key in replacement) {
+      replacement[key] = replacement[key].trim();
+    }
     changeWords(
       words.map(originalWord => {
         return originalWord.id === replacement.id ? replacement : originalWord;

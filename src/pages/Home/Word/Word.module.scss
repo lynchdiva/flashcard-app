@@ -22,7 +22,7 @@
 
 .table__data {
   min-height: 3em;
-  padding-block: 0.5em;
+  padding-block: 0.4em;
 
   font-size: 1.8em;
   text-align: center;
@@ -36,9 +36,10 @@
   @media screen and (max-width: vr.$mobileXL) {
     display: flex;
     align-items: center;
+    flex-direction: column;
     justify-content: center;
     width: 90%;
-    padding-block: 0;
+    padding-block: 0.4em;
 
     border-right: none;
     border-bottom: 1px solid vr.$line-color;
@@ -78,6 +79,14 @@
   @include mixins.svg-button(5px 0, vr.$accent-orange);
 }
 
+.table__button_orange:disabled {
+  pointer-events: none;
+}
+
+.table__button_orange:disabled .table__icon_orange {
+  opacity: 0.5;
+}
+
 .table__input {
   width: 90%;
   min-height: 2.5em;
@@ -87,4 +96,17 @@
   text-align: center;
 
   background-color: vr.$background-gray;
+}
+
+.invalid {
+  border: 1px solid vr.$accent-orange;
+}
+
+.invalid:focus-visible {
+  outline-color: vr.$invalid-color;
+}
+
+.table__error-message {
+  font-size: 0.8em;
+  color: vr.$accent-orange;
 }

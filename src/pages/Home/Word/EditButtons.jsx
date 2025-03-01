@@ -4,8 +4,9 @@ import PropTypes from 'prop-types';
 
 const cx = classNames.bind(styles);
 
-export default function EditButtons({ onSave, onCancel }) {
+export default function EditButtons({ onSave, onCancel, isFormInvalid }) {
   const onClick = () => {
+    if (isFormInvalid) return;
     onSave();
     onCancel();
   };
@@ -15,6 +16,7 @@ export default function EditButtons({ onSave, onCancel }) {
       <button
         className={cx('table__button', 'table__button_orange')}
         onClick={onClick}
+        disabled={isFormInvalid}
       >
         <svg className={cx('table__icon', 'table__icon_orange')}>
           <use xlinkHref="src/assets/icons/sprite.svg#check-mark"></use>
@@ -32,5 +34,5 @@ export default function EditButtons({ onSave, onCancel }) {
 EditButtons.propTypes = {
   onSave: PropTypes.func.isRequired,
   onCancel: PropTypes.func.isRequired,
-  input: PropTypes.object.isRequired
+  isFormInvalid: PropTypes.bool.isRequired
 };

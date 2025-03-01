@@ -36,7 +36,7 @@
 }
 
 *:focus-visible {
-  outline-color: vr.$background-green;
+  outline-color: yellowgreen;
   outline-width: 1px;
   outline-style: solid;
 }
@@ -46,4 +46,8 @@ a {
   font-style: normal;
   text-decoration: none;
   color: inherit;
+}
+
+tbody {
+  vertical-align: text-top;
 }

@@ -11,7 +11,7 @@
   }
   :focus-visible {
     color: color.adjust(vr.$background-green, $lightness: -10%);
-    outline-color: green;
+    outline-color: yellowgreen;
     outline-width: 1px;
     outline-style: solid;
   }

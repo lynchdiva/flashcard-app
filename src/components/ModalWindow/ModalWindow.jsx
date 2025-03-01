@@ -4,7 +4,9 @@ import PropTypes from 'prop-types';
 export default function ModalWindow({ children, isShown }) {
   return (
     <>
-      {isShown ? <div className={styles['modal-window']}>{children}</div> : ''}
+      {isShown ? (
+        <div className={styles['modal-window']}>{children}</div>
+      ) : null}
     </>
   );
 }

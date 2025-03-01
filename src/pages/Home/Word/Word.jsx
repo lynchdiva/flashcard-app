@@ -1,7 +1,7 @@
 import styles from './Word.module.scss';
 import PropTypes from 'prop-types';
-import EditWord from './EditWord';
-import ViewWord from './ViewWord';
+import EditableWord from './EditableWord';
+import ReadonlyWord from './ReadonlyWord';
 import { useState } from 'react';
 
 export default function Word({ word, onSave, onDelete }) {
@@ -14,13 +14,13 @@ export default function Word({ word, onSave, onDelete }) {
   return (
     <tr className={styles.table__row}>
       {isEditing ? (
-        <EditWord
+        <EditableWord
           word={word}
           onModeChange={handleChangeEditing}
           onSave={onSave}
         />
       ) : (
-        <ViewWord
+        <ReadonlyWord
           word={word}
           onModeChange={handleChangeEditing}
           onDelete={onDelete}
