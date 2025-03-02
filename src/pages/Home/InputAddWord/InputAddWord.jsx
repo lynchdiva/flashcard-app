@@ -1,16 +1,41 @@
 import styles from './InputAddWord.module.scss';
 import PropTypes from 'prop-types';
+import classNames from 'classnames/bind';
 
-export default function InputAddWord({ placeholderText = '' }) {
+const cx = classNames.bind(styles);
+export default function InputAddWord({
+  name,
+  value,
+  error,
+  wasTouched,
+  onChange,
+  onBlur
+}) {
+  const isInputInvalid = error && wasTouched;
   return (
-    <input
-      className={styles['add-form__input']}
-      type="text"
-      placeholder={placeholderText}
-    />
+    <>
+      <input
+        className={cx('add-form__input', { ['invalid']: isInputInvalid })}
+        type="text"
+        id={name}
+        name={name}
+        value={value}
+        placeholder={name}
+        onChange={onChange}
+        onBlur={onBlur}
+      />
+      {isInputInvalid ? (
+        <span className={styles['add-form__error-message']}>{error}</span>
+      ) : null}
+    </>
   );
 }
 
 InputAddWord.propTypes = {
-  placeholderText: PropTypes.string
+  name: PropTypes.string.isRequired,
+  value: PropTypes.string.isRequired,
+  error: PropTypes.string,
+  onChange: PropTypes.func.isRequired,
+  onBlur: PropTypes.func.isRequired,
+  wasTouched: PropTypes.bool.isRequired
 };

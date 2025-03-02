@@ -1,12 +1,37 @@
 import styles from './FormAddWord.module.scss';
 import InputAddWord from '../InputAddWord/InputAddWord.jsx';
 import PropTypes from 'prop-types';
+import useForm from '../../../utilities/hooks/useForm.jsx';
+import {
+  validateWord,
+  validateTranscription
+} from '../../../utilities/utils/validation';
 
 export default function AddWordForm({ onCloseModal }) {
-  const placeholderTexts = ['word', 'transcription', 'перевод', 'theme'];
+  const initialInputs = {
+    english: '',
+    transcription: '',
+    russian: '',
+    tags: ''
+  };
+  const validationRules = {
+    english: value => validateWord(value),
+    transcription: value => validateTranscription(value),
+    russian: value => validateWord(value)
+  };
+  const {
+    formData,
+    errors,
+    touched,
+    isFormInvalid,
+    handleChangeFormData,
+    handleBlur
+    // resetValues
+  } = useForm(initialInputs, validationRules);
 
+  console.log(formData);
   return (
-    <form action="" name="add-form" className={styles['add-form']}>
+    <form name="add-form" className={styles['add-form']}>
       <button
         className={styles['add-form__close-button']}
         onClick={onCloseModal}
@@ -17,10 +42,23 @@ export default function AddWordForm({ onCloseModal }) {
       </button>
 
       <div className={styles['add-form__inputs-box']}>
-        {placeholderTexts.map(text => (
-          <InputAddWord key={text} placeholderText={text} />
+        {Object.keys(formData).map(key => (
+          <InputAddWord
+            key={key}
+            name={key}
+            value={formData[key]}
+            error={errors[key]}
+            wasTouched={touched[key]}
+            onChange={handleChangeFormData}
+            onBlur={handleBlur}
+          />
         ))}
-        <button className={styles['add-form__button-add']}>Add word</button>
+        <button
+          className={styles['add-form__button-add']}
+          disabled={isFormInvalid}
+        >
+          Add word
+        </button>
       </div>
 
       <div className={styles['add-form__notice-box']}>

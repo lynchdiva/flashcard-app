@@ -16,10 +16,14 @@ export default function EditableWord({ word, onSave, onModeChange }) {
     transcription: value => validateTranscription(value),
     russian: value => validateWord(value)
   };
-  const { formData, errors, isFormInvalid, handleChangeFormData } = useForm(
-    word,
-    validationRules
-  );
+  const {
+    formData,
+    errors,
+    touched,
+    isFormInvalid,
+    handleChangeFormData,
+    handleBlur
+  } = useForm(word, validationRules);
 
   useEffect(() => {
     if (inputRef.current) {
@@ -37,7 +41,9 @@ export default function EditableWord({ word, onSave, onModeChange }) {
             name={key}
             value={formData[key]}
             error={errors[key]}
+            wasTouch={touched[key]}
             onChange={handleChangeFormData}
+            onBlur={handleBlur}
             ref={key === 'english' ? inputRef : null}
           />
         ))}

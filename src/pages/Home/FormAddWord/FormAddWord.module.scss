@@ -46,7 +46,6 @@
 
 .add-form__inputs-box {
   justify-content: center;
-  gap: 3em;
 
   @media screen and (max-width: 1280px) {
     padding-bottom: 1.5em;
@@ -82,6 +81,12 @@
 
 .add-form__button-add {
   margin-left: auto;
+  margin-top: 1.5em;
+}
+
+.add-form__button-add:disabled {
+  opacity: 0.5;
+  pointer-events: none;
 }
 
 .add-form__button-clear {
