@@ -1,13 +1,13 @@
 import { useState } from 'react';
-import mapObjectValues from '../utils/mapObjectValues';
+import setObjectValues from '../utils/setObjectValues';
 
 export default function useForm(initialFormData, validationRules) {
   const [formData, setFormData] = useState({ ...initialFormData });
   const [errors, setErrors] = useState(() =>
-    mapObjectValues(initialFormData, '')
+    setObjectValues(initialFormData, '')
   );
   const [touched, setTouched] = useState(() =>
-    mapObjectValues(initialFormData, false)
+    setObjectValues(initialFormData, false)
   );
 
   const isFormInvalid = Object.values(errors).some(value => value);
@@ -39,7 +39,7 @@ export default function useForm(initialFormData, validationRules) {
   };
 
   const resetValues = () => {
-    setFormData(prevState => mapObjectValues(prevState, ''));
+    setFormData(prevState => setObjectValues(prevState, ''));
   };
 
   return {
