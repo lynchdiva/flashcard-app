@@ -1,16 +1,14 @@
 import { useState } from 'react';
 import setObjectValues from '../utils/setObjectValues';
+import { validateWord } from '../utils/validation';
 
 export default function useForm(initialFormData, validationRules) {
   const [formData, setFormData] = useState({ ...initialFormData });
   const [errors, setErrors] = useState(() =>
     setObjectValues(initialFormData, '')
   );
-  const [touched, setTouched] = useState(() =>
-    setObjectValues(initialFormData, false)
-  );
 
-  const isFormInvalid = Object.values(errors).some(value => value);
+  const isFormDataInvalid = Object.values(errors).some(value => value);
 
   const handleChangeFormData = e => {
     const { name, value } = e.target;
@@ -18,23 +16,18 @@ export default function useForm(initialFormData, validationRules) {
       ...prevState,
       [name]: value
     }));
-    if (touched[name]) {
-      setErrors(prevState => ({
-        ...prevState,
-        [name]: validationRules[name]?.(value)
-      }));
-    }
+
+    setErrors(prevState => ({
+      ...prevState,
+      [name]: validationRules[name]?.(value)
+    }));
   };
 
   const handleBlur = e => {
     const { name, value } = e.target;
-    setTouched(prevState => ({
-      ...prevState,
-      [name]: true
-    }));
     setErrors(prevState => ({
       ...prevState,
-      [name]: validationRules[name]?.(value)
+      [name]: validateWord(value)
     }));
   };
 
@@ -45,8 +38,7 @@ export default function useForm(initialFormData, validationRules) {
   return {
     formData,
     errors,
-    touched,
-    isFormInvalid,
+    isFormDataInvalid,
     handleChangeFormData,
     handleBlur,
     resetValues
