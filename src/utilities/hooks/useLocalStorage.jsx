@@ -1,14 +1,23 @@
 import { useState, useEffect } from 'react';
 
-export default function useLocalStorage(key, initialValue) {
+export function useLocalStorage(key, initialValue) {
   const [value, setValue] = useState(() => {
-    const data = JSON.parse(window.localStorage.getItem(key));
-    return data ? data : initialValue;
+    try {
+      const data = JSON.parse(window.localStorage.getItem(key));
+      return data !== null ? data : initialValue;
+    } catch (err) {
+      console.error(`Ошибка чтения из localStorage по ключу '${key}':`, err);
+      return initialValue;
+    }
   });
 
   useEffect(() => {
-    window.localStorage.setItem(key, JSON.stringify(value));
+    if (value === null || value === undefined) {
+      window.localStorage.removeItem(key);
+    } else {
+      window.localStorage.setItem(key, JSON.stringify(value));
+    }
   }, [key, value]);
 
-  return [value, setValue];
+  return { value, setValue };
 }

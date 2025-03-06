@@ -8,6 +8,9 @@ export const WordsContext = createContext({
   addWord: () => {},
   updateWord: () => {},
   deleteWord: () => {},
-  isLoading: true,
-  fetchError: ''
+  isLoading: false,
+  error: '',
+  addLearnedWord: () => {},
+  updateLearnedWord: () => {},
+  deleteLearnedWord: () => {}
 });
