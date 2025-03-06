@@ -1,18 +1,18 @@
+import { useContext } from 'react';
 import styles from './ProgressButtons.module.scss';
 import PropTypes from 'prop-types';
+import { WordsContext } from '../../../context/WordsContext';
 
-export default function ProgressButtons({
-  onMoveCard,
-  onSaveLearnedWords,
-  onDeleteLearnedWords
-}) {
+export default function ProgressButtons({ word, onMoveCard }) {
+  const { addLearnedWord, deleteLearnedWord } = useContext(WordsContext);
+
   const moveAndMarkAsLearned = () => {
-    onSaveLearnedWords();
+    addLearnedWord(word);
     onMoveCard('learned', 'forward');
   };
 
   const moveAndMarkAsInProgress = () => {
-    onDeleteLearnedWords();
+    deleteLearnedWord(word);
     onMoveCard('in-progress', 'forward');
   };
 
@@ -32,7 +32,6 @@ export default function ProgressButtons({
 }
 
 ProgressButtons.propTypes = {
-  onMoveCard: PropTypes.func.isRequired,
-  onSaveLearnedWords: PropTypes.func.isRequired,
-  onDeleteLearnedWords: PropTypes.func.isRequired
+  word: PropTypes.object.isRequired,
+  onMoveCard: PropTypes.func.isRequired
 };

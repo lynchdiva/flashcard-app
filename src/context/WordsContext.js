@@ -4,7 +4,6 @@ export const WordsContext = createContext({
   words: [],
   learnedWords: [],
   inProgressWords: [],
-  fetchWords: () => {},
   addWord: () => {},
   updateWord: () => {},
   deleteWord: () => {},

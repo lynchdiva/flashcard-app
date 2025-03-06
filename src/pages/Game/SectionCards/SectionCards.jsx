@@ -1,9 +1,11 @@
 import styles from './SectionCards.module.scss';
 import SectionCardsContent from '../SectionCardsContent/SectionCardsContent';
 import PropTypes from 'prop-types';
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useContext } from 'react';
+import { WordsContext } from '../../../context/WordsContext';
 
-export default function SectionCards({ words, initialWordIndex = 0 }) {
+export default function SectionCards({ initialWordIndex = 0 }) {
+  const { words } = useContext(WordsContext);
   const [wordIndex, setWordIndex] = useState(initialWordIndex);
   const [word, setWord] = useState(words[initialWordIndex]);
   const [isFlipped, setIsFlipped] = useState(false);
@@ -100,6 +102,5 @@ export default function SectionCards({ words, initialWordIndex = 0 }) {
 }
 
 SectionCards.propTypes = {
-  words: PropTypes.array.isRequired,
   initialWordIndex: PropTypes.number
 };

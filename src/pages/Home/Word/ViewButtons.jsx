@@ -1,7 +1,13 @@
+import { useContext } from 'react';
 import styles from './Word.module.scss';
 import PropTypes from 'prop-types';
+import { WordsContext } from '../../../context/WordsContext';
 
-export default function ViewButtons({ onModeChange, onDelete, word }) {
+export default function ViewButtons({ onModeChange, word }) {
+  const { deleteWord } = useContext(WordsContext);
+  const onClick = () => {
+    deleteWord(word);
+  };
   return (
     <>
       <button className={styles.table__button} onClick={onModeChange}>
@@ -9,7 +15,7 @@ export default function ViewButtons({ onModeChange, onDelete, word }) {
           <use xlinkHref="src/assets/icons/sprite.svg#edit"></use>
         </svg>
       </button>
-      <button className={styles.table__button} onClick={() => onDelete(word)}>
+      <button className={styles.table__button} onClick={onClick}>
         <svg className={styles.table__icon}>
           <use xlinkHref="src/assets/icons/sprite.svg#bin"></use>
         </svg>
@@ -20,6 +26,5 @@ export default function ViewButtons({ onModeChange, onDelete, word }) {
 
 ViewButtons.propTypes = {
   word: PropTypes.object.isRequired,
-  onModeChange: PropTypes.func.isRequired,
-  onDelete: PropTypes.func.isRequired
+  onModeChange: PropTypes.func.isRequired
 };

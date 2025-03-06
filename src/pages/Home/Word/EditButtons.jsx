@@ -1,13 +1,17 @@
 import styles from './Word.module.scss';
 import classNames from 'classnames/bind';
 import PropTypes from 'prop-types';
+import { useContext } from 'react';
+import { WordsContext } from '../../../context/WordsContext';
 
 const cx = classNames.bind(styles);
 
-export default function EditButtons({ onSave, onCancel, isFormInvalid }) {
+export default function EditButtons({ formData, isFormInvalid, onCancel }) {
+  const { updateWord } = useContext(WordsContext);
+
   const onClick = () => {
     if (isFormInvalid) return;
-    onSave();
+    updateWord(formData);
     onCancel();
   };
 
@@ -32,7 +36,7 @@ export default function EditButtons({ onSave, onCancel, isFormInvalid }) {
 }
 
 EditButtons.propTypes = {
-  onSave: PropTypes.func.isRequired,
+  formData: PropTypes.object.isRequired,
   onCancel: PropTypes.func.isRequired,
   isFormInvalid: PropTypes.bool.isRequired
 };

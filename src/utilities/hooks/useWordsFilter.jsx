@@ -21,8 +21,9 @@ export function useWordsFilter(words) {
   const updateLearnedWord = (prevLearnedWord, updatedLearnedWord) => {
     setLearnedWords(learnedWords => {
       const learnedWordsSet = new Set(learnedWords);
-      learnedWordsSet.delete(prevLearnedWord.english);
-      learnedWordsSet.add(updatedLearnedWord.english);
+      if (learnedWordsSet.delete(prevLearnedWord.english)) {
+        learnedWordsSet.add(updatedLearnedWord.english);
+      }
       return Array.from(learnedWordsSet);
     });
   };

@@ -4,7 +4,8 @@ import NoWordsMessage from '../Card/Notification/NoWordsMessage.jsx';
 import CompletionMessage from '../Card/Notification/CompletionMessage.jsx';
 import Options from '../Options/Options.jsx';
 import PropTypes from 'prop-types';
-import useLocalStorage from '../../../utilities/hooks/useLocalStorage.jsx';
+import { useContext } from 'react';
+import { WordsContext } from '../../../context/WordsContext.js';
 export default function SectionCardsContent(props) {
   const {
     words,
@@ -18,26 +19,9 @@ export default function SectionCardsContent(props) {
     onFlip,
     onAnimating
   } = props.attributes;
+  const { learnedWords } = useContext(WordsContext);
 
   const isNoWords = words.length === 0;
-  const [learnedWords, setLearnedWords] = useLocalStorage('learnedWords', []);
-
-  const handleSaveLearnedWord = () => {
-    setLearnedWords(learnedWords => {
-      const learnedWordsSet = new Set(learnedWords);
-      learnedWordsSet.add(word.english);
-      return Array.from(learnedWordsSet);
-    });
-  };
-
-  const handleDeleteLearnedWord = () => {
-    setLearnedWords(learnedWords => {
-      const learnedWordsSet = new Set(learnedWords);
-      learnedWordsSet.delete(word.english);
-      return Array.from(learnedWordsSet);
-    });
-  };
-  // window.localStorage.clear();
   return (
     <>
       {isNoWords ? (
@@ -60,11 +44,7 @@ export default function SectionCardsContent(props) {
             amount={words.length}
             onMoveCard={onMoveCard}
           />
-          <ProgressButtons
-            onMoveCard={onMoveCard}
-            onSaveLearnedWords={handleSaveLearnedWord}
-            onDeleteLearnedWords={handleDeleteLearnedWord}
-          />
+          <ProgressButtons word={word} onMoveCard={onMoveCard} />
         </>
       )}
     </>

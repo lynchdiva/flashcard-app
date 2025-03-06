@@ -3,11 +3,13 @@ import DropdownMenu from '../../../components/DropdownMenu/DropdownMenu.jsx';
 import WordList from '../WordList/WordList.jsx';
 import ModalWindow from '../../../components/ModalWindow/ModalWindow.jsx';
 import FormAddWord from '../FormAddWord/FormAddWord.jsx';
-import PropTypes from 'prop-types';
 import { FaFolderOpen } from 'react-icons/fa';
 import { useState } from 'react';
+import { useContext } from 'react';
+import { WordsContext } from '../../../context/WordsContext.js';
 
-export default function SectionWordList({ words, onSave, onDelete }) {
+export default function SectionWordList() {
+  const { words } = useContext(WordsContext);
   const [isClicked, setIsClicked] = useState(false);
 
   const handleToggleModal = () => {
@@ -37,7 +39,7 @@ export default function SectionWordList({ words, onSave, onDelete }) {
         </div>
       </div>
 
-      <WordList words={words} onSave={onSave} onDelete={onDelete} />
+      <WordList words={words} />
 
       <ModalWindow isShown={isClicked}>
         <FormAddWord onCloseModal={handleToggleModal} />
@@ -45,9 +47,3 @@ export default function SectionWordList({ words, onSave, onDelete }) {
     </section>
   );
 }
-
-SectionWordList.propTypes = {
-  words: PropTypes.array.isRequired,
-  onSave: PropTypes.func.isRequired,
-  onDelete: PropTypes.func.isRequired
-};

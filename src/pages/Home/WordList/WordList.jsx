@@ -8,7 +8,7 @@ const cx = classNames.bind(styles);
 const inProgress = 'In progress';
 const learned = 'Learned';
 
-export default function WordList({ words, onSave, onDelete }) {
+export default function WordList({ words }) {
   const isNoWords = words.length === 0;
 
   return (
@@ -16,18 +16,13 @@ export default function WordList({ words, onSave, onDelete }) {
       {isNoWords ? (
         <WordListEmpty />
       ) : (
-        <WordsGroup
-          title={inProgress}
-          words={words}
-          onSave={onSave}
-          onDelete={onDelete}
-        />
+        <WordsGroup title={inProgress} words={words} />
       )}
     </>
   );
 }
 
-const WordsGroup = ({ title, words, onSave, onDelete }) => {
+const WordsGroup = ({ title, words }) => {
   const header =
     title === inProgress
       ? cx('table__header', 'table__header_blue')
@@ -47,12 +42,7 @@ const WordsGroup = ({ title, words, onSave, onDelete }) => {
           </thead>
           <tbody className={styles.table__body}>
             {words.map(word => (
-              <Word
-                key={word.id}
-                word={word}
-                onSave={onSave}
-                onDelete={onDelete}
-              />
+              <Word key={word.id} word={word} />
             ))}
           </tbody>
         </table>
@@ -62,14 +52,10 @@ const WordsGroup = ({ title, words, onSave, onDelete }) => {
 };
 
 WordList.propTypes = {
-  words: PropTypes.array.isRequired,
-  onSave: PropTypes.func.isRequired,
-  onDelete: PropTypes.func.isRequired
+  words: PropTypes.array.isRequired
 };
 
 WordsGroup.propTypes = {
   title: PropTypes.string.isRequired,
-  words: PropTypes.array.isRequired,
-  onSave: PropTypes.func.isRequired,
-  onDelete: PropTypes.func.isRequired
+  words: PropTypes.array.isRequired
 };

@@ -9,7 +9,7 @@ import {
   validateTranscription
 } from '../../../utilities/utils/validation';
 
-export default function EditableWord({ word, onSave, onModeChange }) {
+export default function EditableWord({ word, onModeChange }) {
   const inputRef = useRef(null);
   const validationRules = {
     english: value => validateWord(value),
@@ -50,12 +50,9 @@ export default function EditableWord({ word, onSave, onModeChange }) {
       <td className={styles.table__data}>
         <div className={styles.table__options}>
           <EditButtons
-            onSave={() => {
-              onSave(formData);
-              console.log(formData);
-            }}
-            onCancel={onModeChange}
+            formData={formData}
             isFormInvalid={isFormInvalid}
+            onCancel={onModeChange}
           />
         </div>
       </td>
@@ -65,6 +62,5 @@ export default function EditableWord({ word, onSave, onModeChange }) {
 
 EditableWord.propTypes = {
   word: PropTypes.object.isRequired,
-  onModeChange: PropTypes.func.isRequired,
-  onSave: PropTypes.func.isRequired
+  onModeChange: PropTypes.func.isRequired
 };

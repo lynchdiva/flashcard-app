@@ -1,9 +1,17 @@
 import { useCallback, useEffect, useState } from 'react';
+import { useWordsFilter } from './useWordsFilter';
 
 export function useWords() {
   const [words, setWords] = useState([]);
   const [isLoading, setIsLoading] = useState(false);
   const [error, setError] = useState('');
+  const {
+    learnedWords,
+    inProgressWords,
+    addLearnedWord,
+    updateLearnedWord,
+    deleteLearnedWord
+  } = useWordsFilter(words);
 
   const fetchWords = useCallback(async () => {
     setIsLoading(true);
@@ -54,6 +62,7 @@ export function useWords() {
       setWords(prevWords =>
         prevWords.map(word => (word.id === updatedWord.id ? data : word))
       );
+      updateLearnedWord(updateWord);
     } catch (err) {
       setError(err.message);
     } finally {
@@ -71,6 +80,7 @@ export function useWords() {
       setWords(prevWords =>
         prevWords.filter(prevWord => prevWord.id !== word.id)
       );
+      deleteLearnedWord(word);
     } catch (err) {
       setError(err.message);
     } finally {
@@ -88,6 +98,11 @@ export function useWords() {
     error,
     addWord,
     updateWord,
-    deleteWord
+    deleteWord,
+    learnedWords,
+    inProgressWords,
+    addLearnedWord,
+    updateLearnedWord,
+    deleteLearnedWord
   };
 }
