@@ -60,9 +60,15 @@ export function useWords() {
       if (!response.ok) throw new Error('Error updating word');
       const data = await response.json();
       setWords(prevWords =>
-        prevWords.map(word => (word.id === updatedWord.id ? data : word))
+        prevWords.map(word => {
+          if (word.id === updatedWord.id) {
+            updateLearnedWord(word, updatedWord);
+            return data;
+          } else {
+            return word;
+          }
+        })
       );
-      updateLearnedWord(updateWord);
     } catch (err) {
       setError(err.message);
     } finally {

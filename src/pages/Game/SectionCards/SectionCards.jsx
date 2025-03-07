@@ -76,6 +76,7 @@ export default function SectionCards({ initialWordIndex = 0 }) {
   useEffect(() => {
     if (words[wordIndex]) {
       setWord(words[wordIndex]);
+      handleCompleteSession(false);
     } else {
       handleCompleteSession(true);
     }

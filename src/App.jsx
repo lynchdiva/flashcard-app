@@ -7,6 +7,7 @@ import { useWords } from './utilities/hooks/useWords';
 import { WordsContext } from './context/WordsContext';
 
 function App() {
+  // window.localStorage.clear();
   const {
     words,
     isLoading,

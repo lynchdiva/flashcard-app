@@ -3,19 +3,20 @@ import PropTypes from 'prop-types';
 import EditButtons from './EditButtons';
 import EditableWordCell from './EditableWordCell';
 import { useRef, useEffect } from 'react';
-import useForm from '../../../utilities/hooks/useForm';
-import {
-  validateWord,
-  validateTranscription
-} from '../../../utilities/utils/validation';
+import { useForm } from '../../../utilities/hooks/useForm';
+import { validateWord } from '../../../utilities/utils/validation';
 
 export default function EditableWord({ word, onModeChange }) {
   const inputRef = useRef(null);
+  const editableKeys = Object.keys(word).filter(
+    key => key !== 'id' && key !== 'tags_json'
+  );
   const validationRules = {
     english: value => validateWord(value),
-    transcription: value => validateTranscription(value),
+    transcription: value => validateWord(value),
     russian: value => validateWord(value)
   };
+
   const {
     formData,
     errors,
@@ -23,7 +24,7 @@ export default function EditableWord({ word, onModeChange }) {
     isFormInvalid,
     handleChangeFormData,
     handleBlur
-  } = useForm(word, validationRules);
+  } = useForm(word, validationRules, false);
 
   useEffect(() => {
     if (inputRef.current) {
@@ -33,20 +34,18 @@ export default function EditableWord({ word, onModeChange }) {
 
   return (
     <>
-      {Object.keys(word)
-        .filter(key => key !== 'id')
-        .map(key => (
-          <EditableWordCell
-            key={key}
-            name={key}
-            value={formData[key]}
-            error={errors[key]}
-            wasTouch={touched[key]}
-            onChange={handleChangeFormData}
-            onBlur={handleBlur}
-            ref={key === 'english' ? inputRef : null}
-          />
-        ))}
+      {editableKeys.map(key => (
+        <EditableWordCell
+          key={key}
+          name={key}
+          value={formData[key]}
+          error={errors[key]}
+          isTouched={touched[key]}
+          onChange={handleChangeFormData}
+          onBlur={handleBlur}
+          ref={key === 'english' ? inputRef : null}
+        />
+      ))}
       <td className={styles.table__data}>
         <div className={styles.table__options}>
           <EditButtons

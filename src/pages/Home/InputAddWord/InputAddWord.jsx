@@ -7,11 +7,11 @@ export default function InputAddWord({
   name,
   value,
   error,
-  wasTouched,
+  isTouched,
   onChange,
   onBlur
 }) {
-  const isInputInvalid = error && wasTouched;
+  const isInputInvalid = error && isTouched;
   return (
     <>
       <input
@@ -37,5 +37,5 @@ InputAddWord.propTypes = {
   error: PropTypes.string,
   onChange: PropTypes.func.isRequired,
   onBlur: PropTypes.func.isRequired,
-  wasTouched: PropTypes.bool.isRequired
+  isTouched: PropTypes.bool.isRequired
 };
