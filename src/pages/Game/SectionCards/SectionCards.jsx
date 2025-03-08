@@ -1,11 +1,12 @@
 import styles from './SectionCards.module.scss';
 import SectionCardsContent from '../SectionCardsContent/SectionCardsContent';
+import Loader from '../../../components/Loader/Loader';
 import PropTypes from 'prop-types';
 import { useState, useEffect, useContext } from 'react';
 import { WordsContext } from '../../../context/WordsContext';
 
 export default function SectionCards({ initialWordIndex = 0 }) {
-  const { words } = useContext(WordsContext);
+  const { words, isLoading } = useContext(WordsContext);
   const [wordIndex, setWordIndex] = useState(initialWordIndex);
   const [word, setWord] = useState(words[initialWordIndex]);
   const [isFlipped, setIsFlipped] = useState(false);
@@ -97,7 +98,7 @@ export default function SectionCards({ initialWordIndex = 0 }) {
 
   return (
     <section className={styles['flashcards-section']}>
-      <SectionCardsContent attributes={attributes} />
+      {isLoading ? <Loader /> : <SectionCardsContent attributes={attributes} />}
     </section>
   );
 }

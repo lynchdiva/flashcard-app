@@ -2,14 +2,20 @@ import styles from './WordList.module.scss';
 import classNames from 'classnames/bind';
 import PropTypes from 'prop-types';
 import Word from '../Word/Word.jsx';
+import Loader from '../../../components/Loader/Loader.jsx';
 import WordListEmpty from '../WordListEmpty/WordListEmpty.jsx';
+import { useContext } from 'react';
+import { WordsContext } from '../../../context/WordsContext.js';
 
 const cx = classNames.bind(styles);
 const inProgress = 'In progress';
 const learned = 'Learned';
 
 export default function WordList({ words }) {
+  const { isLoading } = useContext(WordsContext);
   const isNoWords = words.length === 0;
+
+  if (isLoading) return <Loader />;
 
   return (
     <>
