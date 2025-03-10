@@ -4,7 +4,9 @@ import { useWordsFilter } from './useWordsFilter';
 export function useWords() {
   const [words, setWords] = useState([]);
   const [isLoading, setIsLoading] = useState(false);
-  const [error, setError] = useState('');
+  const [error, setError] = useState(null);
+  const [serverFeedback, setServerFeedback] = useState({ status: null });
+
   const {
     learnedWords,
     inProgressWords,
@@ -22,6 +24,7 @@ export function useWords() {
       setWords(data);
     } catch (err) {
       setError(err.message);
+      setServerFeedback({ status: false });
     } finally {
       setIsLoading(false);
     }
@@ -40,8 +43,10 @@ export function useWords() {
       if (!response.ok) throw new Error('Error adding word');
       const data = await response.json();
       setWords(prevWords => [...prevWords, data]);
+      setServerFeedback({ status: true });
     } catch (err) {
       setError(err.message);
+      setServerFeedback({ status: false });
     } finally {
       setIsLoading(false);
     }
@@ -71,6 +76,7 @@ export function useWords() {
       );
     } catch (err) {
       setError(err.message);
+      setServerFeedback({ status: false });
     } finally {
       setIsLoading(false);
     }
@@ -89,6 +95,7 @@ export function useWords() {
       deleteLearnedWord(word);
     } catch (err) {
       setError(err.message);
+      setServerFeedback({ status: false });
     } finally {
       setIsLoading(false);
     }
@@ -102,6 +109,7 @@ export function useWords() {
     words,
     isLoading,
     error,
+    serverFeedback,
     addWord,
     updateWord,
     deleteWord,

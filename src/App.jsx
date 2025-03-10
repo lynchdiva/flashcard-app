@@ -2,6 +2,7 @@ import styles from './App.module.scss';
 import Home from './pages/Home/Home';
 import Game from './pages/Game/Game';
 import Missing from './pages/Missing/Missing';
+import ServerFeedback from './components/ServerFeedback/ServerFeedback';
 import { Routes, Route } from 'react-router';
 import { useWords } from './utilities/hooks/useWords';
 import { WordsContext } from './context/WordsContext';
@@ -12,6 +13,7 @@ function App() {
     words,
     isLoading,
     error,
+    serverFeedback,
     addWord,
     updateWord,
     deleteWord,
@@ -33,12 +35,15 @@ function App() {
         deleteWord,
         isLoading,
         error,
+        serverFeedback,
         addLearnedWord,
         updateLearnedWord,
         deleteLearnedWord
       }}
     >
       <div className={styles['app-container']}>
+        <ServerFeedback feedback={serverFeedback} />
+
         <Routes>
           <Route index element={<Home />} />
           <Route path="game" element={<Game />} />

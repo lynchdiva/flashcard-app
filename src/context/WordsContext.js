@@ -8,7 +8,8 @@ export const WordsContext = createContext({
   updateWord: () => {},
   deleteWord: () => {},
   isLoading: false,
-  error: '',
+  error: null,
+  serverFeedback: {},
   addLearnedWord: () => {},
   updateLearnedWord: () => {},
   deleteLearnedWord: () => {}

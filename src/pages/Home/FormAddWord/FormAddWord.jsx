@@ -6,7 +6,7 @@ import { validateWord } from '../../../utilities/utils/validation';
 import { useContext } from 'react';
 import { WordsContext } from '../../../context/WordsContext.js';
 
-export default function AddWordForm({ onCloseModal }) {
+export default function FormAddWord({ onCloseModal }) {
   const { addWord } = useContext(WordsContext);
   const initialFormData = {
     english: '',
@@ -99,6 +99,6 @@ export default function AddWordForm({ onCloseModal }) {
   );
 }
 
-AddWordForm.propTypes = {
+FormAddWord.propTypes = {
   onCloseModal: PropTypes.func.isRequired
 };
