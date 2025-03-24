@@ -4,7 +4,7 @@ import WordList from '../WordList/WordList.jsx';
 import ModalWindow from '../../../components/ModalWindow/ModalWindow.jsx';
 import FormAddWord from '../FormAddWord/FormAddWord.jsx';
 import { FaFolderOpen } from 'react-icons/fa';
-import { useEffect, useState } from 'react';
+import { useState } from 'react';
 import { observer } from 'mobx-react-lite';
 import { wordsStore } from '../../../stores/WordsStore.js';
 
@@ -15,10 +15,6 @@ const SectionWordList = observer(() => {
   const handleToggleModal = () => {
     setIsClicked(prev => !prev);
   };
-
-  useEffect(() => {
-    wordsStore.fetchWords();
-  }, []);
 
   return (
     <section className={styles['section-words']}>
