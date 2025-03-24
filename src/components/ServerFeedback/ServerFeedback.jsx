@@ -1,0 +1,56 @@
+import styles from './ServerFeedback.module.scss';
+import PropTypes from 'prop-types';
+import classNames from 'classnames/bind';
+import { useEffect, useState } from 'react';
+
+const cx = classNames.bind(styles);
+
+export default function ServerFeedback({ feedback }) {
+  const [visible, setVisible] = useState(false);
+  const { status } = feedback;
+
+  useEffect(() => {
+    setVisible(true);
+    const timer = setTimeout(() => setVisible(false), 3000);
+    return () => {
+      clearTimeout(timer);
+    };
+  }, [feedback]);
+
+  if (status === null) return;
+
+  const message = status
+    ? 'Your data has been successfully saved.'
+    : 'Unable to connect to the server. Please try again later.';
+  const styleModificator = status
+    ? 'server-feedback_success'
+    : 'server-feedback_error';
+  const iconPath = status ? 'success' : 'error';
+
+  return (
+    <div
+      className={cx('server-feedback', styleModificator, {
+        'server-feedback_visible': visible
+      })}
+    >
+      <svg className={styles['server-feedback__status-icon']}>
+        <use xlinkHref={`/src/assets/icons/sprite.svg#${iconPath}`}></use>
+      </svg>
+      <p className={styles['server-feedback__text']}>{message}</p>
+      <button
+        type="button"
+        className={styles['server-feedback__close-btn']}
+        onClick={() => setVisible(false)}
+      >
+        <svg className={styles['server-feedback__icon-close']}>
+          <use xlinkHref="./src/assets/icons/sprite.svg#close"></use>
+        </svg>
+      </button>
+    </div>
+  );
+}
+
+ServerFeedback.propTypes = {
+  feedback: PropTypes.object.isRequired,
+  status: PropTypes.bool
+};

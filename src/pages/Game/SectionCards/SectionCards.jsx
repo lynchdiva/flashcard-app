@@ -1,12 +1,13 @@
 import styles from './SectionCards.module.scss';
 import SectionCardsContent from '../SectionCardsContent/SectionCardsContent';
 import PropTypes from 'prop-types';
+import Loader from '../../../components/Loader/Loader';
 import { useState, useEffect } from 'react';
 import { wordsStore } from '../../../stores/WordsStore';
 import { observer } from 'mobx-react-lite';
 
 const SectionCards = observer(({ initialWordIndex = 0 }) => {
-  const { words } = wordsStore;
+  const { words, isLoading } = wordsStore;
   const [wordIndex, setWordIndex] = useState(initialWordIndex);
   const [word, setWord] = useState(words[initialWordIndex]);
   const [isFlipped, setIsFlipped] = useState(false);
@@ -98,7 +99,7 @@ const SectionCards = observer(({ initialWordIndex = 0 }) => {
 
   return (
     <section className={styles['flashcards-section']}>
-      <SectionCardsContent attributes={attributes} />
+      {isLoading ? <Loader /> : <SectionCardsContent attributes={attributes} />}
     </section>
   );
 });

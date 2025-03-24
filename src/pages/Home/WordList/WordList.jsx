@@ -1,15 +1,21 @@
 import styles from './WordList.module.scss';
 import classNames from 'classnames/bind';
 import PropTypes from 'prop-types';
+import Loader from '../../../components/Loader/Loader.jsx';
 import Word from '../Word/Word.jsx';
 import WordListEmpty from '../WordListEmpty/WordListEmpty.jsx';
+import { wordsStore } from '../../../stores/WordsStore.js';
+import { observer } from 'mobx-react-lite';
 
 const cx = classNames.bind(styles);
 const inProgress = 'In progress';
 const learned = 'Learned';
 
-export default function WordList({ words }) {
+const WordList = observer(({ words }) => {
+  const { isLoading } = wordsStore;
   const isNoWords = words.length === 0;
+
+  if (isLoading) return <Loader />;
 
   return (
     <>
@@ -20,7 +26,7 @@ export default function WordList({ words }) {
       )}
     </>
   );
-}
+});
 
 const WordsGroup = ({ title, words }) => {
   const header =
@@ -59,3 +65,5 @@ WordsGroup.propTypes = {
   title: PropTypes.string.isRequired,
   words: PropTypes.array.isRequired
 };
+
+export default WordList;
