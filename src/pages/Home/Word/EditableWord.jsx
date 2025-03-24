@@ -3,17 +3,14 @@ import PropTypes from 'prop-types';
 import EditButtons from './EditButtons';
 import EditableWordCell from './EditableWordCell';
 import { useRef, useEffect } from 'react';
-import useForm from '../../../utilities/hooks/useForm';
-import {
-  validateWord,
-  validateTranscription
-} from '../../../utilities/utils/validation';
+import { useForm } from '../../../utilities/hooks/useForm';
+import { validateWord } from '../../../utilities/utils/validation';
 
 export default function EditableWord({ word, onSave, onModeChange }) {
   const inputRef = useRef(null);
   const validationRules = {
     english: value => validateWord(value),
-    transcription: value => validateTranscription(value),
+    transcription: value => validateWord(value),
     russian: value => validateWord(value)
   };
   const {

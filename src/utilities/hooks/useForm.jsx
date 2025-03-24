@@ -1,16 +1,16 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import setObjectValues from '../utils/setObjectValues';
 
-export default function useForm(initialFormData, validationRules) {
+export function useForm(initialFormData, validationRules) {
   const [formData, setFormData] = useState({ ...initialFormData });
   const [errors, setErrors] = useState(() =>
-    setObjectValues(initialFormData, '')
+    setObjectValues(initialFormData, null)
   );
   const [touched, setTouched] = useState(() =>
     setObjectValues(initialFormData, false)
   );
 
-  const isFormInvalid = Object.values(errors).some(value => value);
+  const [isFormInvalid, setIsFormInvalid] = useState(false);
 
   const handleChangeFormData = e => {
     const { name, value } = e.target;
@@ -40,7 +40,23 @@ export default function useForm(initialFormData, validationRules) {
 
   const resetValues = () => {
     setFormData(prevState => setObjectValues(prevState, ''));
+    setTouched(prevState => setObjectValues(prevState, false));
+    setErrors(prevState => setObjectValues(prevState, null));
   };
+
+  useEffect(() => {
+    const noValidationErrors = areAllFieldsValid();
+    setIsFormInvalid(!noValidationErrors);
+
+    function areAllFieldsValid() {
+      const currentErrors = Object.keys(validationRules).reduce((acc, key) => {
+        acc[key] = validationRules[key]?.(formData[key]);
+        return acc;
+      }, {});
+      const noErrors = Object.values(currentErrors).every(error => !error);
+      return noErrors;
+    }
+  }, [formData, validationRules]);
 
   return {
     formData,

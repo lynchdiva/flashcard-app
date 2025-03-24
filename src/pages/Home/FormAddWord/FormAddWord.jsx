@@ -1,11 +1,8 @@
 import styles from './FormAddWord.module.scss';
 import InputAddWord from '../InputAddWord/InputAddWord.jsx';
 import PropTypes from 'prop-types';
-import useForm from '../../../utilities/hooks/useForm.jsx';
-import {
-  validateWord,
-  validateTranscription
-} from '../../../utilities/utils/validation';
+import { useForm } from '../../../utilities/hooks/useForm.jsx';
+import { validateWord } from '../../../utilities/utils/validation';
 
 export default function AddWordForm({ onCloseModal }) {
   const initialInputs = {
@@ -16,7 +13,7 @@ export default function AddWordForm({ onCloseModal }) {
   };
   const validationRules = {
     english: value => validateWord(value),
-    transcription: value => validateTranscription(value),
+    transcription: value => validateWord(value),
     russian: value => validateWord(value)
   };
   const {
