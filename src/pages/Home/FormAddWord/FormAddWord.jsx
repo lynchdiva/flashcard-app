@@ -3,9 +3,10 @@ import InputAddWord from '../InputAddWord/InputAddWord.jsx';
 import PropTypes from 'prop-types';
 import { useForm } from '../../../utilities/hooks/useForm.jsx';
 import { validateWord } from '../../../utilities/utils/validation';
+import { wordsStore } from '../../../stores/WordsStore';
 
-export default function AddWordForm({ onCloseModal }) {
-  const initialInputs = {
+export default function FormAddWord({ onCloseModal }) {
+  const initialFormData = {
     english: '',
     transcription: '',
     russian: '',
@@ -22,14 +23,29 @@ export default function AddWordForm({ onCloseModal }) {
     touched,
     isFormInvalid,
     handleChangeFormData,
-    handleBlur
-    // resetValues
-  } = useForm(initialInputs, validationRules);
+    handleBlur,
+    resetValues
+  } = useForm(initialFormData, validationRules);
 
-  console.log(formData);
+  const onSubmit = e => {
+    e.preventDefault();
+    if (isFormInvalid) return;
+    wordsStore.addWord({
+      ...formData,
+      id: crypto.randomUUID(),
+      tags_json: ''
+    });
+    handleReset();
+  };
+
+  const handleReset = () => {
+    resetValues();
+  };
+
   return (
-    <form name="add-form" className={styles['add-form']}>
+    <form name="add-form" onSubmit={onSubmit} className={styles['add-form']}>
       <button
+        type="button"
         className={styles['add-form__close-button']}
         onClick={onCloseModal}
       >
@@ -45,12 +61,13 @@ export default function AddWordForm({ onCloseModal }) {
             name={key}
             value={formData[key]}
             error={errors[key]}
-            wasTouched={touched[key]}
+            isTouched={touched[key]}
             onChange={handleChangeFormData}
             onBlur={handleBlur}
           />
         ))}
         <button
+          type="submit"
           className={styles['add-form__button-add']}
           disabled={isFormInvalid}
         >
@@ -67,12 +84,18 @@ export default function AddWordForm({ onCloseModal }) {
         <p className={styles['add-form__text']}>
           Add a new word and enhance your vocabulary!
         </p>
-        <button className={styles['add-form__button-clear']}>Clear</button>
+        <button
+          type="button"
+          className={styles['add-form__button-clear']}
+          onClick={handleReset}
+        >
+          Clear
+        </button>
       </div>
     </form>
   );
 }
 
-AddWordForm.propTypes = {
+FormAddWord.propTypes = {
   onCloseModal: PropTypes.func.isRequired
 };

@@ -27,7 +27,7 @@ export const wordService = {
 
   async deleteWord(wordId) {
     const response = await fetch(`/api/words/${wordId}/delete`, {
-      method: 'DELETE'
+      method: 'POST'
     });
     if (!response.ok) throw new Error('Error deleting word');
   }

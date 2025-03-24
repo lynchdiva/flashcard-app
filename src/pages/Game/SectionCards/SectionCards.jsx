@@ -2,8 +2,11 @@ import styles from './SectionCards.module.scss';
 import SectionCardsContent from '../SectionCardsContent/SectionCardsContent';
 import PropTypes from 'prop-types';
 import { useState, useEffect } from 'react';
+import { wordsStore } from '../../../stores/WordsStore';
+import { observer } from 'mobx-react-lite';
 
-export default function SectionCards({ words, initialWordIndex = 0 }) {
+const SectionCards = observer(({ initialWordIndex = 0 }) => {
+  const { words } = wordsStore;
   const [wordIndex, setWordIndex] = useState(initialWordIndex);
   const [word, setWord] = useState(words[initialWordIndex]);
   const [isFlipped, setIsFlipped] = useState(false);
@@ -74,6 +77,7 @@ export default function SectionCards({ words, initialWordIndex = 0 }) {
   useEffect(() => {
     if (words[wordIndex]) {
       setWord(words[wordIndex]);
+      handleCompleteSession(false);
     } else {
       handleCompleteSession(true);
     }
@@ -97,9 +101,10 @@ export default function SectionCards({ words, initialWordIndex = 0 }) {
       <SectionCardsContent attributes={attributes} />
     </section>
   );
-}
+});
 
 SectionCards.propTypes = {
-  words: PropTypes.array.isRequired,
   initialWordIndex: PropTypes.number
 };
+
+export default SectionCards;

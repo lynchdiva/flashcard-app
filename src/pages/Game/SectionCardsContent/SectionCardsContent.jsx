@@ -4,8 +4,11 @@ import NoWordsMessage from '../Card/Notification/NoWordsMessage.jsx';
 import CompletionMessage from '../Card/Notification/CompletionMessage.jsx';
 import Options from '../Options/Options.jsx';
 import PropTypes from 'prop-types';
-import useLocalStorage from '../../../utilities/hooks/useLocalStorage.jsx';
-export default function SectionCardsContent(props) {
+import { learnedWordsStore } from '../../../stores/LearnedWordsStore.js';
+import { observer } from 'mobx-react-lite';
+
+const SectionCardsContent = observer(props => {
+  const { learnedWords } = learnedWordsStore;
   const {
     words,
     word,
@@ -20,24 +23,7 @@ export default function SectionCardsContent(props) {
   } = props.attributes;
 
   const isNoWords = words.length === 0;
-  const [learnedWords, setLearnedWords] = useLocalStorage('learnedWords', []);
 
-  const handleSaveLearnedWord = () => {
-    setLearnedWords(learnedWords => {
-      const learnedWordsSet = new Set(learnedWords);
-      learnedWordsSet.add(word.english);
-      return Array.from(learnedWordsSet);
-    });
-  };
-
-  const handleDeleteLearnedWord = () => {
-    setLearnedWords(learnedWords => {
-      const learnedWordsSet = new Set(learnedWords);
-      learnedWordsSet.delete(word.english);
-      return Array.from(learnedWordsSet);
-    });
-  };
-  // window.localStorage.clear();
   return (
     <>
       {isNoWords ? (
@@ -60,17 +46,15 @@ export default function SectionCardsContent(props) {
             amount={words.length}
             onMoveCard={onMoveCard}
           />
-          <ProgressButtons
-            onMoveCard={onMoveCard}
-            onSaveLearnedWords={handleSaveLearnedWord}
-            onDeleteLearnedWords={handleDeleteLearnedWord}
-          />
+          <ProgressButtons word={word} onMoveCard={onMoveCard} />
         </>
       )}
     </>
   );
-}
+});
 
 SectionCardsContent.propTypes = {
   attributes: PropTypes.object.isRequired
 };
+
+export default SectionCardsContent;

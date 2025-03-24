@@ -3,16 +3,22 @@ import DropdownMenu from '../../../components/DropdownMenu/DropdownMenu.jsx';
 import WordList from '../WordList/WordList.jsx';
 import ModalWindow from '../../../components/ModalWindow/ModalWindow.jsx';
 import FormAddWord from '../FormAddWord/FormAddWord.jsx';
-import PropTypes from 'prop-types';
 import { FaFolderOpen } from 'react-icons/fa';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
+import { observer } from 'mobx-react-lite';
+import { wordsStore } from '../../../stores/WordsStore.js';
 
-export default function SectionWordList({ words, onSave, onDelete }) {
+const SectionWordList = observer(() => {
+  const { words } = wordsStore;
   const [isClicked, setIsClicked] = useState(false);
 
   const handleToggleModal = () => {
     setIsClicked(prev => !prev);
   };
+
+  useEffect(() => {
+    wordsStore.fetchWords();
+  }, []);
 
   return (
     <section className={styles['section-words']}>
@@ -37,17 +43,13 @@ export default function SectionWordList({ words, onSave, onDelete }) {
         </div>
       </div>
 
-      <WordList words={words} onSave={onSave} onDelete={onDelete} />
+      <WordList words={words} />
 
       <ModalWindow isShown={isClicked}>
         <FormAddWord onCloseModal={handleToggleModal} />
       </ModalWindow>
     </section>
   );
-}
+});
 
-SectionWordList.propTypes = {
-  words: PropTypes.array.isRequired,
-  onSave: PropTypes.func.isRequired,
-  onDelete: PropTypes.func.isRequired
-};
+export default SectionWordList;

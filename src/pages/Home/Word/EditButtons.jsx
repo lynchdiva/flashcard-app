@@ -1,13 +1,14 @@
 import styles from './Word.module.scss';
 import classNames from 'classnames/bind';
 import PropTypes from 'prop-types';
+import { wordsStore } from '../../../stores/WordsStore';
 
 const cx = classNames.bind(styles);
 
-export default function EditButtons({ onSave, onCancel, isFormInvalid }) {
-  const onClick = () => {
+export default function EditButtons({ updatedWord, isFormInvalid, onCancel }) {
+  const onChangeWord = () => {
     if (isFormInvalid) return;
-    onSave();
+    wordsStore.updateWord(updatedWord);
     onCancel();
   };
 
@@ -15,7 +16,7 @@ export default function EditButtons({ onSave, onCancel, isFormInvalid }) {
     <>
       <button
         className={cx('table__button', 'table__button_orange')}
-        onClick={onClick}
+        onClick={onChangeWord}
         disabled={isFormInvalid}
       >
         <svg className={cx('table__icon', 'table__icon_orange')}>
@@ -32,7 +33,7 @@ export default function EditButtons({ onSave, onCancel, isFormInvalid }) {
 }
 
 EditButtons.propTypes = {
-  onSave: PropTypes.func.isRequired,
+  updatedWord: PropTypes.object.isRequired,
   onCancel: PropTypes.func.isRequired,
   isFormInvalid: PropTypes.bool.isRequired
 };

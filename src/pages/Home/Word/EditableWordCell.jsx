@@ -6,8 +6,9 @@ import { forwardRef } from 'react';
 const cx = classNames.bind(styles);
 
 const EditableWordCell = forwardRef(
-  ({ name, value, error, wasTouch, onChange, onBlur }, ref) => {
-    const isInputInvalid = error && wasTouch;
+  ({ name, value, error, isTouched, onChange, onBlur }, ref) => {
+    const isInputInvalid = error && isTouched;
+
     return (
       <td className={styles.table__data}>
         <input
@@ -35,7 +36,7 @@ EditableWordCell.propTypes = {
   value: PropTypes.string.isRequired,
   error: PropTypes.string,
   onChange: PropTypes.func.isRequired,
-  wasTouch: PropTypes.bool.isRequired,
+  isTouched: PropTypes.bool.isRequired,
   onBlur: PropTypes.func.isRequired
 };
 

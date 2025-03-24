@@ -4,7 +4,7 @@ import EditableWord from './EditableWord';
 import ReadonlyWord from './ReadonlyWord';
 import { useState } from 'react';
 
-export default function Word({ word, onSave, onDelete }) {
+export default function Word({ word }) {
   const [isEditing, setIsEditing] = useState(false);
 
   const handleChangeEditing = () => {
@@ -14,24 +14,14 @@ export default function Word({ word, onSave, onDelete }) {
   return (
     <tr className={styles.table__row}>
       {isEditing ? (
-        <EditableWord
-          word={word}
-          onModeChange={handleChangeEditing}
-          onSave={onSave}
-        />
+        <EditableWord word={word} onModeChange={handleChangeEditing} />
       ) : (
-        <ReadonlyWord
-          word={word}
-          onModeChange={handleChangeEditing}
-          onDelete={onDelete}
-        />
+        <ReadonlyWord word={word} onModeChange={handleChangeEditing} />
       )}
     </tr>
   );
 }
 
 Word.propTypes = {
-  word: PropTypes.object.isRequired,
-  onSave: PropTypes.func.isRequired,
-  onDelete: PropTypes.func.isRequired
+  word: PropTypes.object.isRequired
 };
