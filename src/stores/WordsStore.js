@@ -1,23 +1,21 @@
 import { makeAutoObservable, runInAction } from 'mobx';
 import { learnedWordsStore } from './LearnedWordsStore';
 import { wordService } from '../api/wordService';
+import { serverFeedbackStore } from './ServerFeedBackStore';
 
 class WordsStore {
   pendingRequests = 0;
   words = [];
   isLoading = false;
-  error = null;
-  serverFeedback = { status: null };
+  serverFeedback = serverFeedbackStore;
 
   constructor() {
     makeAutoObservable(this);
   }
 
   setLoading(loading) {
-    runInAction(() => {
-      this.pendingRequests += loading ? 1 : -1;
-      this.isLoading = this.pendingRequests > 0;
-    });
+    this.pendingRequests += loading ? 1 : -1;
+    this.isLoading = this.pendingRequests > 0;
   }
 
   get inProgressWords() {
@@ -28,6 +26,8 @@ class WordsStore {
 
   async fetchWords() {
     this.setLoading(true);
+    this.serverFeedback.reset();
+
     try {
       const data = await wordService.fetchWords();
       runInAction(() => {
@@ -35,8 +35,8 @@ class WordsStore {
       });
     } catch (err) {
       runInAction(() => {
-        this.error = err.message;
-        this.serverFeedback = { status: false };
+        this.serverFeedback.error = err.message;
+        this.serverFeedback.status = false;
       });
     } finally {
       this.setLoading(false);
@@ -45,16 +45,18 @@ class WordsStore {
 
   async addWord(newWord) {
     this.setLoading(true);
+    this.serverFeedback.reset();
+
     try {
       const data = await wordService.addWord(newWord);
       runInAction(() => {
         this.words.push(data);
-        this.serverFeedback = { status: true };
+        this.serverFeedback.status = true;
       });
     } catch (err) {
       runInAction(() => {
-        this.error = err.message;
-        this.serverFeedback = { status: false };
+        this.serverFeedback.error = err.message;
+        this.serverFeedback.status = false;
       });
     } finally {
       this.setLoading(false);
@@ -63,6 +65,8 @@ class WordsStore {
 
   async updateWord(updatedWord) {
     this.setLoading(true);
+    this.serverFeedback.reset();
+
     try {
       const data = await wordService.updateWord(updatedWord);
       runInAction(() => {
@@ -77,8 +81,8 @@ class WordsStore {
       });
     } catch (err) {
       runInAction(() => {
-        this.error = err.message;
-        this.serverFeedback = { status: false };
+        this.serverFeedback.error = err.message;
+        this.serverFeedback.status = false;
       });
     } finally {
       this.setLoading(false);
@@ -87,6 +91,8 @@ class WordsStore {
 
   async deleteWord(deletedWord) {
     this.setLoading(true);
+    this.serverFeedback.reset();
+
     try {
       await wordService.deleteWord(deletedWord.id);
       runInAction(() => {
@@ -95,8 +101,8 @@ class WordsStore {
       });
     } catch (err) {
       runInAction(() => {
-        this.error = err.message;
-        this.serverFeedback = { status: false };
+        this.serverFeedback.error = err.message;
+        this.serverFeedback.status = false;
       });
     } finally {
       this.setLoading(false);

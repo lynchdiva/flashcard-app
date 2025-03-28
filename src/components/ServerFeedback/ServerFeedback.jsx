@@ -2,22 +2,25 @@ import styles from './ServerFeedback.module.scss';
 import PropTypes from 'prop-types';
 import classNames from 'classnames/bind';
 import { useEffect, useState } from 'react';
+import { observer } from 'mobx-react-lite';
 
 const cx = classNames.bind(styles);
 
-export default function ServerFeedback({ feedback }) {
+const ServerFeedback = observer(({ feedback }) => {
   const [isVisible, setIsVisible] = useState(false);
   const { status } = feedback;
 
   useEffect(() => {
-    setIsVisible(true);
-    const timer = setTimeout(() => setIsVisible(false), 3000);
-    return () => {
-      clearTimeout(timer);
-    };
-  }, [feedback]);
+    if (status !== null) {
+      setIsVisible(true);
+      const timer = setTimeout(() => setIsVisible(false), 3000);
+      return () => {
+        clearTimeout(timer);
+      };
+    }
+  }, [status]);
 
-  if (status === null) return;
+  if (status === null) return null;
 
   const message = status
     ? 'Your data has been successfully saved.'
@@ -50,9 +53,10 @@ export default function ServerFeedback({ feedback }) {
       </button>
     </div>
   );
-}
+});
 
 ServerFeedback.propTypes = {
-  feedback: PropTypes.object.isRequired,
-  status: PropTypes.bool
+  feedback: PropTypes.object.isRequired
 };
+
+export default ServerFeedback;

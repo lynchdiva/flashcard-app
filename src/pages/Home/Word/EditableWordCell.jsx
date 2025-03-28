@@ -10,9 +10,9 @@ const EditableWordCell = forwardRef(
     const isInputInvalid = error && isTouched;
 
     return (
-      <td className={styles.table__data}>
+      <td className={cx('table__data')}>
         <input
-          className={cx('table__input', { ['invalid']: isInputInvalid })}
+          className={cx('table__input', { invalid: isInputInvalid })}
           type="text"
           id={name}
           name={name}
@@ -22,7 +22,7 @@ const EditableWordCell = forwardRef(
           ref={ref}
         />
         {isInputInvalid ? (
-          <span className={styles['table__error-message']}>{error}</span>
+          <span className={cx('table__error-message')}>{error}</span>
         ) : null}
       </td>
     );

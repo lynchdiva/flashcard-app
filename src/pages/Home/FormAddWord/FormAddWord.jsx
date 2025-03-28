@@ -50,7 +50,7 @@ export default function FormAddWord({ onCloseModal }) {
         onClick={onCloseModal}
       >
         <svg className={styles['add-form__close-icon']}>
-          <use xlinkHref="./src/assets/icons/sprite.svg#close"></use>
+          <use href="./src/assets/icons/sprite.svg#close"></use>
         </svg>
       </button>
 

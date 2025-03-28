@@ -20,12 +20,12 @@ export default function EditButtons({ updatedWord, isFormInvalid, onCancel }) {
         disabled={isFormInvalid}
       >
         <svg className={cx('table__icon', 'table__icon_orange')}>
-          <use xlinkHref="src/assets/icons/sprite.svg#check-mark"></use>
+          <use href="src/assets/icons/sprite.svg#check-mark"></use>
         </svg>
       </button>
-      <button className={styles.table__button} onClick={onCancel}>
-        <svg className={styles.table__icon}>
-          <use xlinkHref="src/assets/icons/sprite.svg#cancel"></use>
+      <button className={cx('table__button')} onClick={onCancel}>
+        <svg className={cx('table__icon')}>
+          <use href="src/assets/icons/sprite.svg#cancel"></use>
         </svg>
       </button>
     </>

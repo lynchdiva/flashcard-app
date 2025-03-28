@@ -15,7 +15,7 @@ export default function InputAddWord({
   return (
     <>
       <input
-        className={cx('add-form__input', { ['invalid']: isInputInvalid })}
+        className={cx('add-form__input', { invalid: isInputInvalid })}
         type="text"
         id={name}
         name={name}
@@ -25,7 +25,7 @@ export default function InputAddWord({
         onBlur={onBlur}
       />
       {isInputInvalid ? (
-        <span className={styles['add-form__error-message']}>{error}</span>
+        <span className={cx('add-form__error-message')}>{error}</span>
       ) : null}
     </>
   );

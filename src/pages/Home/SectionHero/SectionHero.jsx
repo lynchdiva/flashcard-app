@@ -8,7 +8,7 @@ export default function SectionHero() {
           Learn <span className={styles['section-hero__accent']}>faster</span>,
           word <br /> by word!
           <svg className={styles['section-hero__icon']}>
-            <use xlinkHref="src/assets/icons/sprite.svg#bulb"></use>
+            <use href="src/assets/icons/sprite.svg#bulb"></use>
           </svg>
         </h1>
 

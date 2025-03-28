@@ -31,7 +31,7 @@ const SectionWordList = observer(() => {
           >
             Add word
             <svg className={styles['section-words__plus-icon']}>
-              <use xlinkHref="src/assets/icons/sprite.svg#add-button"></use>
+              <use href="src/assets/icons/sprite.svg#add-button"></use>
             </svg>
           </button>
 

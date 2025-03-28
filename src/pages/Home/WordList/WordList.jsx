@@ -8,8 +8,9 @@ import { wordsStore } from '../../../stores/WordsStore.js';
 import { observer } from 'mobx-react-lite';
 
 const cx = classNames.bind(styles);
-const inProgress = 'In progress';
-const learned = 'Learned';
+
+const STATUS_IN_PROGRESS = 'In progress';
+const STATUS_LEARNED = 'Learned';
 
 const WordList = observer(({ words }) => {
   const { isLoading } = wordsStore;
@@ -22,7 +23,7 @@ const WordList = observer(({ words }) => {
       {isNoWords ? (
         <WordListEmpty />
       ) : (
-        <WordsGroup title={inProgress} words={words} />
+        <WordsGroup title={STATUS_IN_PROGRESS} words={words} />
       )}
     </>
   );
@@ -30,23 +31,25 @@ const WordList = observer(({ words }) => {
 
 const WordsGroup = ({ title, words }) => {
   const header =
-    title === inProgress
+    title === STATUS_IN_PROGRESS
       ? cx('table__header', 'table__header_blue')
       : cx('table__header', 'table__header_orange');
 
   return (
     <section>
-      <div className={styles['words-group__container']}>
-        <table className={styles.table}>
+      <div className={cx('words-group__container')}>
+        <table className={cx('table')}>
           <thead>
             <tr>
               <th colSpan={5} className={header}>
-                {title === inProgress ? inProgress : learned} (
-                <span>{words.length}</span>)
+                {title === STATUS_IN_PROGRESS
+                  ? STATUS_IN_PROGRESS
+                  : STATUS_LEARNED}{' '}
+                (<span>{words.length}</span>)
               </th>
             </tr>
           </thead>
-          <tbody className={styles.table__body}>
+          <tbody className={cx('table__body')}>
             {words.map(word => (
               <Word key={word.id} word={word} />
             ))}
