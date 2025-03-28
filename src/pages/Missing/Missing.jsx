@@ -27,7 +27,7 @@ export default function Missing() {
         <div className={styles['missing__img-mountain-box']}>
           <img
             className={styles['missing__img-mountain']}
-            src="./src/assets/images/MissingPage.png"
+            src="./src/assets/images/missing-page.png"
             alt="Missing page"
           />
         </div>

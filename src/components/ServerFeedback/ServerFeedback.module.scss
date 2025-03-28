@@ -31,20 +31,20 @@
     opacity: 0;
     transform: translateX(100%);
   }
-}
 
-.server-feedback_success {
-  border: 1px solid #25ae88;
-}
+  &_success {
+    border: 1px solid #25ae88;
+  }
 
-.server-feedback_error {
-  border: 1px solid #d75a4a;
+  &_error {
+    border: 1px solid #d75a4a;
+  }
 }
 
 .server-feedback__status-icon {
   flex: none;
-  width: 26px;
-  height: 26px;
+  width: 24px;
+  height: 24px;
 }
 
 .server-feedback__text {
@@ -62,7 +62,7 @@
 }
 
 .server-feedback__icon-close {
-  width: 24px;
-  height: 24px;
+  width: 22px;
+  height: 22px;
   fill: vr.$logo-gray;
 }

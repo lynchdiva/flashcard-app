@@ -1,13 +1,13 @@
 @use '../../scss/mixins';
 
-.loader__container {
+.loader-container {
   position: relative;
   min-height: 300px;
   @extend %flex-center;
   justify-content: center;
 }
 
-.cssload-loader-walk {
+.loader {
   width: 72px;
   height: 29px;
   position: absolute;
@@ -18,41 +18,41 @@
   -webkit-transform: translate(-50%, -50%);
   -moz-transform: translate(-50%, -50%);
 }
-.cssload-loader-walk > div {
+.loader > div {
   content: '';
   width: 8px;
   height: 8px;
   background: rgb(119, 159, 136);
   border-radius: 100%;
   position: absolute;
-  animation: cssload-animate 2.3s linear infinite;
-  -o-animation: cssload-animate 2.3s linear infinite;
-  -ms-animation: cssload-animate 2.3s linear infinite;
-  -webkit-animation: cssload-animate 2.3s linear infinite;
-  -moz-animation: cssload-animate 2.3s linear infinite;
+  animation: load-animate 2.3s linear infinite;
+  -o-animation: load-animate 2.3s linear infinite;
+  -ms-animation: load-animate 2.3s linear infinite;
+  -webkit-animation: load-animate 2.3s linear infinite;
+  -moz-animation: load-animate 2.3s linear infinite;
 }
-.cssload-loader-walk > div:nth-of-type(1) {
+.loader > div:nth-of-type(1) {
   animation-delay: -0.46s;
   -o-animation-delay: -0.46s;
   -ms-animation-delay: -0.46s;
   -webkit-animation-delay: -0.46s;
   -moz-animation-delay: -0.46s;
 }
-.cssload-loader-walk > div:nth-of-type(2) {
+.loader > div:nth-of-type(2) {
   animation-delay: -0.92s;
   -o-animation-delay: -0.92s;
   -ms-animation-delay: -0.92s;
   -webkit-animation-delay: -0.92s;
   -moz-animation-delay: -0.92s;
 }
-.cssload-loader-walk > div:nth-of-type(3) {
+.loader > div:nth-of-type(3) {
   animation-delay: -1.38s;
   -o-animation-delay: -1.38s;
   -ms-animation-delay: -1.38s;
   -webkit-animation-delay: -1.38s;
   -moz-animation-delay: -1.38s;
 }
-.cssload-loader-walk > div:nth-of-type(4) {
+.loader > div:nth-of-type(4) {
   animation-delay: -1.84s;
   -o-animation-delay: -1.84s;
   -ms-animation-delay: -1.84s;
@@ -60,7 +60,7 @@
   -moz-animation-delay: -1.84s;
 }
 
-@keyframes cssload-animate {
+@keyframes load-animate {
   0% {
     left: 72px;
     top: 0;
@@ -91,7 +91,7 @@
   }
 }
 
-@-o-keyframes cssload-animate {
+@-o-keyframes load-animate {
   0% {
     left: 72px;
     top: 0;
@@ -122,7 +122,7 @@
   }
 }
 
-@-ms-keyframes cssload-animate {
+@-ms-keyframes load-animate {
   0% {
     left: 72px;
     top: 0;
@@ -153,7 +153,7 @@
   }
 }
 
-@-webkit-keyframes cssload-animate {
+@-webkit-keyframes load-animate {
   0% {
     left: 72px;
     top: 0;
@@ -184,7 +184,7 @@
   }
 }
 
-@-moz-keyframes cssload-animate {
+@-moz-keyframes load-animate {
   0% {
     left: 72px;
     top: 0;

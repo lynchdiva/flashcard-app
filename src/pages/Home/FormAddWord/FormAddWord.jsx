@@ -78,7 +78,7 @@ export default function FormAddWord({ onCloseModal }) {
       <div className={styles['add-form__notice-box']}>
         <img
           className={styles['add-form__img']}
-          src="./src/assets/images/taping.png"
+          src="./src/assets/images/typing.png"
           alt="Taping hands"
         />
         <p className={styles['add-form__text']}>
