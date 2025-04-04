@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import EditButtons from './EditButtons';
 import EditableWordCell from './EditableWordCell';
 import { useRef, useEffect } from 'react';
-import { useForm } from '../../../utilities/hooks/useForm';
+import useForm from '../../../utilities/hooks/useForm';
 import { validateWord } from '../../../utilities/utils/validation';
 
 export default function EditableWord({ word, onModeChange }) {

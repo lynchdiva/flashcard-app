@@ -1,7 +1,7 @@
 import styles from './FormAddWord.module.scss';
 import InputAddWord from '../InputAddWord/InputAddWord.jsx';
 import PropTypes from 'prop-types';
-import { useForm } from '../../../utilities/hooks/useForm.jsx';
+import useForm from '../../../utilities/hooks/useForm.jsx';
 import { validateWord } from '../../../utilities/utils/validation';
 import { wordsStore } from '../../../stores/WordsStore';
 

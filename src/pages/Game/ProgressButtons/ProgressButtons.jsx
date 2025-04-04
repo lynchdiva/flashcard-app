@@ -4,12 +4,12 @@ import { learnedWordsStore } from '../../../stores/LearnedWordsStore.js';
 
 export default function ProgressButtons({ word, onMoveCard }) {
   const moveAndMarkAsLearned = () => {
-    learnedWordsStore.addLearnedWord(word);
+    learnedWordsStore.addLearnedWord(word.english);
     onMoveCard('learned', 'forward');
   };
 
   const moveAndMarkAsInProgress = () => {
-    learnedWordsStore.deleteLearnedWord(word);
+    learnedWordsStore.deleteLearnedWord(word.english);
     onMoveCard('in-progress', 'forward');
   };
 

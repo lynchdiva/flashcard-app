@@ -15,7 +15,7 @@ export default function Options({ currentCount, amount, onMoveCard }) {
         disabled={currentCount === 1}
       >
         <svg className={styles.options__icon}>
-          <use xlinkHref="./src/assets/icons/sprite.svg#back-arrow"></use>
+          <use href="./src/assets/icons/sprite.svg#back-arrow"></use>
         </svg>
         <span>Undo</span>
       </button>
@@ -24,7 +24,7 @@ export default function Options({ currentCount, amount, onMoveCard }) {
 
       <button className={styles.options__btn}>
         <svg className={styles.options__icon}>
-          <use xlinkHref="./src/assets/icons/sprite.svg#shuffle"></use>
+          <use href="./src/assets/icons/sprite.svg#shuffle"></use>
         </svg>
         <span>Shuffle</span>
       </button>

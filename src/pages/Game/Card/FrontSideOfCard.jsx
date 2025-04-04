@@ -7,16 +7,11 @@ const cx = classNames.bind(styles);
 
 export default function FrontSideOfCard({ word }) {
   return (
-    <div
-      className={cx({
-        card: true,
-        card_animated: true
-      })}
-    >
-      <span className={styles.card__tag}>{word.tags}</span>
-      <div className={styles.card__box}>
-        <p className={styles.card__word}>{word.english}</p>
-        <p className={styles.card__transcription}>{word.transcription}</p>
+    <div className={cx('card', 'card_animated')}>
+      <span className={cx('card__tag')}>{word.tags}</span>
+      <div className={cx('card__box')}>
+        <p className={cx('card__word')}>{word.english}</p>
+        <p className={cx('card__transcription')}>{word.transcription}</p>
       </div>
 
       <CardNotice />

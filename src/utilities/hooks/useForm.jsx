@@ -1,7 +1,7 @@
 import { useState, useEffect } from 'react';
 import setObjectValues from '../utils/setObjectValues';
 
-export function useForm(initialFormData, validationRules) {
+export default function useForm(initialFormData, validationRules) {
   const [formData, setFormData] = useState({ ...initialFormData });
   const [errors, setErrors] = useState(() =>
     setObjectValues(initialFormData, null)

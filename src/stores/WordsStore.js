@@ -72,7 +72,10 @@ class WordsStore {
       runInAction(() => {
         this.words = this.words.map(word => {
           if (word.id === updatedWord.id) {
-            learnedWordsStore.updateLearnedWord(word, updatedWord);
+            learnedWordsStore.updateLearnedWord(
+              word.english,
+              updatedWord.english
+            );
             return data;
           } else {
             return word;
@@ -97,7 +100,7 @@ class WordsStore {
       await wordService.deleteWord(deletedWord.id);
       runInAction(() => {
         this.words = this.words.filter(word => word.id !== deletedWord.id);
-        learnedWordsStore.deleteLearnedWord(deletedWord);
+        learnedWordsStore.deleteLearnedWord(deletedWord.english);
       });
     } catch (err) {
       runInAction(() => {

@@ -1,6 +1,6 @@
 import { useState, useEffect } from 'react';
 
-export function useVisibility(threshold = 400) {
+export default function useVisibility(threshold = 400) {
   const [isVisible, setIsVisible] = useState(false);
 
   useEffect(() => {

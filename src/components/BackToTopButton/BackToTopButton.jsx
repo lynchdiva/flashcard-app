@@ -1,6 +1,6 @@
 import styles from './BackToTopButton.module.scss';
 import classNames from 'classnames/bind';
-import { useVisibility } from '../../utilities/hooks/useVisibility';
+import useVisibility from '../../utilities/hooks/useVisibility';
 
 const cx = classNames.bind(styles);
 
