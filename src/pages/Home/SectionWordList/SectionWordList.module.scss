@@ -32,11 +32,14 @@
 
 .section-words__box {
   @extend %flex-center;
-  gap: 8em;
+  min-width: 38em;
+  justify-content: space-between;
 
   @media screen and (max-width: 680px) {
-    width: 100%;
-    justify-content: space-evenly;
+    width: 80%;
+    min-width: 0;
+    margin: auto;
+    justify-content: space-between;
   }
 }
 

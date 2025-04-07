@@ -21,14 +21,14 @@
   }
 }
 
-.btn-check:checked + .btn,
+.custom-btn .btn-check:checked + .btn,
 :not(.btn-check) + .btn:active,
 .btn:first-child:active,
 .btn.active,
 .btn.show {
   color: vr.$background-green;
 
-  background-color: none;
+  background-color: transparent;
   border-color: transparent;
 }
 
@@ -36,6 +36,12 @@
   box-shadow: vr.$box-shadow;
 }
 
-.dropdown-item {
+.custom-item {
   font-weight: 500;
+
+  &.disabled {
+    opacity: 0.5;
+    pointer-events: auto;
+    cursor: default;
+  }
 }

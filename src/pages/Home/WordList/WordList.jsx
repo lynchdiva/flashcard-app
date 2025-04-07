@@ -1,6 +1,7 @@
 import styles from './WordList.module.scss';
 import classNames from 'classnames/bind';
 import PropTypes from 'prop-types';
+import { FaFolderOpen } from 'react-icons/fa';
 import Loader from '../../../components/Loader/Loader.jsx';
 import Word from '../Word/Word.jsx';
 import WordListEmpty from '../WordListEmpty/WordListEmpty.jsx';
@@ -13,7 +14,7 @@ const STATUS_IN_PROGRESS = 'In progress';
 const STATUS_LEARNED = 'Learned';
 
 const WordList = observer(({ words }) => {
-  const { isLoading } = wordsStore;
+  const { isLoading, inProgressWordsObjects, learnedWordsObjects } = wordsStore;
   const isNoWords = words.length === 0;
 
   if (isLoading) return <Loader />;
@@ -23,7 +24,13 @@ const WordList = observer(({ words }) => {
       {isNoWords ? (
         <WordListEmpty />
       ) : (
-        <WordsGroup title={STATUS_IN_PROGRESS} words={words} />
+        <>
+          <WordsGroup
+            title={STATUS_IN_PROGRESS}
+            words={inProgressWordsObjects}
+          />
+          <WordsGroup title={STATUS_LEARNED} words={learnedWordsObjects} />
+        </>
       )}
     </>
   );
@@ -45,7 +52,9 @@ const WordsGroup = ({ title, words }) => {
                 {title === STATUS_IN_PROGRESS
                   ? STATUS_IN_PROGRESS
                   : STATUS_LEARNED}{' '}
-                (<span>{words.length}</span>)
+                <span>
+                  {words.length ? `(${words.length})` : <FaFolderOpen />}
+                </span>
               </th>
             </tr>
           </thead>

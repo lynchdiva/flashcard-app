@@ -1,5 +1,5 @@
 import styles from './SectionWordList.module.scss';
-import DropdownMenu from '../../../components/DropdownMenu/DropdownMenu.jsx';
+import DropdownMenu from '../../../components/FilterDropdown/FilterDropdown.jsx';
 import WordList from '../WordList/WordList.jsx';
 import ModalWindow from '../../../components/ModalWindow/ModalWindow.jsx';
 import FormAddWord from '../FormAddWord/FormAddWord.jsx';
@@ -11,9 +11,15 @@ import { wordsStore } from '../../../stores/WordsStore.js';
 const SectionWordList = observer(() => {
   const { words } = wordsStore;
   const [isClicked, setIsClicked] = useState(false);
+  const [chosenFilterItem, setChosenFilterItem] = useState('In progress');
+  const filterItems = ['Learned', 'In progress', 'All Words'];
 
   const handleToggleModal = () => {
     setIsClicked(prev => !prev);
+  };
+
+  const handleChoseFilterItem = item => {
+    setChosenFilterItem(item);
   };
 
   return (
@@ -35,7 +41,11 @@ const SectionWordList = observer(() => {
             </svg>
           </button>
 
-          <DropdownMenu />
+          <DropdownMenu
+            chosenFilterItem={chosenFilterItem}
+            onChoseItem={handleChoseFilterItem}
+            filterItems={filterItems}
+          />
         </div>
       </div>
 

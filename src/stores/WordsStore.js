@@ -18,9 +18,15 @@ class WordsStore {
     this.isLoading = this.pendingRequests > 0;
   }
 
-  get inProgressWords() {
+  get inProgressWordsObjects() {
     return this.words.filter(
       word => !learnedWordsStore.learnedWords.includes(word.english)
+    );
+  }
+
+  get learnedWordsObjects() {
+    return this.words.filter(word =>
+      learnedWordsStore.learnedWords.includes(word.english)
     );
   }
 
