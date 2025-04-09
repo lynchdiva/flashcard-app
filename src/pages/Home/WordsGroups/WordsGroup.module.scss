@@ -46,3 +46,14 @@
 .table__header_orange {
   color: vr.$accent-orange;
 }
+
+.table__text {
+  padding-bottom: 1em;
+  text-align: center;
+  font-size: 2em;
+  opacity: 0.5;
+
+  @media screen and (max-width: vr.$mobileS) {
+    font-size: 1.8em;
+  }
+}

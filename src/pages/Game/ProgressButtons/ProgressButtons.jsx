@@ -1,15 +1,19 @@
 import styles from './ProgressButtons.module.scss';
 import PropTypes from 'prop-types';
-import { learnedWordsStore } from '../../../stores/LearnedWordsStore.js';
 
-export default function ProgressButtons({ word, onMoveCard }) {
+export default function ProgressButtons({
+  word,
+  onMoveCard,
+  onSaveLearnedWord,
+  onDeleteLearnedWord
+}) {
   const moveAndMarkAsLearned = () => {
-    learnedWordsStore.addLearnedWord(word.english);
+    onSaveLearnedWord(word.english);
     onMoveCard('learned', 'forward');
   };
 
   const moveAndMarkAsInProgress = () => {
-    learnedWordsStore.deleteLearnedWord(word.english);
+    onDeleteLearnedWord(word.english);
     onMoveCard('in-progress', 'forward');
   };
 
@@ -30,5 +34,7 @@ export default function ProgressButtons({ word, onMoveCard }) {
 
 ProgressButtons.propTypes = {
   word: PropTypes.object.isRequired,
-  onMoveCard: PropTypes.func.isRequired
+  onMoveCard: PropTypes.func.isRequired,
+  onSaveLearnedWord: PropTypes.func.isRequired,
+  onDeleteLearnedWord: PropTypes.func.isRequired
 };

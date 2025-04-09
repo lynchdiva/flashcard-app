@@ -1,80 +1,44 @@
-import styles from './WordList.module.scss';
-import classNames from 'classnames/bind';
 import PropTypes from 'prop-types';
-import { FaFolderOpen } from 'react-icons/fa';
 import Loader from '../../../components/Loader/Loader.jsx';
-import Word from '../Word/Word.jsx';
+import WordsGroup from '../WordsGroups/WordsGroup.jsx';
 import WordListEmpty from '../WordListEmpty/WordListEmpty.jsx';
 import { wordsStore } from '../../../stores/WordsStore.js';
 import { observer } from 'mobx-react-lite';
 
-const cx = classNames.bind(styles);
-
 const STATUS_IN_PROGRESS = 'In progress';
 const STATUS_LEARNED = 'Learned';
 
-const WordList = observer(({ words }) => {
+const WordList = observer(({ words, chosenFilterItem }) => {
   const { isLoading, inProgressWordsObjects, learnedWordsObjects } = wordsStore;
   const isNoWords = words.length === 0;
+  const filterMap = {
+    [STATUS_IN_PROGRESS]: inProgressWordsObjects,
+    [STATUS_LEARNED]: learnedWordsObjects
+  };
+  const filteredWords = filterMap[chosenFilterItem];
 
   if (isLoading) return <Loader />;
 
+  if (isNoWords) return <WordListEmpty />;
+
   return (
     <>
-      {isNoWords ? (
-        <WordListEmpty />
+      {filteredWords ? (
+        <WordsGroup title={chosenFilterItem} group={filteredWords} />
       ) : (
         <>
           <WordsGroup
             title={STATUS_IN_PROGRESS}
-            words={inProgressWordsObjects}
+            group={inProgressWordsObjects}
           />
-          <WordsGroup title={STATUS_LEARNED} words={learnedWordsObjects} />
+          <WordsGroup title={STATUS_LEARNED} group={learnedWordsObjects} />
         </>
       )}
     </>
   );
 });
 
-const WordsGroup = ({ title, words }) => {
-  const header =
-    title === STATUS_IN_PROGRESS
-      ? cx('table__header', 'table__header_blue')
-      : cx('table__header', 'table__header_orange');
-
-  return (
-    <section>
-      <div className={cx('words-group__container')}>
-        <table className={cx('table')}>
-          <thead>
-            <tr>
-              <th colSpan={5} className={header}>
-                {title === STATUS_IN_PROGRESS
-                  ? STATUS_IN_PROGRESS
-                  : STATUS_LEARNED}{' '}
-                <span>
-                  {words.length ? `(${words.length})` : <FaFolderOpen />}
-                </span>
-              </th>
-            </tr>
-          </thead>
-          <tbody className={cx('table__body')}>
-            {words.map(word => (
-              <Word key={word.id} word={word} />
-            ))}
-          </tbody>
-        </table>
-      </div>
-    </section>
-  );
-};
-
 WordList.propTypes = {
-  words: PropTypes.array.isRequired
-};
-
-WordsGroup.propTypes = {
-  title: PropTypes.string.isRequired,
   words: PropTypes.array.isRequired
 };
 

@@ -8,18 +8,26 @@ import Options from '../Options/Options.jsx';
 import PropTypes from 'prop-types';
 import { useState, useEffect } from 'react';
 import { wordsStore } from '../../../stores/WordsStore';
-import { learnedWordsStore } from '../../../stores/LearnedWordsStore.js';
 import { observer } from 'mobx-react-lite';
 import useCardAnimation from '../../../utilities/hooks/useCardAnimation';
+import useShuffle from '../../../utilities/hooks/useShuffle.jsx';
+import useLearningSession from '../../../utilities/hooks/useLearningSession.jsx';
 
 const SectionCards = observer(({ initialWordIndex = 0 }) => {
-  const { words, isLoading } = wordsStore;
-  const { learnedWords } = learnedWordsStore;
-  const isNoWords = words.length === 0;
+  const { inProgressWordsObjects, isLoading } = wordsStore;
+  const [inProgressWords, setInProgressWords] = useState([]);
 
-  const [wordIndex, setWordIndex] = useState(initialWordIndex);
-  const [word, setWord] = useState(words[initialWordIndex]);
-  const [isCompleted, setIsComleted] = useState(false);
+  const {
+    word,
+    wordIndex,
+    setWordIndex,
+    sessionStartIndex,
+    setSessionStartIndex,
+    sessionProgress,
+    isCompleted,
+    handleSaveLearnedWord,
+    handleDeleteLearnedWord
+  } = useLearningSession(inProgressWords, initialWordIndex);
 
   const {
     isAnimating,
@@ -28,20 +36,25 @@ const SectionCards = observer(({ initialWordIndex = 0 }) => {
     handleFlipCard,
     moveAnimationType,
     handleMoveCard
-  } = useCardAnimation({ words, wordIndex, setWordIndex });
+  } = useCardAnimation({
+    words: inProgressWords,
+    wordIndex,
+    setWordIndex
+  });
 
-  const handleCompleteSession = sessionState => {
-    setIsComleted(sessionState);
-  };
+  const { isShuffling, handleShuffleWords } = useShuffle({
+    updateWordsList: setInProgressWords,
+    wordIndex,
+    setSessionStartIndex,
+    isFlipped,
+    handleFlipCard
+  });
+
+  const isNoWords = !inProgressWords.length;
 
   useEffect(() => {
-    if (words[wordIndex]) {
-      setWord(words[wordIndex]);
-      handleCompleteSession(false);
-    } else {
-      handleCompleteSession(true);
-    }
-  }, [wordIndex, words]);
+    setInProgressWords([...inProgressWordsObjects]);
+  }, [inProgressWordsObjects]);
 
   if (isLoading) return <Loader />;
   if (isNoWords) return <NoWordsMessage />;
@@ -49,7 +62,7 @@ const SectionCards = observer(({ initialWordIndex = 0 }) => {
   return (
     <section className={styles['flashcards-section']}>
       {isCompleted ? (
-        <CompletionMessage amountLearnedWords={learnedWords.length} />
+        <CompletionMessage amountLearnedWords={sessionProgress.length} />
       ) : (
         <>
           <Card
@@ -60,13 +73,21 @@ const SectionCards = observer(({ initialWordIndex = 0 }) => {
             moveAnimationType={moveAnimationType}
             isAnimating={isAnimating}
             onAnimating={setIsAnimating}
+            isShuffling={isShuffling}
           />
           <Options
-            currentCount={wordIndex + 1}
-            amount={words.length}
+            currentCount={wordIndex}
+            amount={inProgressWords.length}
+            sessionStartIndex={sessionStartIndex}
             onMoveCard={handleMoveCard}
+            onShuffleCards={handleShuffleWords}
           />
-          <ProgressButtons word={word} onMoveCard={handleMoveCard} />
+          <ProgressButtons
+            word={word}
+            onMoveCard={handleMoveCard}
+            onSaveLearnedWord={handleSaveLearnedWord}
+            onDeleteLearnedWord={handleDeleteLearnedWord}
+          />
         </>
       )}
     </section>

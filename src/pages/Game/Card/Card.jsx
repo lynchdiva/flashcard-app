@@ -14,7 +14,8 @@ export default function Card(props) {
     onFlip,
     moveAnimationType,
     isAnimating,
-    onAnimating
+    onAnimating,
+    isShuffling
   } = props;
 
   const handleClick = () => {
@@ -35,7 +36,8 @@ export default function Card(props) {
       ) : (
         <div
           className={cx('card__container', 'card__animation-container', {
-            'card__animation-container_flip': isFlipped
+            'card__animation-container_flip': isFlipped,
+            card__shake: isShuffling
           })}
           onClick={handleClick}
           onTransitionEnd={handleAnimationEnd}
@@ -55,5 +57,6 @@ Card.propTypes = {
   word: PropTypes.object.isRequired,
   moveAnimationType: PropTypes.string.isRequired,
   onAnimating: PropTypes.func.isRequired,
-  isAnimating: PropTypes.bool.isRequired
+  isAnimating: PropTypes.bool.isRequired,
+  isShuffling: PropTypes.bool.isRequired
 };

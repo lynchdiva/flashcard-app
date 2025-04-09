@@ -1,10 +1,6 @@
 import { useState, useCallback } from 'react';
 
-export default function useCardAnimation({
-  words = [],
-  wordIndex = 0,
-  setWordIndex = () => {}
-}) {
+export default function useCardAnimation({ words, wordIndex, setWordIndex }) {
   const [isFlipped, setIsFlipped] = useState(false);
   const [isAnimating, setIsAnimating] = useState(false);
   const [moveAnimationType, setMoveAnimationType] = useState('');
@@ -38,26 +34,18 @@ export default function useCardAnimation({
       setIsAnimating(true);
 
       const moveForward = () => {
-        if (wordIndex < words.length) {
-          setWordIndex(prev => prev + 1);
-        }
+        setWordIndex(prev => prev + 1);
       };
       const moveBack = () => {
-        if (wordIndex > 0) {
-          setWordIndex(prev => prev - 1);
-        }
+        setWordIndex(prev => prev - 1);
       };
 
-      if (direction === 'forward') {
+      if (direction === 'forward' && wordIndex < words.length) {
         await handleMoveAnimation(animationType);
-        if (isFlipped) {
-          await handleFlipCard();
-        }
+        if (isFlipped) await handleFlipCard();
         moveForward();
-      } else if (direction === 'back') {
-        if (isFlipped) {
-          await handleFlipCard();
-        } //сняала
+      } else if (direction === 'back' && wordIndex > 0) {
+        if (isFlipped) await handleFlipCard();
         await handleMoveAnimation(animationType);
         moveBack();
       }
