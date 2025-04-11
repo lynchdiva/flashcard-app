@@ -6,7 +6,7 @@ import NoWordsMessage from '../Card/Notification/NoWordsMessage.jsx';
 import CompletionMessage from '../Card/Notification/CompletionMessage.jsx';
 import Options from '../Options/Options.jsx';
 import PropTypes from 'prop-types';
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useMemo } from 'react';
 import { wordsStore } from '../../../stores/WordsStore';
 import { observer } from 'mobx-react-lite';
 import useCardAnimation from '../../../utilities/hooks/useCardAnimation';
@@ -16,7 +16,6 @@ import useLearningSession from '../../../utilities/hooks/useLearningSession.jsx'
 const SectionCards = observer(({ initialWordIndex = 0 }) => {
   const { inProgressWordsObjects, isLoading } = wordsStore;
   const [inProgressWords, setInProgressWords] = useState([]);
-
   const {
     word,
     wordIndex,
@@ -25,30 +24,44 @@ const SectionCards = observer(({ initialWordIndex = 0 }) => {
     setSessionStartIndex,
     sessionProgress,
     isCompleted,
-    handleSaveLearnedWord,
-    handleDeleteLearnedWord
+    saveToProgress,
+    removeFromProgress
   } = useLearningSession(inProgressWords, initialWordIndex);
 
   const {
     isAnimating,
     setIsAnimating,
     isFlipped,
-    handleFlipCard,
+    toggleFlipWithDelay,
     moveAnimationType,
-    handleMoveCard
+    moveCardWithAnimation
   } = useCardAnimation({
     words: inProgressWords,
     wordIndex,
     setWordIndex
   });
 
-  const { isShuffling, handleShuffleWords } = useShuffle({
-    updateWordsList: setInProgressWords,
+  const { isShuffling, shuffleRemainingWords } = useShuffle({
+    setInProgressWords,
     wordIndex,
     setSessionStartIndex,
     isFlipped,
-    handleFlipCard
+    toggleFlipWithDelay
   });
+
+  const safeActions = useMemo(
+    () => ({
+      moveCard: (animationType, direction) => {
+        if (isShuffling || isAnimating) return;
+        moveCardWithAnimation(animationType, direction);
+      },
+      shuffleWords: () => {
+        if (isShuffling || isAnimating) return;
+        shuffleRemainingWords();
+      }
+    }),
+    [isShuffling, isAnimating, moveCardWithAnimation, shuffleRemainingWords]
+  );
 
   const isNoWords = !inProgressWords.length;
 
@@ -68,25 +81,27 @@ const SectionCards = observer(({ initialWordIndex = 0 }) => {
           <Card
             word={word}
             isFlipped={isFlipped}
-            onFlip={handleFlipCard}
+            toggleFlipWithDelay={toggleFlipWithDelay}
             isCompleted={isCompleted}
             moveAnimationType={moveAnimationType}
             isAnimating={isAnimating}
-            onAnimating={setIsAnimating}
+            setIsAnimating={setIsAnimating}
             isShuffling={isShuffling}
           />
           <Options
             currentCount={wordIndex}
             amount={inProgressWords.length}
             sessionStartIndex={sessionStartIndex}
-            onMoveCard={handleMoveCard}
-            onShuffleCards={handleShuffleWords}
+            moveCard={safeActions.moveCard}
+            isShuffling={isShuffling}
+            shuffleWords={safeActions.shuffleWords}
           />
           <ProgressButtons
             word={word}
-            onMoveCard={handleMoveCard}
-            onSaveLearnedWord={handleSaveLearnedWord}
-            onDeleteLearnedWord={handleDeleteLearnedWord}
+            moveCard={safeActions.moveCard}
+            saveToProgress={saveToProgress}
+            removeFromProgress={removeFromProgress}
+            isShuffling={isShuffling}
           />
         </>
       )}

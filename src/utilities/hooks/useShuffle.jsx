@@ -2,33 +2,35 @@ import { useState } from 'react';
 import shuffleArray from '../utils/shuffleArray';
 
 export default function useShuffle({
-  updateWordsList,
+  setInProgressWords,
   wordIndex,
   setSessionStartIndex,
   isFlipped,
-  handleFlipCard
+  toggleFlipWithDelay
 }) {
   const [isShuffling, setIsShuffling] = useState(false);
 
-  const handleShuffleWords = async () => {
+  const shuffleRemainingWords = async () => {
     if (isShuffling) return;
 
     if (isFlipped) {
-      await handleFlipCard();
+      await toggleFlipWithDelay();
     }
 
     setIsShuffling(true);
     await new Promise(resolve => setTimeout(resolve, 800));
     setIsShuffling(false);
 
-    updateWordsList(prevWords => {
+    setInProgressWords(prevWords => {
       const wordsToShuffle = prevWords.slice(wordIndex);
       const shuffled = shuffleArray(wordsToShuffle);
       const beforeCurrent = prevWords.slice(0, wordIndex);
-      return beforeCurrent.concat(shuffled);
+      const updatedWordsList = beforeCurrent.concat(shuffled);
+      return updatedWordsList;
     });
+
     setSessionStartIndex(wordIndex);
   };
 
-  return { isShuffling, handleShuffleWords };
+  return { isShuffling, shuffleRemainingWords };
 }

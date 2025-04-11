@@ -5,7 +5,7 @@ export default function useCardAnimation({ words, wordIndex, setWordIndex }) {
   const [isAnimating, setIsAnimating] = useState(false);
   const [moveAnimationType, setMoveAnimationType] = useState('');
 
-  const handleFlipCard = useCallback(() => {
+  const toggleFlipWithDelay = useCallback(() => {
     return new Promise(res => {
       setIsFlipped(prevState => {
         if (prevState) {
@@ -18,16 +18,14 @@ export default function useCardAnimation({ words, wordIndex, setWordIndex }) {
     });
   }, []);
 
-  const handleMoveAnimation = useCallback(animationType => {
+  const startMoveAnimation = useCallback(animationType => {
     return new Promise(res => {
       setMoveAnimationType(animationType);
-      setTimeout(() => {
-        res();
-      }, 500);
+      setTimeout(res, 500);
     });
   }, []);
 
-  const handleMoveCard = useCallback(
+  const moveCardWithAnimation = useCallback(
     async (animationType, direction) => {
       if (isAnimating) return;
 
@@ -41,12 +39,12 @@ export default function useCardAnimation({ words, wordIndex, setWordIndex }) {
       };
 
       if (direction === 'forward' && wordIndex < words.length) {
-        await handleMoveAnimation(animationType);
-        if (isFlipped) await handleFlipCard();
+        await startMoveAnimation(animationType);
+        if (isFlipped) await toggleFlipWithDelay();
         moveForward();
       } else if (direction === 'back' && wordIndex > 0) {
-        if (isFlipped) await handleFlipCard();
-        await handleMoveAnimation(animationType);
+        if (isFlipped) await toggleFlipWithDelay();
+        await startMoveAnimation(animationType);
         moveBack();
       }
 
@@ -58,8 +56,8 @@ export default function useCardAnimation({ words, wordIndex, setWordIndex }) {
       words,
       wordIndex,
       isFlipped,
-      handleFlipCard,
-      handleMoveAnimation,
+      toggleFlipWithDelay,
+      startMoveAnimation,
       setWordIndex
     ]
   );
@@ -68,8 +66,8 @@ export default function useCardAnimation({ words, wordIndex, setWordIndex }) {
     isAnimating,
     setIsAnimating,
     isFlipped,
-    handleFlipCard,
+    toggleFlipWithDelay,
     moveAnimationType,
-    handleMoveCard
+    moveCardWithAnimation
   };
 }

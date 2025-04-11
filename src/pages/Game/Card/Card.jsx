@@ -11,22 +11,22 @@ export default function Card(props) {
   const {
     word,
     isFlipped,
-    onFlip,
+    toggleFlipWithDelay,
     moveAnimationType,
     isAnimating,
-    onAnimating,
+    setIsAnimating,
     isShuffling
   } = props;
 
   const handleClick = () => {
-    if (isAnimating) return;
+    if (isAnimating || isShuffling) return;
 
-    onAnimating(true);
-    onFlip();
+    setIsAnimating(true);
+    toggleFlipWithDelay();
   };
 
   const handleAnimationEnd = () => {
-    onAnimating(false);
+    setIsAnimating(false);
   };
 
   return (
@@ -53,10 +53,10 @@ export default function Card(props) {
 Card.propTypes = {
   isCompleted: PropTypes.bool.isRequired,
   isFlipped: PropTypes.bool.isRequired,
-  onFlip: PropTypes.func.isRequired,
+  toggleFlipWithDelay: PropTypes.func.isRequired,
   word: PropTypes.object.isRequired,
   moveAnimationType: PropTypes.string.isRequired,
-  onAnimating: PropTypes.func.isRequired,
+  setIsAnimating: PropTypes.func.isRequired,
   isAnimating: PropTypes.bool.isRequired,
   isShuffling: PropTypes.bool.isRequired
 };

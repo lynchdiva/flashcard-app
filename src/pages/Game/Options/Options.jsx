@@ -6,19 +6,20 @@ export default function Options({
   currentCount,
   amount,
   sessionStartIndex,
-  onMoveCard,
-  onShuffleCards
+  moveCard,
+  isShuffling,
+  shuffleWords
 }) {
-  const handleMoveBackAndUndo = () => {
-    onMoveCard('undo', 'back');
+  const moveBackAndUndo = () => {
+    moveCard('undo', 'back');
   };
 
   return (
     <div className={styles.options__container}>
       <button
         className={styles.options__btn}
-        onClick={handleMoveBackAndUndo}
-        disabled={currentCount === sessionStartIndex}
+        onClick={moveBackAndUndo}
+        disabled={currentCount === sessionStartIndex || isShuffling}
       >
         <svg className={styles.options__icon}>
           <use href="./src/assets/icons/sprite.svg#back-arrow"></use>
@@ -28,7 +29,11 @@ export default function Options({
 
       <Counter currentCount={currentCount + 1} amount={amount} />
 
-      <button className={styles.options__btn} onClick={onShuffleCards}>
+      <button
+        className={styles.options__btn}
+        onClick={shuffleWords}
+        disabled={isShuffling}
+      >
         <svg className={styles.options__icon}>
           <use href="./src/assets/icons/sprite.svg#shuffle"></use>
         </svg>
@@ -42,6 +47,7 @@ Options.propTypes = {
   currentCount: PropTypes.number.isRequired,
   amount: PropTypes.number.isRequired,
   sessionStartIndex: PropTypes.number.isRequired,
-  onMoveCard: PropTypes.func.isRequired,
-  onShuffleCards: PropTypes.func.isRequired
+  moveCard: PropTypes.func.isRequired,
+  shuffleWords: PropTypes.func.isRequired,
+  isShuffling: PropTypes.bool.isRequired
 };

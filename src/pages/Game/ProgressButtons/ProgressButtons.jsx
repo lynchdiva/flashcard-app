@@ -3,18 +3,19 @@ import PropTypes from 'prop-types';
 
 export default function ProgressButtons({
   word,
-  onMoveCard,
-  onSaveLearnedWord,
-  onDeleteLearnedWord
+  moveCard,
+  saveToProgress,
+  removeFromProgress,
+  isShuffling
 }) {
   const moveAndMarkAsLearned = () => {
-    onSaveLearnedWord(word.english);
-    onMoveCard('learned', 'forward');
+    saveToProgress(word.english);
+    moveCard('learned', 'forward');
   };
 
   const moveAndMarkAsInProgress = () => {
-    onDeleteLearnedWord(word.english);
-    onMoveCard('in-progress', 'forward');
+    removeFromProgress(word.english);
+    moveCard('in-progress', 'forward');
   };
 
   return (
@@ -22,10 +23,15 @@ export default function ProgressButtons({
       <button
         className={styles['dont-know-button']}
         onClick={moveAndMarkAsInProgress}
+        disabled={isShuffling}
       >
         Don’t know
       </button>
-      <button className={styles['know-button']} onClick={moveAndMarkAsLearned}>
+      <button
+        className={styles['know-button']}
+        onClick={moveAndMarkAsLearned}
+        disabled={isShuffling}
+      >
         Know
       </button>
     </div>
@@ -34,7 +40,8 @@ export default function ProgressButtons({
 
 ProgressButtons.propTypes = {
   word: PropTypes.object.isRequired,
-  onMoveCard: PropTypes.func.isRequired,
-  onSaveLearnedWord: PropTypes.func.isRequired,
-  onDeleteLearnedWord: PropTypes.func.isRequired
+  moveCard: PropTypes.func.isRequired,
+  saveToProgress: PropTypes.func.isRequired,
+  removeFromProgress: PropTypes.func.isRequired,
+  isShuffling: PropTypes.bool.isRequired
 };

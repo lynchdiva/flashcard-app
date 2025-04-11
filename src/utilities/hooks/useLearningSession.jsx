@@ -8,18 +8,18 @@ export default function useLearningSession(inProgressWords, initialWordIndex) {
   const [sessionProgress, setSessionProgress] = useState([]);
   const [isCompleted, setIsCompleted] = useState(false);
 
-  const handleCompleteSession = sessionState => {
+  const updateSessionCompletion = sessionState => {
     setIsCompleted(sessionState);
   };
 
-  const handleSaveLearnedWord = learnedWord => {
+  const saveToProgress = learnedWord => {
     setSessionProgress(prevSessionProgress => [
       ...prevSessionProgress,
       learnedWord
     ]);
   };
 
-  const handleDeleteLearnedWord = learnedWord => {
+  const removeFromProgress = learnedWord => {
     setSessionProgress(prevSessionProgress =>
       prevSessionProgress.filter(word => word !== learnedWord)
     );
@@ -28,7 +28,7 @@ export default function useLearningSession(inProgressWords, initialWordIndex) {
   useEffect(() => {
     if (wordIndex < inProgressWords.length) {
       setWord(inProgressWords[wordIndex]);
-      if (isCompleted) handleCompleteSession(false);
+      if (isCompleted) updateSessionCompletion(false);
     }
   }, [wordIndex, inProgressWords, isCompleted]);
 
@@ -37,7 +37,7 @@ export default function useLearningSession(inProgressWords, initialWordIndex) {
       sessionProgress.forEach(learnedWord =>
         learnedWordsStore.addLearnedWord(learnedWord)
       );
-      handleCompleteSession(true);
+      updateSessionCompletion(true);
     }
   }, [wordIndex, inProgressWords, sessionProgress]);
 
@@ -49,7 +49,7 @@ export default function useLearningSession(inProgressWords, initialWordIndex) {
     setSessionStartIndex,
     sessionProgress,
     isCompleted,
-    handleSaveLearnedWord,
-    handleDeleteLearnedWord
+    saveToProgress,
+    removeFromProgress
   };
 }
