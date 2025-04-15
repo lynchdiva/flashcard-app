@@ -1,4 +1,4 @@
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useCallback } from 'react';
 import setObjectValues from '../utils/setObjectValues';
 
 export default function useForm(initialFormData, validationRules) {
@@ -9,7 +9,7 @@ export default function useForm(initialFormData, validationRules) {
   const [touched, setTouched] = useState(() =>
     setObjectValues(initialFormData, false)
   );
-
+  const [validationEnabled, setValidationEnabled] = useState(true);
   const [isFormInvalid, setIsFormInvalid] = useState(false);
 
   const handleChangeFormData = e => {
@@ -27,6 +27,8 @@ export default function useForm(initialFormData, validationRules) {
   };
 
   const handleBlur = e => {
+    if (!validationEnabled) return;
+
     const { name, value } = e.target;
     setTouched(prevState => ({
       ...prevState,
@@ -38,25 +40,26 @@ export default function useForm(initialFormData, validationRules) {
     }));
   };
 
-  const resetValues = () => {
+  const resetValues = useCallback(() => {
     setFormData(prevState => setObjectValues(prevState, ''));
     setTouched(prevState => setObjectValues(prevState, false));
     setErrors(prevState => setObjectValues(prevState, null));
-  };
+  }, []);
+
+  const validateField = useCallback(
+    (name, value) => validationRules[name]?.(value) || null,
+    [validationRules]
+  );
+
+  const areAllFieldsValid = useCallback(() => {
+    return Object.keys(validationRules).every(key => {
+      return !validateField(key, formData[key]);
+    });
+  }, [formData, validationRules, validateField]);
 
   useEffect(() => {
-    const noValidationErrors = areAllFieldsValid();
-    setIsFormInvalid(!noValidationErrors);
-
-    function areAllFieldsValid() {
-      const currentErrors = Object.keys(validationRules).reduce((acc, key) => {
-        acc[key] = validationRules[key]?.(formData[key]);
-        return acc;
-      }, {});
-      const noErrors = Object.values(currentErrors).every(error => !error);
-      return noErrors;
-    }
-  }, [formData, validationRules]);
+    setIsFormInvalid(!areAllFieldsValid());
+  }, [formData, areAllFieldsValid]);
 
   return {
     formData,
@@ -65,6 +68,7 @@ export default function useForm(initialFormData, validationRules) {
     isFormInvalid,
     handleChangeFormData,
     handleBlur,
-    resetValues
+    resetValues,
+    setValidationEnabled
   };
 }

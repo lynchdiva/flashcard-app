@@ -4,8 +4,9 @@ import PropTypes from 'prop-types';
 import useForm from '../../../utilities/hooks/useForm.jsx';
 import { validateWord } from '../../../utilities/utils/validation';
 import { wordsStore } from '../../../stores/WordsStore';
+import { useEffect } from 'react';
 
-export default function FormAddWord({ onCloseModal }) {
+export default function FormAddWord({ onToggleModal, isShown }) {
   const initialFormData = {
     english: '',
     transcription: '',
@@ -24,7 +25,8 @@ export default function FormAddWord({ onCloseModal }) {
     isFormInvalid,
     handleChangeFormData,
     handleBlur,
-    resetValues
+    resetValues,
+    setValidationEnabled
   } = useForm(initialFormData, validationRules);
 
   const onSubmit = e => {
@@ -42,12 +44,24 @@ export default function FormAddWord({ onCloseModal }) {
     resetValues();
   };
 
+  const handleMouseDownClose = () => {
+    setValidationEnabled(false);
+  };
+
+  useEffect(() => {
+    if (isShown) {
+      resetValues();
+      setValidationEnabled(true);
+    }
+  }, [isShown, resetValues, setValidationEnabled]);
+
   return (
     <form name="add-form" onSubmit={onSubmit} className={styles['add-form']}>
       <button
         type="button"
         className={styles['add-form__close-button']}
-        onClick={onCloseModal}
+        onMouseDown={handleMouseDownClose}
+        onClick={onToggleModal}
       >
         <svg className={styles['add-form__close-icon']}>
           <use href="./src/assets/icons/sprite.svg#close"></use>
@@ -67,7 +81,6 @@ export default function FormAddWord({ onCloseModal }) {
           />
         ))}
         <button
-          type="submit"
           className={styles['add-form__button-add']}
           disabled={isFormInvalid}
         >
@@ -97,5 +110,6 @@ export default function FormAddWord({ onCloseModal }) {
 }
 
 FormAddWord.propTypes = {
-  onCloseModal: PropTypes.func.isRequired
+  onToggleModal: PropTypes.func.isRequired,
+  isShown: PropTypes.bool.isRequired
 };

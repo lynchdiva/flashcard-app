@@ -6,51 +6,25 @@ export default function ModalWindow({ children, isShown }) {
   const modalRef = useRef(null);
 
   useEffect(() => {
-    if (!isShown) return;
+    const dialog = modalRef.current;
 
-    document.body.style.overflow = 'hidden';
-    const focusableElements = modalRef.current?.querySelectorAll(
-      'button, [href], input, select, textarea, [tabindex]:not([tabindex="-1"])'
-    );
-
-    if (!focusableElements?.length) return;
-
-    const firstEl = focusableElements[0];
-    const lastEl = focusableElements[focusableElements.length - 1];
-
-    const handleTab = e => {
-      if (e.key !== 'Tab') return;
-
-      if (e.shiftKey && document.activeElement === firstEl) {
-        e.preventDefault();
-        lastEl.focus();
-      } else if (!e.shiftKey && document.activeElement === lastEl) {
-        e.preventDefault();
-        firstEl.focus();
-      }
-    };
-
-    document.addEventListener('keydown', handleTab);
-    firstEl.focus();
-
-    return () => {
-      document.body.style.overflow = '';
-      document.removeEventListener('keydown', handleTab);
-    };
+    if (isShown) {
+      dialog.showModal();
+      document.body.classList.add('scroll-lock');
+    } else {
+      dialog.close();
+      document.body.classList.remove('scroll-lock');
+    }
   }, [isShown]);
+
   return (
-    <>
-      {isShown ? (
-        <div
-          className={styles['modal-window']}
-          role={'dialog'}
-          aria-modal={'true'}
-          ref={modalRef}
-        >
-          {children}
-        </div>
-      ) : null}
-    </>
+    <dialog
+      aria-label="Form for adding a new word"
+      className={styles['modal-window']}
+      ref={modalRef}
+    >
+      {children}
+    </dialog>
   );
 }
 

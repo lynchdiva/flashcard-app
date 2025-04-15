@@ -19,7 +19,6 @@ export default function BackToTopButton() {
       })}
       onClick={scrollToTop}
       tabIndex={isVisible ? '0' : '-1'}
-      aria-hidden={!isVisible}
     >
       <svg className={styles['back-button__icon']}>
         <use href="./src/assets/icons/sprite.svg#arrow-up"></use>

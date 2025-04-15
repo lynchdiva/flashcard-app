@@ -10,12 +10,12 @@ import { wordsStore } from '../../../stores/WordsStore.js';
 
 const SectionWordList = observer(() => {
   const { words } = wordsStore;
-  const [isClicked, setIsClicked] = useState(false);
+  const [isModalShown, setIsModalShown] = useState(false);
   const [chosenFilterItem, setChosenFilterItem] = useState('All Words');
   const filterItems = ['Learned', 'In progress', 'All Words'];
 
   const handleToggleModal = () => {
-    setIsClicked(prev => !prev);
+    setIsModalShown(prev => !prev);
   };
 
   const handleChoseFilterItem = item => {
@@ -51,8 +51,8 @@ const SectionWordList = observer(() => {
 
       <WordList words={words} chosenFilterItem={chosenFilterItem} />
 
-      <ModalWindow isShown={isClicked}>
-        <FormAddWord onCloseModal={handleToggleModal} />
+      <ModalWindow isShown={isModalShown}>
+        <FormAddWord onToggleModal={handleToggleModal} isShown={isModalShown} />
       </ModalWindow>
     </section>
   );

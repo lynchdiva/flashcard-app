@@ -3,17 +3,36 @@
 @use 'sass:color';
 
 .modal-window {
-  position: fixed;
-  top: 0;
-  bottom: 0;
-  left: 0;
-  z-index: 2000;
   width: 100vw;
   height: 100vh;
   min-width: 320px;
   @extend %flex-center;
   justify-content: center;
+  padding: 0;
 
+  opacity: 0;
+  transform: scale(0.8);
+  border: none;
+  background-color: transparent;
   overflow: hidden;
+  pointer-events: none;
+
+  transition: opacity 0.5s ease, transform 0.5s ease;
+}
+
+.modal-window[open] {
+  opacity: 1;
+  transform: scale(1);
+  pointer-events: auto;
+}
+
+@starting-style {
+  modal-window[open] {
+    opacity: 0;
+    transform: scale(0.8);
+  }
+}
+
+.modal-window[open]::backdrop {
   background-color: color.mix(vr.$background-gray, rgba(255, 255, 255, 0), 80%);
 }
