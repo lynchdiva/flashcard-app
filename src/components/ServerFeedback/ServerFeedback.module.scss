@@ -3,9 +3,9 @@
 
 .server-feedback {
   position: fixed;
-  z-index: 3000;
   right: -100%;
   top: 10px;
+  z-index: 10000;
   @extend %flex-center;
   justify-content: center;
   gap: 0.5em;
