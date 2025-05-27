@@ -8,11 +8,13 @@ import { useState } from 'react';
 import { observer } from 'mobx-react-lite';
 import { wordsStore } from '../../../stores/WordsStore.js';
 
+const allWordsFilterItem = 'All Words';
+const filterItems = ['Learned', 'In progress', allWordsFilterItem];
+
 const SectionWordList = observer(() => {
   const { words } = wordsStore;
   const [isModalShown, setIsModalShown] = useState(false);
-  const [chosenFilterItem, setChosenFilterItem] = useState('All Words');
-  const filterItems = ['Learned', 'In progress', 'All Words'];
+  const [chosenFilterItem, setChosenFilterItem] = useState(allWordsFilterItem);
 
   const handleToggleModal = () => {
     setIsModalShown(prev => !prev);
