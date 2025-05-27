@@ -1,7 +1,7 @@
 import styles from './App.module.scss';
 import Home from '../../pages/Home/Home';
 import Game from '../../pages/Game/Game';
-import Missing from '../../pages/Missing/Missing';
+import Page404 from '../../pages/Page404/Page404';
 import ServerFeedback from '../ServerFeedback/ServerFeedback';
 import { useEffect } from 'react';
 import { Routes, Route } from 'react-router';
@@ -20,7 +20,7 @@ const App = observer(() => {
       <Routes>
         <Route index element={<Home />} />
         <Route path="game" element={<Game />} />
-        <Route path="*" element={<Missing />} />
+        <Route path="*" element={<Page404 />} />
       </Routes>
     </div>
   );
