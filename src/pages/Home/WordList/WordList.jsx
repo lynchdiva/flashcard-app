@@ -8,8 +8,9 @@ import { observer } from 'mobx-react-lite';
 const STATUS_IN_PROGRESS = 'In progress';
 const STATUS_LEARNED = 'Learned';
 
-const WordList = observer(({ words, chosenFilterItem }) => {
-  const { isLoading, inProgressWordsObjects, learnedWordsObjects } = wordsStore;
+const WordList = observer(({ chosenFilterItem }) => {
+  const { words, isLoading, inProgressWordsObjects, learnedWordsObjects } =
+    wordsStore;
   const isNoWords = words.length === 0;
   const filterMap = {
     [STATUS_IN_PROGRESS]: inProgressWordsObjects,

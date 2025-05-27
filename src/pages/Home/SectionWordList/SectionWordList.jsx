@@ -51,7 +51,7 @@ const SectionWordList = observer(() => {
         </div>
       </div>
 
-      <WordList words={words} chosenFilterItem={chosenFilterItem} />
+      <WordList chosenFilterItem={chosenFilterItem} />
 
       <ModalWindow isShown={isModalShown}>
         <FormAddWord onToggleModal={handleToggleModal} isShown={isModalShown} />
