@@ -1,5 +1,5 @@
 export const WordStatuses = {
+  ALL: 'All words',
   IN_PROGRESS: 'In progress',
-  LEARNED: 'Learned',
-  ALL: 'All words'
+  LEARNED: 'Learned'
 };

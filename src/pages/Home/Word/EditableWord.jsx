@@ -11,9 +11,9 @@ export default function EditableWord({ word, onModeChange }) {
     key => key !== 'id' && key !== 'tags_json'
   );
   const validationRules = {
-    english: value => validateWord(value),
-    transcription: value => validateWord(value),
-    russian: value => validateWord(value)
+    english: validateWord,
+    transcription: validateWord,
+    russian: validateWord
   };
   const {
     formData,

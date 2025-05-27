@@ -9,11 +9,6 @@ export default function FilterDropdown({
   onChoseItem,
   filterItems
 }) {
-  const sortedItems = [
-    chosenFilterItem,
-    ...filterItems.filter(item => item !== chosenFilterItem)
-  ];
-
   return (
     <DropdownButton
       variant="custom"
@@ -22,7 +17,7 @@ export default function FilterDropdown({
       id="dropdown-menu-align-end"
       className="custom-btn"
     >
-      {sortedItems.map(item => (
+      {filterItems.map(item => (
         <Dropdown.Item
           key={item}
           onClick={() => onChoseItem(item)}
