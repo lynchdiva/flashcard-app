@@ -2,16 +2,14 @@ import styles from './WordsGroup.module.scss';
 import Word from '../Word/Word.jsx';
 import classNames from 'classnames/bind';
 import PropTypes from 'prop-types';
+import { WordStatuses } from '../../../utilities/constants.js';
 import { FaFolderOpen } from 'react-icons/fa';
-
-const STATUS_IN_PROGRESS = 'In progress';
-const STATUS_LEARNED = 'Learned';
 
 const cx = classNames.bind(styles);
 
 export default function WordsGroup({ title, group }) {
   const header =
-    title === STATUS_IN_PROGRESS
+    title === WordStatuses.IN_PROGRESS
       ? cx('table__header', 'table__header_blue')
       : cx('table__header', 'table__header_orange');
 
@@ -22,9 +20,7 @@ export default function WordsGroup({ title, group }) {
           <thead>
             <tr>
               <th colSpan={5} className={header}>
-                {title === STATUS_IN_PROGRESS
-                  ? STATUS_IN_PROGRESS
-                  : STATUS_LEARNED}{' '}
+                {title}{' '}
                 <span>
                   {group.length ? `(${group.length})` : <FaFolderOpen />}
                 </span>

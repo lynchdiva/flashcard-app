@@ -1,20 +1,20 @@
 import styles from './SectionWordList.module.scss';
-import DropdownMenu from '../../../components/FilterDropdown/FilterDropdown.jsx';
+import FilterDropdown from '../../../components/FilterDropdown/FilterDropdown.jsx';
 import WordList from '../WordList/WordList.jsx';
 import ModalWindow from '../../../components/ModalWindow/ModalWindow.jsx';
 import FormAddWord from '../FormAddWord/FormAddWord.jsx';
+import { WordStatuses } from '../../../utilities/constants.js';
 import { FaFolderOpen } from 'react-icons/fa';
 import { useState } from 'react';
 import { observer } from 'mobx-react-lite';
 import { wordsStore } from '../../../stores/WordsStore.js';
 
-const allWordsFilterItem = 'All Words';
-const filterItems = ['Learned', 'In progress', allWordsFilterItem];
+const filterItems = Object.values(WordStatuses);
 
 const SectionWordList = observer(() => {
   const { words } = wordsStore;
   const [isModalShown, setIsModalShown] = useState(false);
-  const [chosenFilterItem, setChosenFilterItem] = useState(allWordsFilterItem);
+  const [chosenFilterItem, setChosenFilterItem] = useState(WordStatuses.ALL);
 
   const handleToggleModal = () => {
     setIsModalShown(prev => !prev);
@@ -43,7 +43,7 @@ const SectionWordList = observer(() => {
             </svg>
           </button>
 
-          <DropdownMenu
+          <FilterDropdown
             chosenFilterItem={chosenFilterItem}
             onChoseItem={handleChoseFilterItem}
             filterItems={filterItems}
