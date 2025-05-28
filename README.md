@@ -9,6 +9,7 @@
 ## 🚀 Demo
 
 <div width="500" align="center">
+  
 ![Learning session](./public/video.gif)
 
 <img width="700" alt="screenshot of the app" src="https://sun9-39.userapi.com/impg/1EeYQdCkm-FDftTU5JNjY7pp9H4uYBmNhZdl4w/YFnHyGiGwdo.jpg?size=2560x1401&quality=95&sign=65ef2f76da1c91494ea6a203564d9187&type=album">
