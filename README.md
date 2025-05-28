@@ -6,6 +6,9 @@
 
 ## 🚀 Demo
 <img width="700" alt="screenshot of the app" src="https://sun9-39.userapi.com/impg/1EeYQdCkm-FDftTU5JNjY7pp9H4uYBmNhZdl4w/YFnHyGiGwdo.jpg?size=2560x1401&quality=95&sign=65ef2f76da1c91494ea6a203564d9187&type=album">
+
+<hr/>
+
 <img width="700" alt="screenshot of the app" src="https://sun9-3.userapi.com/impg/bKH6pV5hqOxsIXhSdF6vDVY4rbdjkXcX4spPZg/Bq6EyGd5QZg.jpg?size=2560x1336&quality=95&sign=edb621aeb34e5ec0cd3b47eb03ac2ed5&type=album">
 
 ## 🔧 Features
