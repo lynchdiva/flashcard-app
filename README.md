@@ -10,9 +10,9 @@
 <div align="center">
    <img src="https://sun9-39.userapi.com/impg/1EeYQdCkm-FDftTU5JNjY7pp9H4uYBmNhZdl4w/YFnHyGiGwdo.jpg?size=2560x1401&quality=95&sign=65ef2f76da1c91494ea6a203564d9187&type=album" alt="screenshot of the app" width="700" />
 </div>
-<hr>
+<hr height="1px">
 <div align="center">
-    <img src="https://sun9-3.userapi.com/impg/bKH6pV5hqOxsIXhSdF6vDVY4rbdjkXcX4spPZg/Bq6EyGd5QZg.jpg?size=2560x1336&quality=95&sign=edb621aeb34e5ec0cd3b47eb03ac2ed5&type=album" alt="screenshot of the app" width="700" />
+    <img src="https://sun9-31.userapi.com/impg/RRnkU7zWiLWYvkhXC3tt3_5qiYD3k1vIS1lkBg/ee4KyDKeLtk.jpg?size=2560x1337&quality=95&sign=25d533ce7749154bae9c7637277002f7&type=album" width="700" />
 </div>
 
 ## 🚀 Demo
@@ -38,7 +38,7 @@
 - ⛔ Custom 404 page
 - ⬆ Scroll-to-top button
 
-  ## ⚙️ Technologies Used
+## ⚙️ Technologies Used
 
 - **React** (Vite)
 - **MobX** for state management
