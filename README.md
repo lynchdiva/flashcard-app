@@ -6,6 +6,15 @@
 
 <p>EveryDay English is an interactive vocabulary trainer designed to help users memorize English words through engaging flashcards. The app expands your English vocabulary effectively and helps track which words are already learned. The UI is fully responsive and enriched with animations for a smooth learning experience.</p>
 
+## 📷 Screenshots
+<div align="center">
+   <img src="https://sun9-39.userapi.com/impg/1EeYQdCkm-FDftTU5JNjY7pp9H4uYBmNhZdl4w/YFnHyGiGwdo.jpg?size=2560x1401&quality=95&sign=65ef2f76da1c91494ea6a203564d9187&type=album" alt="screenshot of the app" width="700" />
+</div>
+<hr>
+<div align="center">
+    <img src="https://sun9-3.userapi.com/impg/bKH6pV5hqOxsIXhSdF6vDVY4rbdjkXcX4spPZg/Bq6EyGd5QZg.jpg?size=2560x1336&quality=95&sign=edb621aeb34e5ec0cd3b47eb03ac2ed5&type=album" alt="screenshot of the app" width="700" />
+</div>
+
 ## 🚀 Demo
 
 <div align="center">
@@ -14,12 +23,7 @@
 
   <p><em>Animated flashcards with shuffle and flip effect</em></p>
 
-  <img src="https://sun9-39.userapi.com/impg/1EeYQdCkm-FDftTU5JNjY7pp9H4uYBmNhZdl4w/YFnHyGiGwdo.jpg?size=2560x1401&quality=95&sign=65ef2f76da1c91494ea6a203564d9187&type=album" alt="screenshot of the app" width="700" />
-<br></br>
-  <img src="https://sun9-3.userapi.com/impg/bKH6pV5hqOxsIXhSdF6vDVY4rbdjkXcX4spPZg/Bq6EyGd5QZg.jpg?size=2560x1336&quality=95&sign=edb621aeb34e5ec0cd3b47eb03ac2ed5&type=album" alt="screenshot of the app" width="700" />
-
 </div>
-
 
 ## 🔧 Features
 
@@ -50,6 +54,6 @@
 Clone the repository and start the development server: <br/>
 
 git clone https://github.com/lynchdiva/flashcard-app.git <br/>
-cd everyday-english <br/>
+cd flashcard-app <br/>
 npm install <br/>
 npm run dev <br/>
