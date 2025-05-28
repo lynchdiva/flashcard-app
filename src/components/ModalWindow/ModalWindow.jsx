@@ -1,9 +1,11 @@
 import { useEffect, useRef } from 'react';
+import { CSSTransition } from 'react-transition-group';
 import styles from './ModalWindow.module.scss';
 import PropTypes from 'prop-types';
 
 export default function ModalWindow({ children, isShown }) {
   const modalRef = useRef(null);
+  const overlayRef = useRef(null);
 
   useEffect(() => {
     if (!isShown) return;
@@ -40,7 +42,35 @@ export default function ModalWindow({ children, isShown }) {
   }, [isShown]);
   return (
     <>
-      {isShown ? (
+      <CSSTransition
+        in={isShown}
+        timeout={300}
+        classNames={{
+          enter: styles.overlayEnter,
+          enterActive: styles.overlayEnterActive,
+          exit: styles.overlayExit,
+          exitActive: styles.overlayExitActive
+        }}
+        mountOnEnter
+        unmountOnExit
+        nodeRef={overlayRef}
+      >
+        <div className={styles['modal-window__overlay']} ref={overlayRef} />
+      </CSSTransition>
+
+      <CSSTransition
+        in={isShown}
+        timeout={300}
+        classNames={{
+          enter: styles.modalEnter,
+          enterActive: styles.modalEnterActive,
+          exit: styles.modalExit,
+          exitActive: styles.modalExitActive
+        }}
+        mountOnEnter
+        unmountOnExit
+        nodeRef={modalRef}
+      >
         <div
           className={styles['modal-window']}
           role={'dialog'}
@@ -49,7 +79,7 @@ export default function ModalWindow({ children, isShown }) {
         >
           {children}
         </div>
-      ) : null}
+      </CSSTransition>
     </>
   );
 }

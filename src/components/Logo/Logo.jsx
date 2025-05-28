@@ -11,12 +11,12 @@ export default function Logo({ isLink }) {
       {isLink ? (
         <Link to="/">
           <div className={cx('title', 'title-link')}>
-            Every<span className={styles.title__accent}>Day</span> English
+            Every<span className={cx('title__accent')}>Day</span> English
           </div>
         </Link>
       ) : (
         <div className={cx('title')}>
-          Every<span className={styles.title__accent}>Day</span> English
+          Every<span className={cx('title__accent')}>Day</span> English
         </div>
       )}
     </>

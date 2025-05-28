@@ -30,3 +30,8 @@
     width: 8em;
   }
 }
+
+.dont-know-button:disabled,
+.know-button:disabled {
+  pointer-events: none;
+}

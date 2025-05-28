@@ -29,6 +29,14 @@
   color: vr.$font-green;
 }
 
+body {
+  scrollbar-gutter: stable;
+}
+
+.scroll-lock {
+  overflow: hidden;
+}
+
 * {
   margin: 0;
   padding: 0;

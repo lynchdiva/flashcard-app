@@ -1,17 +1,27 @@
 import styles from './SectionWordList.module.scss';
-import DropdownMenu from '../../../components/DropdownMenu/DropdownMenu.jsx';
+import FilterDropdown from '../../../components/FilterDropdown/FilterDropdown.jsx';
 import WordList from '../WordList/WordList.jsx';
 import ModalWindow from '../../../components/ModalWindow/ModalWindow.jsx';
 import FormAddWord from '../FormAddWord/FormAddWord.jsx';
-import PropTypes from 'prop-types';
+import { WordStatuses } from '../../../utilities/constants.js';
 import { FaFolderOpen } from 'react-icons/fa';
 import { useState } from 'react';
+import { observer } from 'mobx-react-lite';
+import { wordsStore } from '../../../stores/WordsStore.js';
 
-export default function SectionWordList({ words, onSave, onDelete }) {
-  const [isClicked, setIsClicked] = useState(false);
+const filterItems = Object.values(WordStatuses);
+
+const SectionWordList = observer(() => {
+  const { words } = wordsStore;
+  const [isModalShown, setIsModalShown] = useState(false);
+  const [chosenFilterItem, setChosenFilterItem] = useState(WordStatuses.ALL);
 
   const handleToggleModal = () => {
-    setIsClicked(prev => !prev);
+    setIsModalShown(prev => !prev);
+  };
+
+  const handleChoseFilterItem = item => {
+    setChosenFilterItem(item);
   };
 
   return (
@@ -29,25 +39,25 @@ export default function SectionWordList({ words, onSave, onDelete }) {
           >
             Add word
             <svg className={styles['section-words__plus-icon']}>
-              <use xlinkHref="src/assets/icons/sprite.svg#add-button"></use>
+              <use href="src/assets/icons/sprite.svg#add-button"></use>
             </svg>
           </button>
 
-          <DropdownMenu />
+          <FilterDropdown
+            chosenFilterItem={chosenFilterItem}
+            onChoseItem={handleChoseFilterItem}
+            filterItems={filterItems}
+          />
         </div>
       </div>
 
-      <WordList words={words} onSave={onSave} onDelete={onDelete} />
+      <WordList chosenFilterItem={chosenFilterItem} />
 
-      <ModalWindow isShown={isClicked}>
-        <FormAddWord onCloseModal={handleToggleModal} />
+      <ModalWindow isShown={isModalShown}>
+        <FormAddWord onToggleModal={handleToggleModal} isShown={isModalShown} />
       </ModalWindow>
     </section>
   );
-}
+});
 
-SectionWordList.propTypes = {
-  words: PropTypes.array.isRequired,
-  onSave: PropTypes.func.isRequired,
-  onDelete: PropTypes.func.isRequired
-};
+export default SectionWordList;

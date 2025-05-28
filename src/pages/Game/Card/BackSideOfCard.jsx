@@ -8,8 +8,8 @@ const cx = classNames.bind(styles);
 export default function BackSideOfCard({ word }) {
   return (
     <div className={cx('card-other-side', 'card-other-side_animated')}>
-      <span className={styles.card__tag}>{word.tags}</span>
-      <p className={styles['card-other-side__word']}>{word.russian}</p>
+      <span className={cx('card__tag')}>{word.tags}</span>
+      <p className={cx('card-other-side__word')}>{word.russian}</p>
 
       <CardNotice />
     </div>

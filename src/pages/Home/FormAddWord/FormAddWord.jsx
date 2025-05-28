@@ -2,13 +2,12 @@ import styles from './FormAddWord.module.scss';
 import InputAddWord from '../InputAddWord/InputAddWord.jsx';
 import PropTypes from 'prop-types';
 import useForm from '../../../utilities/hooks/useForm.jsx';
-import {
-  validateWord,
-  validateTranscription
-} from '../../../utilities/utils/validation';
+import { validateWord } from '../../../utilities/utils/validation';
+import { wordsStore } from '../../../stores/WordsStore';
+import { useEffect } from 'react';
 
-export default function AddWordForm({ onCloseModal }) {
-  const initialInputs = {
+export default function FormAddWord({ onToggleModal, isShown }) {
+  const initialFormData = {
     english: '',
     transcription: '',
     russian: '',
@@ -16,7 +15,7 @@ export default function AddWordForm({ onCloseModal }) {
   };
   const validationRules = {
     english: value => validateWord(value),
-    transcription: value => validateTranscription(value),
+    transcription: value => validateWord(value),
     russian: value => validateWord(value)
   };
   const {
@@ -25,19 +24,47 @@ export default function AddWordForm({ onCloseModal }) {
     touched,
     isFormInvalid,
     handleChangeFormData,
-    handleBlur
-    // resetValues
-  } = useForm(initialInputs, validationRules);
+    handleBlur,
+    resetValues,
+    setValidationEnabled
+  } = useForm(initialFormData, validationRules);
 
-  console.log(formData);
+  const onSubmit = e => {
+    e.preventDefault();
+    if (isFormInvalid) return;
+    wordsStore.addWord({
+      ...formData,
+      id: crypto.randomUUID(),
+      tags_json: ''
+    });
+    handleReset();
+  };
+
+  const handleReset = () => {
+    resetValues();
+  };
+
+  const handleMouseDownClose = () => {
+    setValidationEnabled(false);
+  };
+
+  useEffect(() => {
+    if (isShown) {
+      resetValues();
+      setValidationEnabled(true);
+    }
+  }, [isShown, resetValues, setValidationEnabled]);
+
   return (
-    <form name="add-form" className={styles['add-form']}>
+    <form name="add-form" onSubmit={onSubmit} className={styles['add-form']}>
       <button
+        type="button"
         className={styles['add-form__close-button']}
-        onClick={onCloseModal}
+        onMouseDown={handleMouseDownClose}
+        onClick={onToggleModal}
       >
         <svg className={styles['add-form__close-icon']}>
-          <use xlinkHref="./src/assets/icons/sprite.svg#close"></use>
+          <use href="./src/assets/icons/sprite.svg#close"></use>
         </svg>
       </button>
 
@@ -48,7 +75,7 @@ export default function AddWordForm({ onCloseModal }) {
             name={key}
             value={formData[key]}
             error={errors[key]}
-            wasTouched={touched[key]}
+            isTouched={touched[key]}
             onChange={handleChangeFormData}
             onBlur={handleBlur}
           />
@@ -64,18 +91,25 @@ export default function AddWordForm({ onCloseModal }) {
       <div className={styles['add-form__notice-box']}>
         <img
           className={styles['add-form__img']}
-          src="./src/assets/images/taping.png"
+          src="./src/assets/images/typing.png"
           alt="Taping hands"
         />
         <p className={styles['add-form__text']}>
           Add a new word and enhance your vocabulary!
         </p>
-        <button className={styles['add-form__button-clear']}>Clear</button>
+        <button
+          type="button"
+          className={styles['add-form__button-clear']}
+          onClick={handleReset}
+        >
+          Clear
+        </button>
       </div>
     </form>
   );
 }
 
-AddWordForm.propTypes = {
-  onCloseModal: PropTypes.func.isRequired
+FormAddWord.propTypes = {
+  onToggleModal: PropTypes.func.isRequired,
+  isShown: PropTypes.bool.isRequired
 };

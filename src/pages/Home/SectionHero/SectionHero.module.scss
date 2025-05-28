@@ -7,79 +7,79 @@
   @media screen and (max-width: vr.$mobileXL) {
     flex-direction: column;
   }
+}
 
-  &__container {
-    flex-basis: 50%;
-    margin-left: 7em;
-    padding-top: 1em;
+.section-hero__container {
+  flex-basis: 50%;
+  margin-left: 7em;
+  padding-top: 1em;
 
-    @media screen and (max-width: vr.$mobileXL) {
-      margin-left: 0;
-    }
+  @media screen and (max-width: vr.$mobileXL) {
+    margin-left: 0;
+  }
+}
+
+.section-hero__title {
+  position: relative;
+  width: 6.4em;
+
+  font-weight: 700;
+  font-size: 5em;
+  line-height: 115%;
+
+  @media screen and (max-width: vr.$laptop) {
+    font-size: 4.2em;
   }
 
-  &__title {
-    position: relative;
-    width: 6.4em;
-
-    font-weight: 700;
-    font-size: 5em;
-    line-height: 115%;
-
-    @media screen and (max-width: vr.$laptop) {
-      font-size: 4.2em;
-    }
-
-    @media screen and (max-width: vr.$mobileXL) {
-      width: 100%;
-    }
-  }
-
-  &__accent {
-    color: vr.$background-green;
-  }
-
-  &__subtitle {
-    margin-top: 1em;
-
-    font-style: italic;
-    font-size: 1.5em;
-    line-height: 150%;
-    color: vr.$logo-gray;
-  }
-
-  &__icon {
-    position: absolute;
-    top: 35%;
-    right: 0;
-    width: 85px;
-    height: 85px;
-
-    @media screen and (max-width: vr.$laptop) {
-      width: 65px;
-      height: 65px;
-    }
-
-    @media screen and (max-width: vr.$mobileXL) {
-      right: 8%;
-    }
-  }
-
-  &__img-box {
-    flex-basis: 35%;
-    margin-right: 8%;
-    margin-left: auto;
-
-    @media screen and (max-width: vr.$mobileXL) {
-      max-width: 70%;
-      margin: 0;
-    }
-  }
-
-  &__img {
+  @media screen and (max-width: vr.$mobileXL) {
     width: 100%;
-    height: 100%;
-
-    object-fit: cover;
   }
+}
+
+.section-hero__accent {
+  color: vr.$background-green;
+}
+
+.section-hero__subtitle {
+  margin-top: 1em;
+
+  font-style: italic;
+  font-size: 1.5em;
+  line-height: 150%;
+  color: vr.$logo-gray;
+}
+
+.section-hero__icon {
+  position: absolute;
+  top: 35%;
+  right: 0;
+  width: 85px;
+  height: 85px;
+
+  @media screen and (max-width: vr.$laptop) {
+    width: 65px;
+    height: 65px;
+  }
+
+  @media screen and (max-width: vr.$mobileXL) {
+    right: 8%;
+  }
+}
+
+.section-hero__img-box {
+  flex-basis: 35%;
+  margin-right: 8%;
+  margin-left: auto;
+
+  @media screen and (max-width: vr.$mobileXL) {
+    max-width: 70%;
+    margin: 0;
+  }
+}
+
+.section-hero__img {
+  width: 100%;
+  height: 100%;
+
+  object-fit: cover;
 }

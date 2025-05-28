@@ -5,64 +5,66 @@
 .section-words {
   @extend %container;
   flex: auto;
+}
 
-  &__container {
-    @extend %flex-center;
-    justify-content: space-between;
+.section-words__container {
+  @extend %flex-center;
+  justify-content: space-between;
 
-    @media screen and (max-width: 680px) {
-      flex-direction: column;
-      align-items: flex-start;
-      gap: 1.2em;
-      margin-top: 0.5em;
-    }
+  @media screen and (max-width: 680px) {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 1.2em;
+    margin-top: 0.5em;
   }
+}
 
-  &__title {
-    margin: 0 0 0 1em;
+.section-words__title {
+  margin: 0 0 0 1em;
 
-    font-weight: 500;
-    font-size: 2.2em;
+  font-weight: 500;
+  font-size: 2.2em;
 
-    @media screen and (max-width: vr.$mobileS) {
-      font-size: 2em;
-    }
-  }
-
-  &__box {
-    @extend %flex-center;
-    gap: 8em;
-
-    @media screen and (max-width: 680px) {
-      width: 100%;
-      justify-content: space-evenly;
-    }
-  }
-
-  &__add-button {
-    @include mixins.svg-button(0.2em, vr.$background-green);
-    @extend %flex-center;
-    gap: 0.5em;
-
-    font-weight: 500;
+  @media screen and (max-width: vr.$mobileS) {
     font-size: 2em;
+  }
+}
 
-    border: 1px solid transparent;
-    color: vr.$background-green;
+.section-words__box {
+  @extend %flex-center;
+  min-width: 38em;
+  justify-content: space-between;
 
-    @media screen and (max-width: vr.$mobileS) {
-      font-size: 1.8em;
-    }
+  @media screen and (max-width: 680px) {
+    width: 80%;
+    min-width: 0;
+    margin: auto;
+    justify-content: space-between;
+  }
+}
+
+.section-words__add-button {
+  @include mixins.svg-button(0.2em, vr.$background-green);
+  @extend %flex-center;
+  gap: 0.5em;
+
+  font-weight: 500;
+  font-size: 2em;
+
+  border: 1px solid transparent;
+  color: vr.$background-green;
+
+  @media screen and (max-width: vr.$mobileS) {
+    font-size: 1.8em;
   }
 
-  &__add-button:hover {
+  &:hover {
     color: color.adjust(vr.$background-green, $lightness: -10%);
   }
+}
+.section-words__plus-icon {
+  width: 1.5em;
+  height: 1.5em;
 
-  &__plus-icon {
-    width: 1.5em;
-    height: 1.5em;
-
-    fill: vr.$background-green;
-  }
+  fill: vr.$background-green;
 }

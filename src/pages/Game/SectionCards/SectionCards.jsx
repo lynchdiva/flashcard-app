@@ -1,105 +1,115 @@
 import styles from './SectionCards.module.scss';
-import SectionCardsContent from '../SectionCardsContent/SectionCardsContent';
+import Loader from '../../../components/Loader/Loader';
+import Card from '../Card/Card.jsx';
+import ProgressButtons from '../ProgressButtons/ProgressButtons.jsx';
+import NoWordsMessage from '../Card/Notification/NoWordsMessage.jsx';
+import CompletionMessage from '../Card/Notification/CompletionMessage.jsx';
+import Options from '../Options/Options.jsx';
 import PropTypes from 'prop-types';
 import { useState, useEffect } from 'react';
+import { wordsStore } from '../../../stores/WordsStore';
+import { observer } from 'mobx-react-lite';
+import useCardAnimation from '../../../utilities/hooks/useCardAnimation';
+import useShuffle from '../../../utilities/hooks/useShuffle.jsx';
+import useLearningSession from '../../../utilities/hooks/useLearningSession.jsx';
 
-export default function SectionCards({ words, initialWordIndex = 0 }) {
-  const [wordIndex, setWordIndex] = useState(initialWordIndex);
-  const [word, setWord] = useState(words[initialWordIndex]);
-  const [isFlipped, setIsFlipped] = useState(false);
-  const [isCompleted, setIsComleted] = useState(false);
-  const [isAnimating, setAnimating] = useState(false);
-  const [moveAnimationType, setMoveAnimationType] = useState('');
+const SectionCards = observer(({ initialWordIndex = 0 }) => {
+  const { inProgressWordsObjects, isLoading } = wordsStore;
+  const [inProgressWords, setInProgressWords] = useState([]);
 
-  const handleFlipCard = () => {
-    return new Promise(res => {
-      setIsFlipped(prevState => {
-        if (prevState) {
-          setTimeout(res, 100);
-        } else {
-          res();
-        }
-        return !prevState;
-      });
-    });
-  };
+  const {
+    word,
+    wordIndex,
+    setWordIndex,
+    sessionStartIndex,
+    setSessionStartIndex,
+    sessionProgress,
+    isCompleted,
+    saveToProgress,
+    removeFromProgress
+  } = useLearningSession(inProgressWords, initialWordIndex);
 
-  const handleMoveCard = async (animationType, direction) => {
-    if (isAnimating) return;
+  const {
+    isAnimating,
+    setIsAnimating,
+    isFlipped,
+    toggleFlipWithDelay,
+    moveAnimationType,
+    moveCardWithAnimation
+  } = useCardAnimation({
+    words: inProgressWords,
+    wordIndex,
+    setWordIndex
+  });
 
-    setAnimating(true);
+  const { isShuffling, shuffleRemainingWords } = useShuffle({
+    setInProgressWords,
+    wordIndex,
+    setSessionStartIndex,
+    isFlipped,
+    toggleFlipWithDelay
+  });
 
-    const moveForward = () => {
-      if (wordIndex < words.length) {
-        setWordIndex(prev => prev + 1);
-      }
-    };
-    const moveBack = () => {
-      if (wordIndex > 0) {
-        setWordIndex(prev => prev - 1);
-      }
-    };
-
-    if (direction === 'forward') {
-      await handleMoveAnimation(animationType);
-      if (isFlipped) {
-        await handleFlipCard();
-      }
-      moveForward();
-    } else if (direction === 'back') {
-      if (isFlipped) {
-        await handleFlipCard();
-      }
-      await handleMoveAnimation(animationType);
-      moveBack();
+  const safeActions = {
+    moveCard: (animationType, direction) => {
+      if (isShuffling || isAnimating) return;
+      moveCardWithAnimation(animationType, direction);
+    },
+    shuffleWords: () => {
+      if (isShuffling || isAnimating) return;
+      shuffleRemainingWords();
     }
-
-    setMoveAnimationType('');
-    setAnimating(false);
   };
 
-  const handleMoveAnimation = animationType => {
-    return new Promise(res => {
-      setMoveAnimationType(animationType);
-      setTimeout(() => {
-        res();
-      }, 500);
-    });
-  };
-
-  const handleCompleteSession = sessionState => {
-    setIsComleted(sessionState);
-  };
+  const isNoWords = !inProgressWords.length;
 
   useEffect(() => {
-    if (words[wordIndex]) {
-      setWord(words[wordIndex]);
-    } else {
-      handleCompleteSession(true);
-    }
-  }, [wordIndex, words]);
+    setInProgressWords(inProgressWordsObjects);
+  }, [inProgressWordsObjects]);
+  //Так как данные из стора приходят асинхронно и изначально inProgressWordsObjects оказывается пустым
 
-  const attributes = {
-    words,
-    word,
-    isFlipped,
-    isCompleted,
-    moveAnimationType,
-    currentCount: wordIndex + 1,
-    isAnimating,
-    onFlip: handleFlipCard,
-    onMoveCard: handleMoveCard,
-    onAnimating: setAnimating
-  };
+  if (isLoading) return <Loader />;
+  if (isNoWords) return <NoWordsMessage />;
 
   return (
     <section className={styles['flashcards-section']}>
-      <SectionCardsContent attributes={attributes} />
+      {isCompleted ? (
+        <CompletionMessage amountLearnedWords={sessionProgress.length} />
+      ) : (
+        <>
+          <Card
+            word={word}
+            isFlipped={isFlipped}
+            toggleFlipWithDelay={toggleFlipWithDelay}
+            isCompleted={isCompleted}
+            moveAnimationType={moveAnimationType}
+            isAnimating={isAnimating}
+            setIsAnimating={setIsAnimating}
+            isShuffling={isShuffling}
+          />
+          <Options
+            currentCount={wordIndex}
+            amount={inProgressWords.length}
+            sessionStartIndex={sessionStartIndex}
+            moveCard={safeActions.moveCard}
+            isShuffling={isShuffling}
+            shuffleWords={safeActions.shuffleWords}
+          />
+          <ProgressButtons
+            word={word}
+            moveCard={safeActions.moveCard}
+            saveToProgress={saveToProgress}
+            removeFromProgress={removeFromProgress}
+            isShuffling={isShuffling}
+          />
+        </>
+      )}
     </section>
   );
-}
+});
 
 SectionCards.propTypes = {
-  words: PropTypes.array.isRequired,
   initialWordIndex: PropTypes.number
 };
+
+export default SectionCards;

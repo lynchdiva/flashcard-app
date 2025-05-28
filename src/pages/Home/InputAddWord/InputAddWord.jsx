@@ -7,15 +7,15 @@ export default function InputAddWord({
   name,
   value,
   error,
-  wasTouched,
+  isTouched,
   onChange,
   onBlur
 }) {
-  const isInputInvalid = error && wasTouched;
+  const isInputInvalid = error && isTouched;
   return (
     <>
       <input
-        className={cx('add-form__input', { ['invalid']: isInputInvalid })}
+        className={cx('add-form__input', { invalid: isInputInvalid })}
         type="text"
         id={name}
         name={name}
@@ -25,7 +25,7 @@ export default function InputAddWord({
         onBlur={onBlur}
       />
       {isInputInvalid ? (
-        <span className={styles['add-form__error-message']}>{error}</span>
+        <span className={cx('add-form__error-message')}>{error}</span>
       ) : null}
     </>
   );
@@ -37,5 +37,5 @@ InputAddWord.propTypes = {
   error: PropTypes.string,
   onChange: PropTypes.func.isRequired,
   onBlur: PropTypes.func.isRequired,
-  wasTouched: PropTypes.bool.isRequired
+  isTouched: PropTypes.bool.isRequired
 };

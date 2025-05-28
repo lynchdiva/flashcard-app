@@ -2,9 +2,8 @@ import styles from './Word.module.scss';
 import PropTypes from 'prop-types';
 import ViewButtons from './ViewButtons';
 
-export default function ViewWord(props) {
-  const { english, transcription, russian, tags } = props.word;
-  const { word, onModeChange, onDelete } = props;
+export default function ReadonlyWord({ word, onModeChange }) {
+  const { english, transcription, russian, tags } = word;
 
   return (
     <>
@@ -14,19 +13,14 @@ export default function ViewWord(props) {
       <td className={styles.table__data}>{tags || '-'}</td>
       <td className={styles.table__data}>
         <div className={styles.table__options}>
-          <ViewButtons
-            onModeChange={onModeChange}
-            onDelete={onDelete}
-            word={word}
-          />
+          <ViewButtons onModeChange={onModeChange} word={word} />
         </div>
       </td>
     </>
   );
 }
 
-ViewWord.propTypes = {
+ReadonlyWord.propTypes = {
   onModeChange: PropTypes.func.isRequired,
-  word: PropTypes.object.isRequired,
-  onDelete: PropTypes.func.isRequired
+  word: PropTypes.object.isRequired
 };

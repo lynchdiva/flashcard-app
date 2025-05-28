@@ -7,9 +7,9 @@ const cx = classNames.bind(styles);
 export default function Notification({ children, src, alt }) {
   return (
     <div className={cx('card__container', 'card', 'card__notification')}>
-      <p className={styles['card__notification-text']}>{children}</p>
+      <p className={cx('card__notification-text')}>{children}</p>
       <img
-        className={styles['card__notification-img']}
+        className={cx('card__notification-img')}
         src={`./src/assets/images/${src}`}
         alt={alt}
       />

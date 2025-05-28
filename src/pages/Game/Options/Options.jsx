@@ -2,29 +2,40 @@ import styles from './Options.module.scss';
 import PropTypes from 'prop-types';
 import Counter from '../Counter/Counter';
 
-export default function Options({ currentCount, amount, onMoveCard }) {
-  const onMoveBackAndUndo = () => {
-    onMoveCard('undo', 'back');
+export default function Options({
+  currentCount,
+  amount,
+  sessionStartIndex,
+  moveCard,
+  isShuffling,
+  shuffleWords
+}) {
+  const moveBackAndUndo = () => {
+    moveCard('undo', 'back');
   };
 
   return (
     <div className={styles.options__container}>
       <button
         className={styles.options__btn}
-        onClick={onMoveBackAndUndo}
-        disabled={currentCount === 1}
+        onClick={moveBackAndUndo}
+        disabled={currentCount === sessionStartIndex || isShuffling}
       >
         <svg className={styles.options__icon}>
-          <use xlinkHref="./src/assets/icons/sprite.svg#back-arrow"></use>
+          <use href="./src/assets/icons/sprite.svg#back-arrow"></use>
         </svg>
         <span>Undo</span>
       </button>
 
-      <Counter currentCount={currentCount} amount={amount} />
+      <Counter currentCount={currentCount + 1} amount={amount} />
 
-      <button className={styles.options__btn}>
+      <button
+        className={styles.options__btn}
+        onClick={shuffleWords}
+        disabled={isShuffling}
+      >
         <svg className={styles.options__icon}>
-          <use xlinkHref="./src/assets/icons/sprite.svg#shuffle"></use>
+          <use href="./src/assets/icons/sprite.svg#shuffle"></use>
         </svg>
         <span>Shuffle</span>
       </button>
@@ -35,5 +46,8 @@ export default function Options({ currentCount, amount, onMoveCard }) {
 Options.propTypes = {
   currentCount: PropTypes.number.isRequired,
   amount: PropTypes.number.isRequired,
-  onMoveCard: PropTypes.func.isRequired
+  sessionStartIndex: PropTypes.number.isRequired,
+  moveCard: PropTypes.func.isRequired,
+  shuffleWords: PropTypes.func.isRequired,
+  isShuffling: PropTypes.bool.isRequired
 };

@@ -15,5 +15,50 @@
   justify-content: center;
 
   overflow: hidden;
-  background-color: color.mix(vr.$background-gray, rgba(255, 255, 255, 0), 80%);
+}
+
+.modalEnter {
+  opacity: 0;
+  transform: scale(0.8);
+}
+
+.modalEnterActive {
+  opacity: 1;
+  transform: scale(1);
+  transition: opacity 0.3s ease, transform 0.3s ease;
+}
+
+.modalExit {
+  opacity: 1;
+  transform: scale(1);
+}
+
+.modalExitActive {
+  opacity: 0;
+  transform: scale(0.8);
+  transition: opacity 0.3s ease, transform 0.3s ease;
+}
+
+.modal-window__overlay {
+  position: fixed;
+  inset: 0;
+  background-color: color.mix(vr.$background-gray, rgba(255, 255, 255, 0), 60%);
+}
+
+.overlayEnter {
+  opacity: 0;
+}
+
+.overlayEnterActive {
+  opacity: 1;
+  transition: opacity 0.3s ease;
+}
+
+.overlayExit {
+  opacity: 1;
+}
+
+.overlayExitActive {
+  opacity: 0;
+  transition: opacity 0.3s ease;
 }

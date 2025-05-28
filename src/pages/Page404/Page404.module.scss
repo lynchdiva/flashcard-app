@@ -1,7 +1,7 @@
 @use '../../scss/variables' as vr;
 @use '../../scss/mixins';
 
-.missing {
+.page404 {
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -11,18 +11,18 @@
   padding-top: 2em;
 }
 
-.missing__img-cloud-box {
+.page404__img-cloud-box {
   max-width: 100%;
 }
 
-.missing__img-cloud {
+.page404__img-cloud {
   object-fit: contain;
   width: 100%;
   height: 100%;
   animation: moveClouds 10s linear infinite;
 }
 
-.missing__container {
+.page404__container {
   display: flex;
   flex-direction: column;
   justify-content: center;
@@ -32,20 +32,20 @@
   text-align: center;
 }
 
-.missing__error {
+.page404__error {
   font-size: 15em;
   color: vr.$background-green;
   line-height: 100%;
 }
 
-.missing__text {
+.page404__text {
   margin: 0;
 
   text-align: center;
   font-size: 2em;
 }
 
-.missing__btn {
+.page404__btn {
   @include mixins.button(vr.$background-green, none, 0.5em 2em);
   margin-top: 2em;
   width: 10em;
@@ -58,7 +58,7 @@
   }
 }
 
-.missing__img-mountain-box {
+.page404__img-mountain-box {
   max-width: 50%;
   margin-top: 1em;
   margin-left: 10em;
@@ -81,7 +81,7 @@
   }
 }
 
-.missing__img-mountain {
+.page404__img-mountain {
   object-fit: contain;
   width: 100%;
   height: 100%;
