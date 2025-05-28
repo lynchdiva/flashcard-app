@@ -6,7 +6,7 @@ import NoWordsMessage from '../Card/Notification/NoWordsMessage.jsx';
 import CompletionMessage from '../Card/Notification/CompletionMessage.jsx';
 import Options from '../Options/Options.jsx';
 import PropTypes from 'prop-types';
-import { useState, useEffect, useMemo } from 'react';
+import { useState, useEffect } from 'react';
 import { wordsStore } from '../../../stores/WordsStore';
 import { observer } from 'mobx-react-lite';
 import useCardAnimation from '../../../utilities/hooks/useCardAnimation';
@@ -16,6 +16,7 @@ import useLearningSession from '../../../utilities/hooks/useLearningSession.jsx'
 const SectionCards = observer(({ initialWordIndex = 0 }) => {
   const { inProgressWordsObjects, isLoading } = wordsStore;
   const [inProgressWords, setInProgressWords] = useState([]);
+
   const {
     word,
     wordIndex,
@@ -49,25 +50,23 @@ const SectionCards = observer(({ initialWordIndex = 0 }) => {
     toggleFlipWithDelay
   });
 
-  const safeActions = useMemo(
-    () => ({
-      moveCard: (animationType, direction) => {
-        if (isShuffling || isAnimating) return;
-        moveCardWithAnimation(animationType, direction);
-      },
-      shuffleWords: () => {
-        if (isShuffling || isAnimating) return;
-        shuffleRemainingWords();
-      }
-    }),
-    [isShuffling, isAnimating, moveCardWithAnimation, shuffleRemainingWords]
-  );
+  const safeActions = {
+    moveCard: (animationType, direction) => {
+      if (isShuffling || isAnimating) return;
+      moveCardWithAnimation(animationType, direction);
+    },
+    shuffleWords: () => {
+      if (isShuffling || isAnimating) return;
+      shuffleRemainingWords();
+    }
+  };
 
   const isNoWords = !inProgressWords.length;
 
   useEffect(() => {
-    setInProgressWords([...inProgressWordsObjects]);
+    setInProgressWords(inProgressWordsObjects);
   }, [inProgressWordsObjects]);
+  //Так как данные из стора приходят асинхронно и изначально inProgressWordsObjects оказывается пустым
 
   if (isLoading) return <Loader />;
   if (isNoWords) return <NoWordsMessage />;

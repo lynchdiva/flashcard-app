@@ -7,7 +7,7 @@ import { FaFolderOpen } from 'react-icons/fa';
 
 const cx = classNames.bind(styles);
 
-export default function WordsGroup({ title, group }) {
+export default function WordsGroup({ title, words }) {
   const header =
     title === WordStatuses.IN_PROGRESS
       ? cx('table__header', 'table__header_blue')
@@ -22,14 +22,14 @@ export default function WordsGroup({ title, group }) {
               <th colSpan={5} className={header}>
                 {title}{' '}
                 <span>
-                  {group.length ? `(${group.length})` : <FaFolderOpen />}
+                  {words.length ? `(${words.length})` : <FaFolderOpen />}
                 </span>
               </th>
             </tr>
           </thead>
           <tbody className={cx('table__body')}>
-            {group.length ? (
-              group.map(word => <Word key={word.id} word={word} />)
+            {words.length ? (
+              words.map(word => <Word key={word.id} word={word} />)
             ) : (
               <tr>
                 <td colSpan={5} className={cx('table__text')}>
@@ -46,5 +46,5 @@ export default function WordsGroup({ title, group }) {
 
 WordsGroup.propTypes = {
   title: PropTypes.string.isRequired,
-  group: PropTypes.array.isRequired
+  words: PropTypes.array.isRequired
 };

@@ -19,11 +19,11 @@ const WordList = observer(({ chosenFilterItem }) => {
       {chosenFilterItem !== WordStatuses.LEARNED && (
         <WordsGroup
           title={WordStatuses.IN_PROGRESS}
-          group={inProgressWordsObjects}
+          words={inProgressWordsObjects}
         />
       )}
       {chosenFilterItem !== WordStatuses.IN_PROGRESS && (
-        <WordsGroup title={WordStatuses.LEARNED} group={learnedWordsObjects} />
+        <WordsGroup title={WordStatuses.LEARNED} words={learnedWordsObjects} />
       )}
     </>
   );
